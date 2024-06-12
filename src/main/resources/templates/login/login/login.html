@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<!-- 외부 CSS 파일 연결 -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+
+
+<script type="text/javascript"
+	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<script
+	src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"
+	type="text/javascript"></script>
+<script src="js/login/naver_login"></script>
+
+
+</head>
+<body>
+
+	<div id="top" th:replace="~{top/header :: header}"></div>
+
+	<div class="center-container">
+
+		<div id="login_container">
+			<div class="container_login" id="container">
+				<div class="form-container sign-up-container">
+					<form action="#">
+						<h1>Create Account</h1>
+						<div class="social-container">
+							<!-- 네이버 로그인 버튼 노출 영역 -->
+							-> <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+
+							<a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+							<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+						</div>
+						<span>or use your email for registration</span> <input type="text"
+							placeholder="Name" /> <input type="email" placeholder="Email" />
+						<input type="password" placeholder="Password" />
+						<button>Sign Up</button>
+					</form>
+				</div>
+
+				<div class="form-container sign-in-container">
+					<form action="/login" method="post">
+						<h1>로그인</h1>
+						<div class="social-container">
+
+							<a href="#" id="naver_id_login" class="social"><img
+								src="images/btn_naver.png"></a> <a href="#" class="social"><img
+								src="images/btn_kakao.png"></a> <a href="#" class="social"><img
+								src="images/btn_google.png"></a>
+						</div>
+						<span>or use your account</span> <input type="email" name="id"
+							placeholder="Email" /> <input type="password" name="pass"
+							placeholder="Password" /> <a href="#">비밀번호를 잊으셧나요?</a>
+						<!-- 로그인 버튼 -->
+						<button>로그인</button>
+					</form>
+				</div>
+
+				<div class="overlay-container">
+					<div class="overlay">
+						<div class="overlay-panel overlay-left">
+							<h1>환영합니다!</h1>
+							<p>To keep connected with us please login with your personal
+								info</p>
+							<button class="ghost" id="signIn">로그인</button>
+
+						</div>
+						<div class="overlay-panel overlay-right">
+							<h1>환영합니다</h1>
+							<p>"개인 정보를 입력하고 저희와 함께 여정을 시작하세요."</p>
+							<button class="ghost" id="signUp"
+								onclick="window.open('/signUp','_blank')">회원가입</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		var naver_id_login = new naver_id_login("GHj3n2d3pwyhTqPAu8cq",
+				"http://127.0.0.1:8082/naver_login");
+		var state = naver_id_login.getUniqState();
+		naver_id_login.setButton("white", 2, 40);
+		naver_id_login.setDomain("http://127.0.0.1:8082/");
+		naver_id_login.setState(state);
+		naver_id_login.setPopup();
+		naver_id_login.init_naver_id_login();
+	</script>
+
+
+	<script type="text/javascript">
+		document.getElementById("naverLoginBtn").addEventListener(
+				"click",
+				function() {
+					var naver_id_login = new naver_id_login(
+							"GHj3n2d3pwyhTqPAu8cq",
+							"http://127.0.0.1:8082/naver_login");
+					var accessToken = naver_id_login.getAccessToken(); // 수정된 부분
+					var state = naver_id_login.getUniqState();
+					naver_id_login.setButton("white", 2, 40);
+					naver_id_login.setDomain("http://127.0.0.1:8082/login");
+					naver_id_login.setState(state);
+					naver_id_login.setPopup();
+					naver_id_login.init_naver_id_login();
+				});
+	</script>
+</body>
+</html>
+
