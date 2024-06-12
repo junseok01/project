@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="header">
+		<section class="header-top-section">
+            <div class="container">
+                <div class="row">
+                    <div  class="col-md-6">
+                        <div class="header-top-content">
+                            <ul class="nav nav-pills navbar-left">
+                                <li><a href="#"><i class="pe-7s-call"></i><span>123-123456789</span></a></li>
+                                <li><a href="#"><i class="pe-7s-mail"></i><span> info@mart.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div  class="col-md-6">
+                        <div class="header-top-menu">
+                            <ul class="nav nav-pills navbar-right">
+                                <li><a href="/mypage">마이페이지</a></li>
+                
+                                <li><a href="/login"><i class="pe-7s-lock"></i>로그인</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+	
+	</div>
+</body>
+</html>
