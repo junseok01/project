@@ -11,11 +11,15 @@ import java.util.List;
 @Controller
 public class BoardController {
     private BoardService service;
+    @GetMapping("board")
     public String boardpage() {
+        return "board/board";
     }
+    @GetMapping("board/list")
     //페이지 처리 리스트
     public String list(@RequestParam("pageNo") String pageNo, Model model){
         List<BoardDTO> pagelist = service.boardList(Integer.parseInt(pageNo));
         model.addAttribute("pagelist",pagelist);
+        return "board/board";
     }
 }
