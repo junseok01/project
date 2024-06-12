@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<!-- 외부 CSS 파일 연결 -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/login.css">
+<link rel="stylesheet" type="text/css" href="css/mypageLayout.css">
+<link rel="stylesheet" href="css/profile.css">
+</head>
+<body>
+	<div id="header" th:replace="~{top/header :: header}"></div>
+	<div id="top" th:insert="~{top/top :: top}"></div>
+	
+	 <div class="mypage_container">
+        <div class="sidebar">
+            <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
+        </div>
+        <div class="main-content">
+            <th:block th:replace="~{mypage/client ::main}"></th:block>
+        </div>
+    </div>
+	
+</body>
+</html>
