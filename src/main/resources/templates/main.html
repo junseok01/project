@@ -1,5 +1,7 @@
 <!doctype html>
-<html class="no-js" lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<html class="no-js" lang="ko" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -26,9 +28,9 @@
             </div>
         </div>
 
-		<div id="top" th:insert="~{top/header :: header}"></div>
+
         
-		
+		<div id="header" th:replace="~{top/header :: header}"></div>
 		<div id="top" th:insert="~{top/top :: top}"></div>
         
 
@@ -84,23 +86,41 @@
                     <span class="pe-7s-angle-right glyphicon-chevron-right" aria-hidden="true"></span>
                 </a>
             </div>
-
         </section>
 
         <section class="service-section">
-
-            <div id="map" style="width:1200px;height:600px;margin:auto"></div>
-            <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=8830e46c176a670c9e35c0c2766b139b"></script>
-            <script>
-                var container = document.getElementById('map');
-                var options = {
-                    center: new kakao.maps.LatLng(33.450701, 126.570667),
-                    level: 3
-                };
-
-                var map = new kakao.maps.Map(container, options);
-            </script>
-
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.1s">
+                        <div class="service-item">
+                            <i class="pe-7s-settings"></i>
+                            <h3>SETTING</h3>
+                            <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.2s">
+                        <div class="service-item">
+                            <i class="pe-7s-safe"></i>
+                            <h3>MONEY BACK</h3>
+                            <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.3s">
+                        <div class="service-item">
+                            <i class="pe-7s-global"></i>
+                            <h3>WORLDWIDE SHIPPING</h3>
+                            <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-6 wow fadeInRight animated" data-wow-delay="0.4s">
+                        <div class="service-item">
+                            <i class="pe-7s-headphones"></i>
+                            <h3>Online support</h3>
+                            <p>Lorem ipsum dolor sit amet, vix erat audiam ei. Cum doctus civibus efficiantur in. Nec id tempor imperdiet deterruisset, doctus volumus explicari qui ex, appareat similique an usu.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section class="new-section">

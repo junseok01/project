@@ -292,6 +292,7 @@ html, body, .wrapper{
 .header-top-section{
     display: block;
     width: 100%;
+
     background: #1abc9c;
     color: #fff;
 }
@@ -340,6 +341,7 @@ html, body, .wrapper{
     position: relative;
     transition: all 1s;
     background: #fff;
+    border-bottom: 1px solid #000;
 }
 header.header-section.fixed {
     position: fixed;
