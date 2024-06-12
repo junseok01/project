@@ -9,6 +9,4 @@ public class HomeController {
     public String home() {
         return "main"; // src/main/resources/templates/index.html
     }
-   @GetMapping("/test")
-    public String test(){return "test";}
 }
