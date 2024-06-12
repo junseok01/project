@@ -11,7 +11,6 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Alias("templates/board")
 public class BoardDTO {
     private String board_no;
     private String id;
