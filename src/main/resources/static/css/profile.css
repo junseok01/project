@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.box{
+	text-align:center;
+	width:50000px;
+}
+
+.profile-info-container {
+	display: flex; /* 아이템을 가로로 배열하기 위해 */
+	align-items: center; /* 세로 중앙 정렬 */
+	border: 2px solid #ccc; /* 테두리 설정 */
+	border-radius: 8px; /* 테두리 둥글게 */
+	padding: 20px; /* 안쪽 여백 */
+	width: 300px; /* 네모난 칸의 너비 */
+	text-align:center;
+}
+
+/* 프로필 이미지 스타일 */
+.profile-info-container img {
+	width: 80px; /* 이미지 너비 */
+	height: 80px; /* 이미지 높이 */
+	border-radius: 50%; /* 이미지를 원형으로 만들기 위해 */
+	margin-right: 20px; /* 이미지와 텍스트 사이의 여백 */
+}
+
+/* 프로필 정보 텍스트 스타일 */
+.profile-info {
+	font-size: 16px; /* 텍스트 크기 */
+	color: #333; /* 텍스트 색상 */
+}
