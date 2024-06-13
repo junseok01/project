@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/register/register.css">
+<script src="js/register/register.js"></script>
+</head>
+<body>
+	<div class="register_container">
+    <form action="/register" method="POST" class="joinForm" onsubmit="return validateForm();">
+
+        <h2>회원가입</h2>
+        <div class="textForm">
+            <input id="loginId" name="loginId" type="text" class="id" placeholder="아이디">
+        </div>
+        <div class="textForm">
+            <input id="loginPw" name="loginPw" type="password" class="pw" placeholder="비밀번호">
+        </div>
+        <div class="textForm">
+            <input id="loginPwConfirm" name="loginPwConfirm" type="password" class="pw" placeholder="비밀번호 확인">
+        </div>
+        <div class="textForm">
+            <input id="name" name="name" type="text" class="name" placeholder="이름">
+        </div>
+        <div class="textForm">
+            <input id="email" name="email" type="text" class="email" placeholder="이메일">
+        </div>
+
+        <div class="textForm">
+            <input id="nickname" name="nickname" type="text" class="nickname" placeholder="닉네임">
+        </div>
+        <div class="textForm">
+            <input id="cellphoneNo" name="cellphoneNo" type="text" class="cellphoneNo" placeholder="전화번호">
+        </div>
+        <div class="textForm">
+            <select id="job" name="job">
+                <option value="">직업선택</option>
+                <option value="manager">관장</option>
+                <option value="trainer">트레이너</option>
+                <option value="user">일반사용자</option>
+            </select>
+        </div>
+        <input type="submit" class="btn" value="회원가입" />
+    </form>
+</div>
+</body>
+</html>
