@@ -16,6 +16,18 @@
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
     <![endif]-->
+    <script type="text/javascript" th:inline="javascript">
+
+        $(document).ready(function(){
+            $(".page-item a").on("click",function(e){
+            e.preventDefault();
+            var pageNum = $(this).attr("href");
+            $("input[name='pageNum']").val(pageNum);
+            $("form[name='actionForm']").submit();
+        });
+
+
+    </script>
 </head>
 <body>
     <div id="top" th:insert="~{top/header :: header}"></div>
@@ -42,28 +54,37 @@
             <table class="table table-bordered">
                 <thead>
                 <tr>
-                    <th>번호</th>
                     <th>작성자 아이디</th>
                     <th>제목</th>
                     <th>작성날짜</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>번호</td>
-                    <td>아이디(작성자)</td>
-                    <td>제목</td>
-                    <td>작성날짜</td>
+                <tr th:each="board:${boardlist}">
+                    <td th:text="${board.id }">아이디(작성자)</td>
+                    <td th:text="${board.title }">제목</td>
+                    <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd HH:mm:ss')}">작성날짜</td>
                 </tr>
                 </tbody>
             </table>
         </div>
+        <form id="actionFrom" action="/board/list" method="get"><!--파라미터값을 넘겨주기-->
+            <input type="hidden" name="pageNum" value="${paging.cri.pageNum}">
+            <input type="hidden" name="amount" value="${paging.cri.amount}">
+        </form>
         <div class="container mt-3">
-        <ul class="pagination justify-content-end" style="margin:20px 0">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <ul class="pagination justify-content-center" style="margin:20px 0">
+            <li class="page-item" th:classappend="${Paging.prev} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{'/board/list?pageNum=' + (${Paging.startPage} - 1)}">Previous</a>
+            </li>
+            <li class="page-item" th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}"
+                th:classappend="${paging.criteria.pageNum} == ${pageNum} ? 'active'">
+                <a class="page-link" th:href="@{'/board/list?pageNum=' + ${pageNum}}"
+                   th:text="${pageNum}"></a>
+            </li>
+            <li class="page-item" th:classappend="${paging.next} ? '' : 'disabled'">
+                <a class="page-link" th:href="@{'/board/list?pageNum=' + (${paging.endPage} + 1)}">Next</a>
+            </li>
         </ul>
         </div>
     </div>
