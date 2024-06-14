@@ -38,6 +38,11 @@ Tags: black, green, white, two-columns, fixed-width, threaded-comments, sticky-p
     padding: 0px;
 
 }
+.mainpagemap{
+    width:80%;
+    height:800px;
+    margin:auto;
+}
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 13px;

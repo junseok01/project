@@ -1,21 +1,37 @@
 package com.example.project.board_kim;
 
 import com.example.project.dto.BoardDTO;
+import com.example.project.dto.Criteria;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 @Service
 public class BoardServiceImpl implements BoardService{
     private BoardDAO dao;
+    @Autowired
+    public BoardServiceImpl(BoardDAO dao) {
+        this.dao = dao;
+    }
     @Override
     public int insert(BoardDTO board) {
         return 0;
     }
 
     @Override
-    public List<BoardDTO> boardList(int pageNo) {
-        List<BoardDTO> boardlist = dao.boardList(pageNo);
+    public List<BoardDTO> boardList() {
+        List<BoardDTO> boardlist = dao.boardList();
         return boardlist;
+    }
+
+    @Override
+    public List<BoardDTO> getListWithPaging(Criteria cri) {
+
+        return dao.getListWithPaging(cri);
+    }
+    @Override
+    public int totalCount() {
+        return dao.totalCount();
     }
 
     @Override
@@ -47,4 +63,5 @@ public class BoardServiceImpl implements BoardService{
     public List<BoardDTO> findByCategory(String category) {
         return List.of();
     }
+
 }
