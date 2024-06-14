@@ -12,4 +12,14 @@ public class UserDAOImpl implements UserDAO {
 
     @Transactional
     public void insert(UserEntity dto){entityManager.persist(dto);}
+
+    @Override
+    public UserDTO search(String id) {
+        UserEntity user= entityManager.find(UserEntity.class,id);
+        System.out.println("UserDAOImpl 서치에서 " + user);
+        if(user !=null){
+            return new UserDTO(user);
+        }
+        return null;
+    }
 }
