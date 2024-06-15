@@ -15,7 +15,7 @@ public class BoardServiceImpl implements BoardService{
     }
     @Override
     public int insert(BoardDTO board) {
-        return 0;
+        return dao.insert(board);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class BoardServiceImpl implements BoardService{
 
     @Override
     public BoardDTO getBoardInfo(String board_no) {
-        return null;
+        return dao.read(board_no);
     }
 
     @Override
