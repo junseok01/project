@@ -16,22 +16,32 @@
 
 <div class="mypage_container" th:switch="${member.userType}">
 
-    <div class="sidebar" th:case="0">
+    <div class="sidebar" th:if="${member.userType == '0'}">
         <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
     </div>
-    <div class="sidebar" th:case="1">
+    <div class="sidebar" th:if="${member.userType == '1'}">
         <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
     </div>
-    <div class="sidebar" th:case="2">
+    <div class="sidebar" th:if="${member.userType == '2'}">
         <th:block th:replace="~{mypageLayout/trainer :: trainer}"></th:block>
     </div>
-    <div class="sidebar" th:case="3">
+    <div class="sidebar" th:if="${member.userType == '3'}">
         <th:block th:replace="~{mypageLayout/manager :: manager}"></th:block>
     </div>
 
-    <div class="main-content">
-        <th:block th:replace="~{mypage/client ::main}"></th:block>
+    <div class="main-content" th:if="${member.userType == '0'}">
+        <th:block th:replace="~{mypage/admin :: main}"></th:block>
     </div>
+    <div class="main-content" th:if="${member.userType == '1'}">
+        <th:block th:replace="~{mypage/client :: main}"></th:block>
+    </div>
+    <div class="main-content" th:if="${member.userType == '2'}">
+        <th:block th:replace="~{mypage/client :: main}"></th:block>
+    </div>
+    <div class="main-content" th:if="${member.userType == '3'}">
+        <th:block th:replace="~{mypage/client :: main}"></th:block>
+    </div>
+
 </div>
 
 </body>

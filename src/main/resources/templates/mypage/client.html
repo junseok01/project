@@ -17,7 +17,17 @@
 					<p>직업: 개발자</p>
 					<!-- 원하는 프로필 정보 추가 -->
 				</div>
+
 			</div>
+			<div>
+				<form th:action="@{/sendRequest}" method="post">
+					<label for="request">Request:</label>
+					<input type="text" id="request" name="request">
+					<button type="submit">Send Request</button>
+				</form>
+
+			</div>
+
 		</div>
 	</div>
 </body>

@@ -36,13 +36,17 @@ public class LoginController {
         System.out.println(pass);
         UserDTO member = service.search(id);
         System.out.println("멤버의 값" + member);
-        if(member==null){
-            System.out.println("로그인실패!!");
+        if(member == null){
+            System.out.println("로그인실패 아이디 없음!!");
             return "redirect:/login";
-        }else {
+        }
+        if(member.getLoginId().equals(id) && member.getLoginPw().equals(pass)){
             System.out.println("로그인성공!!");
             session.setAttribute("member",member);
             return "redirect:/main";
+        }else{
+            System.out.println("로그인실패 비밀번호 불일치!!");
+            return "redirect:/login";
         }
     }
     @GetMapping("/logout")

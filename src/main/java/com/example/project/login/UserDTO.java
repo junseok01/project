@@ -14,16 +14,12 @@ import java.util.Date;
 @NoArgsConstructor
 public class UserDTO {
     private String loginId;
-
     private String loginPw;
-
     private String name;
-
     private String nickname;
     //관리번호(0-관리자, 1-일반유저,2-트레이너,3-관장)
 
     private String userType;
-
     private String cellphoneNo;
     private Date joinDate;
 
