@@ -25,7 +25,7 @@ public class BoardController {
     }
     @GetMapping("board/list")
     public String list(@RequestParam("pageNum") int pageNum,
-                       @RequestParam("amount") int amount,
+                       @RequestParam(value = "amount", defaultValue = "10") int amount,
             Model model){//게시글목록
         Criteria cri = new Criteria(pageNum,amount);
         List<BoardDTO> boardlist = service.getListWithPaging(cri);

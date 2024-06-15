@@ -9,16 +9,16 @@
 	<select id="paging" parameterType="Criteria" resultType="board">
 		<![CDATA[
 			select * from (select rownum rn,board_no,id,title,write_date
-				from(select id,title,write_date
+				from(select board_no,id,title,write_date
 					 from board
-					 order by board_no desc)
+					 order by write_date desc)
 					 )where rn<= #{pageNum} * #{amount}
 					and rn > (#{pageNum} -1) * #{amount}
 		]]>
 	</select>
 	<select id="totalCount" resultType="int">
 		<![CDATA[
-		select * count(*) from board where board_no>0
+		select count(*) from board where board_no>0
 		 ]]>
 	</select>
 </mapper>
