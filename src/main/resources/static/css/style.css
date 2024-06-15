@@ -529,7 +529,8 @@ span.shoping-cart {
     max-width: 1600px; /* 이미지를 부모 요소에 맞추기 */
     max-height: 700px; /* 이미지를 부모 요소에 맞추기 */
     z-index: 10; /* 이미지를 다른 요소 위에 표시 */
-    
+    height:200px;
+    width:400px;
 }
 
 .carousel-inner .item .carousel-caption{
