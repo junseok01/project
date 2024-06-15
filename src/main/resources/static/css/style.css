@@ -297,7 +297,6 @@ html, body, .wrapper{
 .header-top-section{
     display: block;
     width: 100%;
-
     background: #1abc9c;
     color: #fff;
 }
@@ -522,14 +521,14 @@ span.shoping-cart {
     z-index: 9
 }
 
-.carousel-inner .item img {
+.carousel-inner .item img { /*메인 배너 이미지*/
 	 position: relative; /* 이미지의 위치를 상대적으로 설정 */
   	display: block;
     margin: 0 auto; /* 이미지를 수평으로 가운데 정렬 */
     max-width: 1600px; /* 이미지를 부모 요소에 맞추기 */
     max-height: 700px; /* 이미지를 부모 요소에 맞추기 */
     z-index: 10; /* 이미지를 다른 요소 위에 표시 */
-    
+    height: 200px;
 }
 
 .carousel-inner .item .carousel-caption{

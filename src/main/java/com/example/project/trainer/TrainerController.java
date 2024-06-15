@@ -9,4 +9,9 @@ public class TrainerController {
     public String trainerpage(){
         return "trainer/trainerhome";
     }
+    @GetMapping("/trainerread")
+    public String gymread(){
+        return "trainer/trainer_read";
+    }
+
 }
