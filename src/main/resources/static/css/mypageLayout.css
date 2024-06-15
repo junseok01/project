@@ -17,9 +17,6 @@
     box-sizing: border-box;
 }
 
-.menu-item {
-    margin-bottom: 10px;
-}
 
 .menu-item {
     background-color: rgb(187, 198, 197); /* 박스 배경색 */

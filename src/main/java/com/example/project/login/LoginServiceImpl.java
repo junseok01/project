@@ -18,4 +18,9 @@ public class LoginServiceImpl implements LoginService{
     public void register(UserEntity dto) {
         dao.insert(dto);
     }
+
+    @Override
+    public UserDTO search(String id) {
+        return dao.search(id);
+    }
 }

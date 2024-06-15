@@ -4,8 +4,10 @@ package com.example.project.login;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,10 +31,23 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("id") String id, @RequestParam("pass") String pass) {
+    public String login(@RequestParam("id") String id, @RequestParam("pass") String pass, HttpSession session) {
         System.out.println(id);
         System.out.println(pass);
-        System.out.println("gkgk");
+        UserDTO member = service.search(id);
+        System.out.println("멤버의 값" + member);
+        if(member==null){
+            System.out.println("로그인실패!!");
+            return "redirect:/login";
+        }else {
+            System.out.println("로그인성공!!");
+            session.setAttribute("member",member);
+            return "redirect:/main";
+        }
+    }
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.removeAttribute("member");
         return "redirect:/main";
     }
 
