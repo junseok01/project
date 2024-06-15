@@ -47,6 +47,9 @@
                     <li><a class="dropdown-item" href="#">카테고리 2</a></li>
                     <li><a class="dropdown-item" href="#">카테고리 3</a></li>
                 </ul>
+                <div style="float: right;">
+                    <a href="/board/write" class="btn btn-outline-dark">글 작성</a>
+                </div>
             </div>
         </div>
         <div class="container mt-3">
@@ -61,30 +64,33 @@
                 </thead>
                 <tbody>
                 <tr th:each="board:${boardlist}">
-                    <td th:text="${board.id }">아이디(작성자)</td>
-                    <td th:text="${board.title }">제목</td>
-                    <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd HH:mm:ss')}">작성날짜</td>
+                    <td th:text="${board.id }"></td>
+                    <td><a th:href="@{/board/read(board_no=${board.board_no},action=READ)}">
+                        <span th:text="${board.title }"></span></a></td>
+                    <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 </tr>
                 </tbody>
             </table>
         </div>
-        <form id="actionFrom" action="/board/list" method="get"><!--파라미터값을 넘겨주기-->
-            <input type="hidden" name="pageNum" value="${paging.cri.pageNum}">
-            <input type="hidden" name="amount" value="${paging.cri.amount}">
+        <form id="actionForm" action="/board/list" method="get"><!--파라미터값을 넘겨주기-->
+            <input type="hidden" name="pageNum" value="${paging.criteria.pageNum}">
+            <input type="hidden" name="amount" value="${paging.criteria.amount}">
         </form>
         <div class="container mt-3">
         <ul class="pagination justify-content-center" style="margin:20px 0">
-            <li class="page-item" th:classappend="${Paging.prev} ? '' : 'disabled'">
-                <a class="page-link" th:href="@{'/board/list?pageNum=' + (${Paging.startPage} - 1)}">Previous</a>
+            <li class="page-item" th:if="${paging.prev}">
+                <a class="page-link" th:href="@{'/board/list?pageNum=' + (${paging.startPage} - 1)}">Previous</a>
             </li>
+            <!-- 11페이지부터 보이게 (ex:11~20페이지 보고있을때 1~10페이지로 이동) -->
             <li class="page-item" th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}"
                 th:classappend="${paging.criteria.pageNum} == ${pageNum} ? 'active'">
                 <a class="page-link" th:href="@{'/board/list?pageNum=' + ${pageNum}}"
                    th:text="${pageNum}"></a>
             </li>
-            <li class="page-item" th:classappend="${paging.next} ? '' : 'disabled'">
+            <li class="page-item" th:if="${paging.next}">
                 <a class="page-link" th:href="@{'/board/list?pageNum=' + (${paging.endPage} + 1)}">Next</a>
             </li>
+            <!-- 11페이지 이상있을때 보이게(ex:1~10페이지 보고있을때 11~20페이지로이동) -->
         </ul>
         </div>
     </div>

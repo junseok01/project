@@ -16,12 +16,12 @@ public class Paging {
         this.total = total;
         this.criteria = criteria;
         //Math.ceil=올림
-        this.endPage = (int) (Math.ceil(criteria.getPageNum())/10)*10;
+        this.endPage = (int) (Math.ceil(criteria.getPageNum()/10.0))*10;
         //현재페이지(1)에 10을 나눈후 나온수 반올림 후 10을 곱한게 끝페이지 , -9하면 시작페이지
         this.startPage = this.endPage -9;
 
-        int lastPage = (int) (Math.ceil((total * 1) / criteria.getAmount()));
-        //전체페이지total(15)면 한페이지에 보여줄수(10)를 나누고 (1.5) 올림(2), 즉 2가 마지막 페이지
+        int lastPage = (int) (Math.ceil((total * 1.0) / criteria.getAmount()));
+        //전체리스트total(15)면 한페이지에 보여줄수(10)를 나누고 (1.5) 올림(2), 즉 2가 마지막 페이지
 
         //마지막페이지가 끝페이지보다 작으면 끝페이지=마지막페이지
         if (lastPage<this.endPage){

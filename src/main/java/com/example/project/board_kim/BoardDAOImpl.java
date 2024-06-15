@@ -19,7 +19,7 @@ public class BoardDAOImpl implements BoardDAO{
 
     @Override
     public int insert(BoardDTO board) {
-        return 0;
+        return sqlSessionTemplate.insert("com.multi.project.board.insert",board);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class BoardDAOImpl implements BoardDAO{
 
     @Override
     public BoardDTO read(String board_no) {
-        return null;
+        return sqlSessionTemplate.selectOne("com.multi.project.board.read",board_no);
     }
 
     @Override
