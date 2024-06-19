@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 @Data
 //@Alias("board")
 public class Criteria {
-    private int pageNum;//현재페이지
+    private int pageNum;//현재페이지z
     private int amount;//보여줄리스트갯수
 
     public Criteria(){//1페이지당 10개씩
