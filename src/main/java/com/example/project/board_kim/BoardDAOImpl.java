@@ -37,18 +37,28 @@ public class BoardDAOImpl implements BoardDAO{
     }
 
     @Override
+    public List<BoardDTO> findByCategoryWithPaging(Criteria cri) {
+        return sqlSessionTemplate.selectList("com.multi.project.board.findByCategoryWithPaging", cri);
+    }
+
+    @Override
+    public int totalCountByCategory(String category) {
+        return sqlSessionTemplate.selectOne("com.multi.project.board.totalCountByCategory", category);
+    }
+
+    @Override
     public BoardDTO read(String board_no) {
         return sqlSessionTemplate.selectOne("com.multi.project.board.read",board_no);
     }
 
     @Override
     public int update(BoardDTO board) {
-        return 0;
+        return sqlSessionTemplate.update("com.multi.project.board.update",board);
     }
 
     @Override
     public int delete(String board_no) {
-        return 0;
+        return sqlSessionTemplate.delete("com.multi.project.board.delete",board_no);
     }
 
     @Override
