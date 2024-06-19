@@ -12,7 +12,9 @@ public class gymDAOImpl implements gymDAO{
     private final EntityManager entityManager;
     @Override
     public List<Gym> gymselectlist() {
-        List<Gym> list = entityManager.createQuery("select p from gym as p", Gym.class).getResultList();
+        List<Gym> list = entityManager.createQuery("select p from Gym as p", Gym.class).getResultList();
+        System.out.println("===========================================================================");
+        System.out.println(list);
         return list;
     }
 }
