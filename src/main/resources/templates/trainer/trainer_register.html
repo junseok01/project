@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="웹사이트">
+    <meta name="description" content="웹사이트입니다.">
+    <meta name="keywords" content="키워드,키워드,키워드">
+    <meta property="og:title" content="웹사이트">
+    <meta property="og:description" content="웹사이트입니다">
+    <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+    <meta property="og:url" content="https://웹사이트">
+    <title>헬스장 정보</title>
+    <link rel="stylesheet" href="/css/gym/setting.css">
+    <link rel="stylesheet" href="/css/gym/plugin.css">
+    <link rel="stylesheet" href="/css/gym/template.css">
+    <link rel="stylesheet" href="/css/gym/common.css">
+    <link rel="stylesheet" href="/css/gym/style.css">
+    <script type="text/javascript" src="/js/jquery-1.11.3.min.js"></script>
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+    <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- [E]campland-N1 -->
+        <main class="th-layout-main ">
+            <!-- [S]campland-N25 -->
+            <div class="campland-N25" data-bid="AZLXK31vQ9" id="">
+                <div class="contents-inner">
+                    <div class="contents-container">
+                        <div class="textset textset-sub textset-center">
+                            <h2 class="textset-tit" style="font-family: 'SUITE-Regular';">트레이너 등록</h2>
+                        </div>
+                        <ul class="contents-list">
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco" style="font-family: 'SUITE-Regular';">
+                                    <span></span>이름
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <input type="text" class="inputset-input form-control" aria-label="내용" placeholder="이름를 입력해주세요.">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco" style="font-family: 'SUITE-Regular';">
+                                    <span></span>닉네임
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <input type="password" class="inputset-input form-control" aria-label="내용" placeholder="닉네임을 입력해주세요">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                                    <span></span>소속 헬스장(GYM)
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <input type="password" class="inputset-input form-control" aria-label="내용" placeholder="헬스장 이름을 입력해주세요">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                                    <span></span> 헬스장 주소
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <div class=" box2" style="display: flex; flex-wrap: wrap;">
+                                            <input type="text" id="sample4_postcode" class="inputset-input form-control" placeholder="우편번호">
+                                            <input type="button" onclick="sample4_execDaumPostcode()"  class="btnset btnset-round btnset-line btnset-black" value="우편번호 찾기"><br>
+                                        </div>
+                                        <input type="text" id="sample4_roadAddress" class="inputset-input form-control"placeholder="도로명주소">
+                                        <input type="text" id="sample4_jibunAddress" class="inputset-input form-control"placeholder="지번주소">
+                                        <input type="text" id="sample4_address"  class="inputset-input form-control"placeholder="주소">
+                                        <input type="text" id="sample4_detailAddress"  class="inputset-input form-control"placeholder="상세주소">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                                    <span></span>휴대폰 번호
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <input type="text" class="inputset-input form-control" aria-label="내용" placeholder="- 없이 입력해주세요.">
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                                    <span></span>이메일
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <input type="text" class="inputset-input form-control" aria-label="내용">
+                                    </div>
+                                    <em>@</em>
+                                    <div class="selectset selectset-round">
+                                        <button class="selectset-toggle btn" type="button">
+                                            <span>선택해주세요</span>
+                                        </button>
+                                        <ul class="selectset-list">
+                                            <li class="selectset-item">
+                                                <button class="selectset-link btn" type="button" data-value="옵션1">
+                                                    <span>옵션1</span>
+                                                </button>
+                                            </li>
+                                            <li class="selectset-item">
+                                                <button class="selectset-link btn" type="button" data-value="옵션2">
+                                                    <span>옵션2</span>
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="contents-item">
+                                <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                                    <span></span>경력 및 자격증
+                                </h6>
+                                <div class="form-wrap">
+                                    <div class="inputset inputset-round">
+                                        <textarea class="inputset-textarea" aria-label="경력" ></textarea>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="contents-bottom">
+                            <h2 class="contents-tit"  style="font-family: 'SUITE-Regular';">개인정보수집 및 이용동의</h2>
+                            <div class="contents-board"> - 수집하는 개인정보 항목 : 이메일 <br> 작성해주시는 개인 정보는 문의 접수 및 고객 불만 해결을 위해 5년간 보관됩니다. 이용자는 본 동의를 거부할 수 있으나, 미동의시 문의 접수가 불가능합니다. </div>
+                            <div class="checkset">
+                                <input id="checkset-a-1-1" class="checkset-input input-fill input-round" type="checkbox" value="">
+                                <label class="checkset-label" for="checkset-a-1-1"></label>
+                                <span class="checkset-text">위 내용을 읽었으며, 내용에 동의합니다. <em class="checkset-acc">(필수)</em>
+              </span>
+                            </div>
+                        </div>
+                        <div class="contents-confirm">
+                            <a href="javascript:void(0);" class="btnset btnset-round btnset-line btnset-black">돌아가기</a>
+                            <a href="javascript:void(0);" class="btnset btnset-round">가입완료</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [E]campland-N25 -->
+        </main>
+
+    </div>
+    <!-- [E]campland-N2 -->
+    <script src="js/gym/setting.js"></script>
+    <script src="js/gym/plugin.js"></script>
+    <script src="js/gym/template.js"></script>
+    <script src="js/gym/common.js"></script>
+    <script src="js/gym/script.js"></script>
+    <script src="js/gym/map.js"></script>
+</body>
+</html>
