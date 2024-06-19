@@ -30,6 +30,8 @@ public class UserEntity {
     private String cellphoneNo;
     @CreationTimestamp
     private Date joinDate;
+    @Column
+    private int loginType;
 
     public UserEntity(String loginId, String loginPw, String name, String nickname, String cellphoneNo) {
         this.loginId = loginId;
@@ -46,5 +48,14 @@ public class UserEntity {
         this.nickname = nickname;
         this.userType = userType;
         this.cellphoneNo = cellphoneNo;
+    }
+    public UserEntity(String loginId, String loginPw, String name, String nickname, String userType, String cellphoneNo,int loginType) {
+        this.loginId = loginId;
+        this.loginPw = loginPw;
+        this.name = name;
+        this.nickname = nickname;
+        this.userType = userType;
+        this.cellphoneNo = cellphoneNo;
+        this.loginType=loginType;
     }
 }
