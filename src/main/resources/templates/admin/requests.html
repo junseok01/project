@@ -15,7 +15,7 @@
             <th>Request</th>
         </tr>
         <tr th:each="request : ${requests}">
-            <td th:text="${request.request}"></td>
+            <td th:text="${request.key+ ' : ' +  request.value.request}"></td>
         </tr>
     </table>
 </div>
