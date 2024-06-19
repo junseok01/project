@@ -13,5 +13,10 @@ public class TrainerController {
     public String gymread(){
         return "trainer/trainer_read";
     }
+    @GetMapping("/trainerregister")
+    public String register(){
+        return "trainer/trainer_register";
+
+    }
 
 }
