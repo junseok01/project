@@ -28,15 +28,22 @@ public class BoardController {
     @GetMapping("board/list")
     public String list(@RequestParam("pageNum") int pageNum,
                        @RequestParam(value = "amount", defaultValue = "10") int amount,
-            Model model){//게시글목록
-        Criteria cri = new Criteria(pageNum,amount);
-        List<BoardDTO> boardlist = service.getListWithPaging(cri);
-        //총게시글수
-        int total = service.totalCount();
+                       @RequestParam(value = "category", defaultValue = "all") String category,
+            Model model){
+        Criteria cri = new Criteria(pageNum,amount,category);
+        List<BoardDTO> boardlist;
+        int total;//총게시글수
+        if ("all".equals(category)) {
+            boardlist = service.getListWithPaging(cri);
+            total = service.totalCount();
+        } else {
+            boardlist = service.findByCategoryWithPaging(cri);
+            total = service.totalCountByCategory(category);
+        }
         Paging paging = new Paging(total, cri);
-        //System.out.println(boardlist+" === boardlist");
         model.addAttribute("boardlist",boardlist);
         model.addAttribute("paging", paging);
+        model.addAttribute("category", category);
         return "board/board";
     }
     @GetMapping("board/read")
@@ -61,11 +68,16 @@ public class BoardController {
     @PostMapping("board/write")
     public String insert(BoardDTO board){
         service.insert(board);
-        return "redirect:/board/list?pageNum=1&amount=10";
+        return "redirect:/board/list?pageNum=1&amount=10&category=all";
     }
-//    @PostMapping("/update")
-//    public String update(BoardDTO board) {
-//        service.update(board);
-//        return "redirect:/board/list?pageNum=1&amount=10";
-//    }
+    @PostMapping("board/update")
+    public String update(BoardDTO board) {
+        service.update(board);
+        return "redirect:/board/list?pageNum=1&amount=10&category=all";
+    }
+    @GetMapping("board/delete")
+    public String delete(String board_no) {
+        service.delete(board_no);
+        return "redirect:/board/list?pageNum=1&amount=10&category=all";
+    }
 }

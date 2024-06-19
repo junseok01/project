@@ -25,6 +25,10 @@
             </div>
             <hr/>
             <div class="row">
+            <div class="col" th:text="${board.title }"></div>
+            </div>
+            <hr/>
+            <div class="row">
                 <div class="col" th:text="${board.content }"></div>
             </div>
             <hr/>
@@ -35,8 +39,8 @@
                 <input type="button" class="btn btn-lg btn-primary" value="수정"
                        th:onclick="|location.href='@{/board/read(board_no=${board.board_no},action=UPDATE)}'|">
 
-                <button type="button" class="btn btn-danger btn-lg"
-                        id="deletebtn">
+                <button type="button" class="btn btn-danger btn-lg" id="deletebtn"
+                        th:onclick="|location.href='@{/board/delete(board_no=${board.board_no})}'|">
                     <i class="fa fa-fw fa-close"></i> 삭제
                 </button>
                 <button type="button" class="btn btn-info btn-lg"
