@@ -35,18 +35,28 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<BoardDTO> findByCategoryWithPaging(Criteria cri) {
+        return dao.findByCategoryWithPaging(cri);
+    }
+
+    @Override
+    public int totalCountByCategory(String category) {
+        return dao.totalCountByCategory(category);
+    }
+
+    @Override
     public BoardDTO getBoardInfo(String board_no) {
         return dao.read(board_no);
     }
 
     @Override
     public int update(BoardDTO board) {
-        return 0;
+        return dao.update(board);
     }
 
     @Override
     public int delete(String boardNo) {
-        return 0;
+        return dao.delete(boardNo);
     }
 
     @Override
