@@ -1,18 +1,28 @@
 package com.example.project.login;
 
 
-import java.math.BigInteger;
-import java.security.SecureRandom;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 
 
+
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
+//https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=GHj3n2d3pwyhTqPAu8cq&client_secret=ef3yePxiz0&access_token=AAAAN8OtHAnXBpqhceBKpEE3GLPVjpuCGBTp9GgTwkWjx9ud9D3t8ZO4J9l5v1fDdmKIGxMcGkE4qITGCzSdIpIrbpo&service_provider=NAVER
 @Controller
 public class LoginController {
     private LoginService service;
@@ -25,8 +35,13 @@ public class LoginController {
 
 
 
+
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model,HttpSession session) {
+        String stateToken = generateState();
+        System.out.println(stateToken);
+        session.setAttribute("state",stateToken);
+        model.addAttribute("stateToken",stateToken);
         return "login/login";
     }
 
@@ -65,12 +80,7 @@ public class LoginController {
                            @RequestParam("loginPwConfirm") String loginPwConfirm, @RequestParam("name") String name
             , @RequestParam("nickname") String nickname,
                            @RequestParam("cellphoneNo") String cellphoneNo) {
-        System.out.println("loginId: " + loginId + ", loginPw: " + loginPw +
-                ", loginPwConfirm: " + loginPwConfirm + ", name: " + name +
-                ", nickname: " + nickname +
-                ", cellphoneNo: " + cellphoneNo);
-
-        service.register(new UserEntity(loginId,loginPw,name,nickname,"1",cellphoneNo));
+        service.register(new UserEntity(loginId,loginPw,name,nickname,"1",cellphoneNo,0));
         System.out.println("회원가입 완료!!!");
 
         return "redirect:/main";
