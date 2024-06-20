@@ -22,6 +22,7 @@ public class UserDTO {
     private String userType;
     private String cellphoneNo;
     private Date joinDate;
+    private int loginType;
 
     public UserDTO(UserEntity entity) {
         this.loginId = entity.getLoginId();
@@ -31,5 +32,6 @@ public class UserDTO {
         this.userType = entity.getUserType();
         this.cellphoneNo = entity.getCellphoneNo();
         this.joinDate = entity.getJoinDate();
+        this.loginType = entity.getLoginType();
     }
 }
