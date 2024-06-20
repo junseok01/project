@@ -3,6 +3,10 @@ package com.example.project.board_kim;
 import com.example.project.dto.BoardDTO;
 import com.example.project.dto.Criteria;
 import com.example.project.dto.Paging;
+import com.example.project.login.LoginService;
+import com.example.project.login.UserDTO;
+import com.example.project.login.UserEntity;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,27 +20,49 @@ import java.util.List;
 @Controller
 public class BoardController {
     private BoardService service;
+    private UserDTO userId;
+
     @Autowired
     public BoardController(BoardService service) {
         this.service = service;
     }
 
-    @GetMapping("board")
-    public String boardpage() {
-        return "board/board";
+    @GetMapping("board/myboard")
+    public String boardPage(HttpSession session, Model model) {
+        // 세션에서 로그인한 사용자 정보 가져오기
+        UserDTO userId = (UserDTO) session.getAttribute("member");
+        System.out.println("userId ==>"+userId);
+        if (userId == null) {
+            return "redirect:/login";
+        }//새로고침후 테스트용
+
+        // 사용자가 작성한 게시글 리스트 가져오기
+        List<BoardDTO> boardlist = service.getByUserId(userId.getLoginId());
+
+        model.addAttribute("boardlist", boardlist);
+        model.addAttribute("member", userId);
+
+        return "mypage/myboard";
     }
     @GetMapping("board/list")
     public String list(@RequestParam("pageNum") int pageNum,
                        @RequestParam(value = "amount", defaultValue = "10") int amount,
-            Model model){//게시글목록
-        Criteria cri = new Criteria(pageNum,amount);
-        List<BoardDTO> boardlist = service.getListWithPaging(cri);
-        //총게시글수
-        int total = service.totalCount();
+                       @RequestParam(value = "category", defaultValue = "all") String category,
+            Model model){
+        Criteria cri = new Criteria(pageNum,amount,category);
+        List<BoardDTO> boardlist;
+        int total;//총게시글수
+        if ("all".equals(category)) {
+            boardlist = service.getListWithPaging(cri);
+            total = service.totalCount();
+        } else {
+            boardlist = service.findByCategoryWithPaging(cri);
+            total = service.totalCountByCategory(category);
+        }
         Paging paging = new Paging(total, cri);
-        //System.out.println(boardlist+" === boardlist");
         model.addAttribute("boardlist",boardlist);
         model.addAttribute("paging", paging);
+        model.addAttribute("category", category);
         return "board/board";
     }
     @GetMapping("board/read")
@@ -61,11 +87,17 @@ public class BoardController {
     @PostMapping("board/write")
     public String insert(BoardDTO board){
         service.insert(board);
-        return "redirect:/board/list?pageNum=1&amount=10";
+        return "redirect:/board/list?pageNum=1&amount=10&category=all";
     }
-//    @PostMapping("/update")
-//    public String update(BoardDTO board) {
-//        service.update(board);
-//        return "redirect:/board/list?pageNum=1&amount=10";
-//    }
+    @PostMapping("board/update")
+    public String update(BoardDTO board) {
+        service.update(board);
+        return "redirect:/board/list?pageNum=1&amount=10&category=all";
+    }
+    @GetMapping("board/delete")
+    public String delete(String board_no) {
+        service.delete(board_no);
+        return "redirect:/board/list?pageNum=1&amount=10&category=all";
+    }
+
 }

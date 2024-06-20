@@ -26,4 +26,10 @@ public interface BoardService {
     List<BoardDTO> findByCategory(String category);
     //게시글 총갯수
     int totalCount();
+
+    List<BoardDTO> findByCategoryWithPaging(Criteria cri);
+
+    int totalCountByCategory(String category);
+
+    List<BoardDTO> getByUserId(String userId);
 }
