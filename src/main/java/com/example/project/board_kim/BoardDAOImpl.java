@@ -47,6 +47,11 @@ public class BoardDAOImpl implements BoardDAO{
     }
 
     @Override
+    public List<BoardDTO> getByUserId(String userId) {
+        return sqlSessionTemplate.selectList("com.multi.project.board.findByUserId",userId);
+    }
+
+    @Override
     public BoardDTO read(String board_no) {
         return sqlSessionTemplate.selectOne("com.multi.project.board.read",board_no);
     }

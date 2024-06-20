@@ -51,6 +51,9 @@
 	<delete id="delete" parameterType="String">
 		delete from board where board_no = #{board_no}
 	</delete>
+	<select id="findByUserId" parameterType="String" resultType="board">
+		select * from board where id = #{userId}
+	</select>
 </mapper>
 
 
