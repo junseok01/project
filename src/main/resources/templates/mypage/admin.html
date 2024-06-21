@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>프로필</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <div th:fragment="main">
@@ -14,18 +16,45 @@
             <div class="profile-info">
                 <p>이름: 홍길동</p>
                 <p>나이: 30세</p>
-                <p>직업: 개발자</p>
+                <p>직업: 관리자</p>
                 <!-- 원하는 프로필 정보 추가 -->
             </div>
-
         </div>
-        <div>
-            <form th:action="@{/viewRequests}" method="get">
-                <button type="submit">요청정보확인</button>
-            </form>
-
+        <h1>차트1</h1>
+        <div style="width: 50%; margin: auto;">
+            <canvas id="genderChart"></canvas>
         </div>
 
+        <script>
+            // 하드코딩된 데이터
+            const data = {
+                males: 60,
+                females: 40
+            };
+
+            // Chart.js를 사용하여 원그래프 생성
+            document.addEventListener('DOMContentLoaded', function () {
+                if (typeof Chart === 'undefined') {
+                    console.error('Chart.js is not loaded');
+                    return;
+                }
+
+                const ctx = document.getElementById('genderChart').getContext('2d');
+                const genderChart = new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Male', 'Female'],
+                        datasets: [{
+                            data: [data.males, data.females],
+                            backgroundColor: ['#36A2EB', '#FF6384']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+            });
+        </script>
     </div>
 </div>
 </body>
