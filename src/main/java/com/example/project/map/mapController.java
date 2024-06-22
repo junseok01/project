@@ -18,7 +18,12 @@ public class mapController {
     @GetMapping("/mapMarker")
     @ResponseBody
     public List<GymMapResponseDTO> mapMarker(){
-        List<GymMapResponseDTO> gym = mapService.gymselectlist();
+        List<GymMapResponseDTO> gym = mapService.gymlist();
         return gym;
+    }
+    @GetMapping("/mapSearch")
+    @ResponseBody
+    public List<GymMapResponseDTO> mapsearch(String keyword){
+        return mapService.gymselectlist(keyword);
     }
 }
