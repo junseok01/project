@@ -1,6 +1,7 @@
 package com.example.project.map;
 
-import com.example.project.dto.Gym;
+
+import com.example.project.dto.GymMapResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,8 @@ public class mapController {
     public String mappage(){ return "map/mappage";}
     @GetMapping("/mapMarker")
     @ResponseBody
-    public List<Gym> mapMarker(){
-        List<Gym> gym = mapService.gymselectlist();
+    public List<GymMapResponseDTO> mapMarker(){
+        List<GymMapResponseDTO> gym = mapService.gymselectlist();
         return gym;
     }
 }
