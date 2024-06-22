@@ -1,10 +1,10 @@
 package com.example.project.map;
 
-import com.example.project.dto.Gym;
 import com.example.project.dto.GymMapResponseDTO;
 
 import java.util.List;
 
 public interface gymService {
-    public List<GymMapResponseDTO> gymselectlist();
+    public List<GymMapResponseDTO> gymlist();
+    public List<GymMapResponseDTO> gymselectlist(String keyword);
 }
