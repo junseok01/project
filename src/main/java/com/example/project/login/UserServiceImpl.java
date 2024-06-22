@@ -33,4 +33,11 @@ public class UserServiceImpl implements UserService {
     public void deleteMember(String id) {
         userDAO.deleteMember(id);
     }
+
+    @Override
+    public UserDTO search(String id) {
+        UserDTO userDTO = userDAO.search(id);
+        System.out.println(userDTO);
+        return null;
+    }
 }

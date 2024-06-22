@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>프로필</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <div th:fragment="main">
@@ -20,14 +21,20 @@
                 <!-- 원하는 프로필 정보 추가 -->
             </div>
         </div>
-        <h1>차트1</h1>
-        <div style="width: 50%; margin: auto;">
-            <canvas id="genderChart"></canvas>
+
+        <h1>차트</h1>
+        <div class="charts-container">
+            <div class="chart-box">
+                <canvas id="genderChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <canvas id="userTypeChart" width="400" height="400"></canvas>
+            </div>
         </div>
 
         <script>
             // 하드코딩된 데이터
-            const data = {
+            const genderData = {
                 males: 60,
                 females: 40
             };
@@ -39,20 +46,73 @@
                     return;
                 }
 
-                const ctx = document.getElementById('genderChart').getContext('2d');
-                const genderChart = new Chart(ctx, {
+                const genderCtx = document.getElementById('genderChart').getContext('2d');
+                const genderChart = new Chart(genderCtx, {
                     type: 'pie',
                     data: {
                         labels: ['Male', 'Female'],
                         datasets: [{
-                            data: [data.males, data.females],
+                            data: [genderData.males, genderData.females],
                             backgroundColor: ['#36A2EB', '#FF6384']
                         }]
                     },
                     options: {
-                        responsive: true
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '회원 성비'
+                                    }
+                                }
                     }
                 });
+
+                fetch('/admin/user-type-count')
+                    .then(response => response.json())
+                    .then(data => {
+                        const userTypeCtx = document.getElementById('userTypeChart').getContext('2d');
+                        const userTypeLabels = Object.keys(data);
+                        const userTypeCounts = Object.values(data);
+
+                        new Chart(userTypeCtx, {
+                            type: 'pie',
+                            data: {
+                                labels: userTypeLabels,
+                                datasets: [{
+                                    label: '회원 수',
+                                    data: userTypeCounts,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '유저비율'
+                                    }
+                                }
+                            },
+                        });
+                    });
             });
         </script>
     </div>
