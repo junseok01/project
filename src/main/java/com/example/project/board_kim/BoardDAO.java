@@ -29,4 +29,6 @@ public interface BoardDAO {
     List<BoardDTO> findByCategoryWithPaging(Criteria cri);
 
     int totalCountByCategory(String category);
+
+    List<BoardDTO> getByUserId(String userId);
 }

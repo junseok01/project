@@ -45,6 +45,11 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
+    public List<BoardDTO> getByUserId(String userId) {
+        return dao.getByUserId(userId);
+    }
+
+    @Override
     public BoardDTO getBoardInfo(String board_no) {
         return dao.read(board_no);
     }
