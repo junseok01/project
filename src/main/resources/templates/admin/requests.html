@@ -4,20 +4,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Requests</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
+    <link rel="stylesheet" href="/css/profile.css">
 </head>
 <body>
-
 <div th:fragment="admin">
-    <h1>Admin Requests</h1>
-    <table>
-        <tr>
-            <th>Request</th>
-        </tr>
-        <tr th:each="request : ${requests}">
-            <td th:text="${request.key+ ' : ' +  request.value.request}"></td>
-        </tr>
-    </table>
+    <div id="header" th:replace="~{top/header :: header}"></div>
+    <div id="top" th:insert="~{top/top :: top}"></div>
+    <div class="mypage_container">
+        <div class="sidebar">
+            <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
+        </div>
+        <div class="main-content">
+            <h1>트레이너 등록관리</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>번호</th>
+                        <th>아이디</th>
+                        <th>요청내용</th>
+                        <th>업데이트</th>
+                        <th>삭제</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="request,status  : ${session.RequestList}">
+                    <td th:text="${status.index + 1}"></td>
+                    <td th:text="${request.loginId}"></td>
+                    <td th:text="${request.request}"></td>
+                    <td><a th:href="@{/request/update(_Id=${request._Id},loginId=${request.loginId})}">수락</a></td>
+                    <td><a th:href="@{/request/delete(_id=${request._Id})}">삭제</a></td>
+                </tr>
+                    <!--<tr th:each="request : ${requests}">
+                        <td th:text="${request.key+ ' : ' +  request.value.request}"></td>
+                    </tr>-->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
