@@ -58,4 +58,12 @@ public class UserEntity {
         this.cellphoneNo = cellphoneNo;
         this.loginType=loginType;
     }
+
+    public UserEntity(String loginId, String name, String nickname, String userType, int loginType) {
+        this.loginId = loginId;
+        this.name = name;
+        this.nickname = nickname;
+        this.userType = userType;
+        this.loginType = loginType;
+    }
 }
