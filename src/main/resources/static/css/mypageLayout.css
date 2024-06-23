@@ -37,3 +37,11 @@
 .menu-item:hover {
     background-color: #ddd; /* 호버 시 박스 배경색 변경 */
 }
+table{
+    width:100%;
+
+
+}
+thead{
+    border:1px solid;
+}

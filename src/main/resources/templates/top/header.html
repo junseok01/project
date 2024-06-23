@@ -20,16 +20,16 @@
                     <div  class="col-md-6">
                         <div class="header-top-menu">
                             <ul class="nav nav-pills navbar-right">
-                                <li th:if="${member != null}">
-                                    <a th:text="${member.name+ '님'}"></a>
+                                <li th:if="${session.member != null}">
+                                    <a th:text="${session.member.name+ '님'}"></a>
                                 </li>
-                                <li th:if="${member != null}">
+                                <li th:if="${session.member != null}">
                                     <a href="/mypage">마이페이지</a>
                                 </li>
-                                <li th:if="${member != null}">
+                                <li th:if="${session.member != null}">
                                     <a href="/logout"><i class="pe-7s-lock"></i>로그아웃</a>
                                 </li>
-                                <li th:if="${member == null}">
+                                <li th:if="${session.member == null}">
                                     <a href="/login"><i class="pe-7s-lock"></i>로그인</a>
                                 </li>
                             </ul>

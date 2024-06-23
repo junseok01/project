@@ -1,6 +1,7 @@
 package com.example.project.dto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class Gym {
     private String gymtrainer;
     private String gymtel;
     private String gymaddr;
-    private int addrnum;
+    private String addrnum;
     private float x;
     private float y;
     private String areanum;

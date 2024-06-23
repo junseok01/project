@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class LoginServiceImpl implements LoginService{
@@ -23,4 +25,7 @@ public class LoginServiceImpl implements LoginService{
     public UserDTO search(String id) {
         return dao.search(id);
     }
+
+
+
 }

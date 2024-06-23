@@ -1,6 +1,9 @@
 package com.example.project.login;
 
+import java.util.List;
+
 public interface LoginService {
-    public void register(UserEntity dto);
-    public UserDTO search(String id);
+    void register(UserEntity dto);
+    UserDTO search(String id);
+
 }
