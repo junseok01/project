@@ -34,4 +34,12 @@ public class UserDTO {
         this.joinDate = entity.getJoinDate();
         this.loginType = entity.getLoginType();
     }
+
+    public UserDTO(String loginId, String name, String nickname, String userType, int loginType) {
+        this.loginId = loginId;
+        this.name = name;
+        this.nickname = nickname;
+        this.userType = userType;
+        this.loginType = loginType;
+    }
 }
