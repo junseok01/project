@@ -42,7 +42,7 @@
 	</select>
 	<insert id="insert" parameterType="board">
 		insert into board
-		values(board_seq.nextval,#{name},#{id},#{title},#{content},sysdate,#{category})
+		values(board_seq.nextval,#{id},#{name},#{title},#{content},sysdate,#{category},#{user_type})
 	</insert>
 	<update id="update" parameterType="board">
 		update board set category=#{category},title=#{title },content=#{content }

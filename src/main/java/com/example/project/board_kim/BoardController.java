@@ -27,22 +27,22 @@ public class BoardController {
         this.service = service;
     }
 
-    @GetMapping("board/myboard")
+    @GetMapping("board/myboardpage")
     public String boardPage(HttpSession session, Model model) {
-        // 세션에서 로그인한 사용자 정보 가져오기
+        //세션에서 로그인한 사용자 정보 가져오기
         UserDTO userId = (UserDTO) session.getAttribute("member");
         System.out.println("userId ==>"+userId);
         if (userId == null) {
             return "redirect:/login";
         }//새로고침후 테스트용
 
-        // 사용자가 작성한 게시글 리스트 가져오기
+        //사용자가 작성한 게시글 리스트 가져오기
         List<BoardDTO> boardlist = service.getByUserId(userId.getLoginId());
 
         model.addAttribute("boardlist", boardlist);
         model.addAttribute("member", userId);
 
-        return "mypage/myboard";
+        return "mypage/myboardpage";
     }
     @GetMapping("board/list")
     public String list(@RequestParam("pageNum") int pageNum,
@@ -81,7 +81,15 @@ public class BoardController {
         return mav;
     }
     @GetMapping("board/write")
-    public String writepage() {
+    public String writepage(HttpSession session, Model model) {
+        UserDTO member = (UserDTO) session.getAttribute("member");
+        BoardDTO board = new BoardDTO();
+
+        board.setName(member.getName());
+        board.setId(member.getLoginId());
+        board.setUser_type(member.getUserType());
+
+        model.addAttribute("board", board);
         return "board/board_write";
     }
     @PostMapping("board/write")
