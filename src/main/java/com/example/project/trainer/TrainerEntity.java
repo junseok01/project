@@ -22,22 +22,22 @@ public class TrainerEntity {
     @Id
     @GeneratedValue
     private Long boardNo;
-    private String Name;
-    private String GymName;
-    private String Addr;
+    private String name;
+    private String gymName;
+    private String addr;
     private String ticketprice;
-    private String Career;
+    private String career;
     private String info;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
     private Date writedate;
 
 
     public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info) {
-        this.Name = Name;
-        this.GymName = GymName;
-        this.Addr = Addr;
+        this.name = Name;
+        this.gymName= GymName;
+        this.addr = Addr;
         this.ticketprice = ticketprice;
-        this.Career = Career;
+        this.career = Career;
         this.info = info;
     }
 }

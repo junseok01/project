@@ -71,12 +71,13 @@ public class TrainerServiceImpl implements TrainerService{
         return trainerlist;
     }
 
-/*
     @Override
-    public List<TrainerEntity> findBytrainer(String trainerName) {
-        List<TrainerEntity> entity =repository.findByNameContaining(trainerName);
-        return entity;
+    public List<TrainerResponseDTO> findBytrainer(String trainerName) {
+        List<TrainerEntity> entityList = dao.searchName(trainerName);
+        List<TrainerResponseDTO> trainerlist = entityList.stream()
+                .map(TrainerResponseDTO :: new)
+                .collect(Collectors.toList());
+        return trainerlist;
     }
-*/
 
 }

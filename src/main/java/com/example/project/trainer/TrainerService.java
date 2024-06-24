@@ -25,7 +25,7 @@ public interface TrainerService {
     List<TrainerEntity> findByCategory(String category);
     List<TrainerResponseDTO> pagingFindAll();
     //트레이너 검색
-    /*List<TrainerEntity> findBytrainer(String trainerName);*/
+    List<TrainerResponseDTO> findBytrainer(String trainerName);
 
 
     //
