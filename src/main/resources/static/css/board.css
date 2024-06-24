@@ -1,0 +1,132 @@
+.board-category-buttons {
+    display: flex; /* 버튼들을 가로로 나열 */
+    justify-content: center; /* 버튼들을 가운데 정렬 */
+    margin-bottom: 10px; /* 버튼 아래 여백 추가 */
+}
+.board-category-buttons button {
+    margin: 10px;
+}
+.board-write-buttons {
+    display: flex; /* 버튼을 flexbox 컨테이너로 변환 */
+    justify-content: flex-end; /* 버튼을 오른쪽 끝에 정렬 */
+}
+body {
+  font-size: 16px; /* 기본 글씨 크기 조절 */
+}
+.custom-border-black {
+    border-color: black !important;
+}
+.btn {
+  padding: 10px 20px; /* 버튼 안쪽 여백 추가 */
+}
+.alert {
+  text-align: center; /* 알림 요소 전체 가운데 정렬 */
+}
+
+.alert .alert-heading {
+  font-size: 24px !important; /* 제목 글씨 크기 조절  */
+}
+.alert.alert-success {
+  /* 원하는 크기 설정 */
+  width: 100%;
+  height: auto; /* 높이 자동 조절 */
+  padding: 20px; /* 안쪽 여백 추가 */
+}
+
+.table th,
+.table td {
+  text-align: center; /* 테이블 칸 내용 가운데 정렬 */
+}
+
+.table th {
+  width: 25%; /* 첫 번째 열 너비 25% */
+}
+
+.table td:nth-child(2) {
+  width: 50%; /* 두 번째 열 너비 50% */
+}
+
+.table td:nth-child(3) {
+  width: 25%; /* 세 번째 열 너비 25% */
+}
+
+.pagination {
+  display: flex; /* 가로 방향으로 배열 */
+  justify-content: center; /* 가운데 정렬 */
+}
+
+.pagination .page-link {
+  font-size: 18px; /* 페이징 버튼 글씨 크기 조절 */
+  padding: 5px 15px; /* 페이징 버튼 여백 추가 */
+}
+.read-title {
+  font-weight: bold; /* 글자 굵게 */
+  font-size: 24px !important; /* 글자 크기 24px로 설정 */
+}
+.read-content {
+  height: 500px; /* 원하는 높이 설정 */
+  padding: 20px; /* 안쪽 여백 추가 */
+}
+
+.read-buttons {
+    margin-bottom: 20px;
+    text-align: center;
+    display: flex; /* flexbox 레이아웃 설정 */
+    justify-content: center; /* 버튼들을 가운데 정렬 */
+}
+
+.action-buttons button {
+ width: 140px; /* 버튼 폭 설정 */
+   height: 80px; /* 버튼 높이 설정 */
+   margin-right: 10px; /* 오른쪽 여백 설정 */
+}
+.comment-box {
+  margin: 20px auto; /* 상하 여백 설정, 좌우 자동 여백 */
+  padding: 10px;
+  border-radius: 5px; /* 모서리 둥글게 */
+  width: 900px;
+  border: 1px solid black;
+}
+
+.comment-input {
+  display: flex;
+}
+
+.comment-input input {
+  flex: 1; /* 입력창 너비 확장 */
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px; /* 입력창 모서리 둥글게 */
+}
+
+.comment-input button {
+  padding: 5px 10px; /* 기존 패딩 유지 */
+  margin-right: 20px; /* 오른쪽 여백 추가 */
+  border: none;
+  border-radius: 3px; /* 버튼 모서리 둥글게 */
+  cursor: pointer;
+}
+.comment-list {
+  margin-top: 10px;
+}
+.comment-list ul {
+  list-style: none;
+  padding: 0;
+}
+.comment-list li {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding: 5px;
+}
+
+.comment-list .author {
+  font-weight: bold;
+}
+
+.comment-list .content {
+  margin-left: 10px;
+}
+.footer {
+  position: relative; /* 상대 위치 설정 */
+  bottom: 0; /* 화면 하단에 배치 */
+}

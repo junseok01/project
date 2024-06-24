@@ -22,5 +22,6 @@ public class BoardDTO {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
     private Date write_date;
     private String category;
+    private String user_type;
 
 }
