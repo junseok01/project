@@ -1,16 +1,45 @@
 package com.example.project.map;
 
 import com.example.project.dto.Gym;
+import com.example.project.dto.GymMapResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class gymServiceImpl implements gymService {
-    private final gymDAO gymDAO;
+    private final gymDAO dao;
     @Override
-    public List<Gym> gymselectlist() {
-        return gymDAO.gymselectlist();
+    public List<GymMapResponseDTO> gymlist() {
+        List<Gym> list = dao.gymlist();
+        List<GymMapResponseDTO> gymlist = list.stream()
+                .map(GymMapResponseDTO :: new)
+                .collect(Collectors.toList());
+        return gymlist;
+    }
+
+    @Override
+    public List<GymMapResponseDTO> gymselectlist(String keyword) {
+        Pattern p = Pattern.compile("^..구");
+        Matcher matcher = p.matcher(keyword);
+        List<Gym> list = null;
+        if (keyword.equals("헬스장") | keyword.equals(("헬스"))) {
+            list = dao.gymlist();
+        }else if (keyword.startsWith("동대문") || keyword.startsWith("영등포") || keyword.startsWith("서대문") || matcher.find()) {
+            String[] split = keyword.split("구");
+            list = dao.gymselectaddrlist(split[0]);
+
+        }else{
+            list = dao.gymselectlist(keyword);
+        }
+        List<GymMapResponseDTO> gymlist = list.stream()
+                .map(GymMapResponseDTO :: new)
+                .collect(Collectors.toList());
+        return gymlist;
     }
 }

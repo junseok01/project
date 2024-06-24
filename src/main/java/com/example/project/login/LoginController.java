@@ -1,6 +1,8 @@
 package com.example.project.login;
 
 
+
+import com.example.project.board_kim.BoardDAOImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,12 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
-
-
-
 import java.math.BigInteger;
 import java.security.SecureRandom;
-
 //https://nid.naver.com/oauth2.0/token?grant_type=delete&client_id=GHj3n2d3pwyhTqPAu8cq&client_secret=ef3yePxiz0&access_token=AAAAN8OtHAnXBpqhceBKpEE3GLPVjpuCGBTp9GgTwkWjx9ud9D3t8ZO4J9l5v1fDdmKIGxMcGkE4qITGCzSdIpIrbpo&service_provider=NAVER
 @Controller
 public class LoginController {

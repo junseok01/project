@@ -1,8 +1,12 @@
 package com.example.project.login;
 
+import java.util.List;
+
 public interface UserDAO {
-    public void insert(UserEntity dto);
-    public UserDTO search(String id);
+    void insert(UserEntity dto);
+    UserDTO search(String id);
+    List<UserEntity> findAll();
+    void deleteMember(String id);
 
 
 }

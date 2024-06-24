@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>프로필</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 <div th:fragment="main">
@@ -14,18 +17,104 @@
             <div class="profile-info">
                 <p>이름: 홍길동</p>
                 <p>나이: 30세</p>
-                <p>직업: 개발자</p>
+                <p>직업: 관리자</p>
                 <!-- 원하는 프로필 정보 추가 -->
             </div>
-
-        </div>
-        <div>
-            <form th:action="@{/viewRequests}" method="get">
-                <button type="submit">요청정보확인</button>
-            </form>
-
         </div>
 
+        <h1>차트</h1>
+        <div class="charts-container">
+            <div class="chart-box">
+                <canvas id="genderChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <canvas id="userTypeChart" width="400" height="400"></canvas>
+            </div>
+        </div>
+
+        <script>
+            // 하드코딩된 데이터
+            const genderData = {
+                males: 60,
+                females: 40
+            };
+
+            // Chart.js를 사용하여 원그래프 생성
+            document.addEventListener('DOMContentLoaded', function () {
+                if (typeof Chart === 'undefined') {
+                    console.error('Chart.js is not loaded');
+                    return;
+                }
+
+                const genderCtx = document.getElementById('genderChart').getContext('2d');
+                const genderChart = new Chart(genderCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Male', 'Female'],
+                        datasets: [{
+                            data: [genderData.males, genderData.females],
+                            backgroundColor: ['#36A2EB', '#FF6384']
+                        }]
+                    },
+                    options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '회원 성비'
+                                    }
+                                }
+                    }
+                });
+
+                fetch('/admin/user-type-count')
+                    .then(response => response.json())
+                    .then(data => {
+                        const userTypeCtx = document.getElementById('userTypeChart').getContext('2d');
+                        const userTypeLabels = Object.keys(data);
+                        const userTypeCounts = Object.values(data);
+
+                        new Chart(userTypeCtx, {
+                            type: 'pie',
+                            data: {
+                                labels: userTypeLabels,
+                                datasets: [{
+                                    label: '회원 수',
+                                    data: userTypeCounts,
+                                    backgroundColor: [
+                                        'rgba(255, 99, 132, 0.2)',
+                                        'rgba(54, 162, 235, 0.2)',
+                                        'rgba(255, 206, 86, 0.2)',
+                                        'rgba(75, 192, 192, 0.2)'
+                                    ],
+                                    borderColor: [
+                                        'rgba(255, 99, 132, 1)',
+                                        'rgba(54, 162, 235, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)'
+                                    ],
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'top',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: '유저비율'
+                                    }
+                                }
+                            },
+                        });
+                    });
+            });
+        </script>
     </div>
 </div>
 </body>

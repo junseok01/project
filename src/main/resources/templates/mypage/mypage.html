@@ -5,17 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Form</title>
     <!-- 외부 CSS 파일 연결 -->
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/login.css">
-    <link rel="stylesheet" type="text/css" href="css/mypageLayout.css">
-    <link rel="stylesheet" href="css/profile.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .charts-container {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+        .chart-box {
+            width: 45%;
+        }
+    </style>
 </head>
 <body>
 <div id="header" th:replace="~{top/header :: header}"></div>
 <div id="top" th:insert="~{top/top :: top}"></div>
 
 <div class="mypage_container" th:switch="${member.userType}">
-
     <div class="sidebar" th:if="${member.userType == '0'}">
         <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
     </div>
@@ -43,6 +52,7 @@
     </div>
 
 </div>
+
 
 </body>
 </html>

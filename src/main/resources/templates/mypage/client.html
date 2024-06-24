@@ -1,34 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>프로필</title>
+    <title>프로필</title>
 </head>
 <body>
-	<div th:fragment="main">
-		<h1>프로필 정보</h1>
-		<div class="box">
-			<div class="profile-info-container">
-				<!-- 프로필 이미지 -->
-				<img src="/images/1.png" alt="프로필 사진">
-				<!-- 프로필 정보 텍스트 -->
-				<div class="profile-info">
-					<p>이름: 홍길동</p>
-					<p>나이: 30세</p>
-					<p>직업: 개발자</p>
-					<!-- 원하는 프로필 정보 추가 -->
-				</div>
+<div th:fragment="main">
+    <h1>프로필 정보</h1>
+    <div class="box">
+        <div class="profile-info-container">
+            <!-- 프로필 이미지 -->
+            <img src="/images/1.png" alt="프로필 사진">
+            <!-- 프로필 정보 텍스트 -->
+            <div class="profile-info">
+                <p th:text="'이름 : ' + ${session.member.name}"></p>
+                <p>나이: 31세</p>
+                <p>직업: 개발자</p>
+                <!-- 원하는 프로필 정보 추가 -->
+                <button onclick="openEditPopup()">수정하기</button>
+            </div>
 
-			</div>
-			<div>
-				<form th:action="@{/sendRequest}" method="post">
-					<label for="request">Request:</label>
-					<input type="text" id="request" name="request">
-					<button type="submit">Send Request</button>
-				</form>
+        </div>
+        <div>
+            <form th:action="@{/request/sendRequest}" method="post">
+                <label for="request">Request:</label>
+                <input type="text" id="request" name="request">
+                <button type="submit">Send Request</button>
+            </form>
 
-			</div>
+        </div>
 
-		</div>
-	</div>
+    </div>
+
+
+
+
+</div>
+
 </body>
 </html>
