@@ -50,3 +50,11 @@
     font-size: 18px !important; /* 제목 글자 크기 */
     font-weight: bold; /* 글자 두껍게 */
 }
+table{
+    width:100%;
+
+
+}
+thead{
+    border:1px solid;
+}

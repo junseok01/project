@@ -56,7 +56,7 @@
 										  '&redirect_uri=' + @{http://127.0.0.1:8088/naverLogin} +
 										  '&state=' + ${stateToken}}" id="naver_id_login" class="social">
 								<img src="images/btn_naver.png"></a>
-							<a href="#" class="social">
+							<a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=9f03eb571cb673458cd44ea488fe57ad&redirect_uri=http://127.0.0.1:8088/kakaoLogin&response_type=code'}">
 								<img src="images/btn_kakao.png"></a>
 							<a href="#" class="social">
 								<img src="images/btn_google.png"></a>
