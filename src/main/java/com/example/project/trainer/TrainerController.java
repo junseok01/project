@@ -24,7 +24,12 @@ public class TrainerController {
     @GetMapping("/trainerlist")
     public String trainerpage(Model model , String trainerName) {
         List<TrainerResponseDTO> trainerEntityList = service.trainerList();
-        model.addAttribute("trainerlist", trainerEntityList);
+        if(trainerName==null){
+            trainerEntityList = service.trainerList();
+        }else{
+            trainerEntityList = service.findBytrainer(trainerName);
+        }
+        model.addAttribute("trainerlist",trainerEntityList);
         return "trainer/trainerhome";
     }
 
