@@ -9,4 +9,5 @@ public interface TrainerDAO {
     void delete(String boardNo);
     List<TrainerEntity> list();
     List<TrainerEntity> pagingFindAll();
+    List<TrainerEntity> searchName(String trainerName);
 }

@@ -45,5 +45,10 @@ public class TrainerDAOImpl implements TrainerDAO{
         return page.getContent();
     }
 
+    @Override
+    public List<TrainerEntity> searchName(String trainerName) {
+        return repository.findByNameContaining(trainerName);
+    }
+
 
 }
