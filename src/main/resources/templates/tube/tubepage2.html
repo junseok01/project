@@ -21,16 +21,44 @@
     <link rel="stylesheet" href="../css/tube/template.css">
     <link rel="stylesheet" href="../css/tube/common.css">
     <link rel="stylesheet" href="../css/tube/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" th:inline="javascript">
+        //template.js의 select부분 지우기
+        let category = /*[[${category}]]*/;
+        if(category==null){
+            category="전체";
+        }
+        $(document).ready(function() {
+            $(".selectset-toggle").find("span").text(category);
+            const selectsetToggle = document.querySelectorAll(".selectset-toggle");
+              const selectsetLink = document.querySelectorAll(".selectset-link");
+               selectsetToggle.forEach((buttonElement) => {
+                const clickEventHandler = (event) => {
+                  event.stopPropagation();
+                  const button = event.target.closest(".selectset-toggle");
+                  const buttonParent = button.closest(".selectset");
+                  buttonParent.classList.toggle("active");
+                };
+                buttonElement.removeEventListener("click", clickEventHandler);
+                buttonElement.addEventListener("click", clickEventHandler);
+              });
+              $(".selectset-link").click(function() {
+                    location.href="/tubecategory?category="+$(this).find("span").text();
+                })
+
+        })
+    </script>
 </head>
 
 <body>
     <div layout:fragment="content">
+
         <main class="th-layout-main ">
             <!-- [S]basic-N45 -->
             <div class="basic-N45" data-bid="OKLXlIY0q1">
                 <div class="contents-container container-md">
                     <img class="contents-visual img-pc" src="/images/health.jpg" alt="PC 서브 비주얼 이미지">
-                    <img class="contents-visual img-mobile" src="/images/hralth.jpg" alt="모바일 서브 비주얼 이미지">
+                    <img class="contents-visual img-mobile" src="/images/health.jpg" alt="모바일 서브 비주얼 이미지">
                     <div class="contents-body">
                         <div class="textset textset-visual">
                             <h2 class="textset-tit">Brand Story</h2>
@@ -50,104 +78,106 @@
                                 </button>
                                 <ul class="selectset-list">
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="전체">
+                                        <button class="selectset-link btn" type="button" value="all">
                                             <span>전체</span>
                                         </button>
                                     </li>
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="선택1">
+                                        <button class="selectset-link btn" type="button" value="가슴">
                                             <span>가슴</span>
                                         </button>
                                     </li>
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="선택1">
+                                        <button class="selectset-link btn" type="button" value="등">
                                             <span>등</span>
                                         </button>
                                     </li>
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="선택1">
+                                        <button class="selectset-link btn" type="button" value="어깨">
                                             <span>어깨</span>
                                         </button>
                                     </li>
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="선택1">
+                                        <button class="selectset-link btn" type="button" value="하체">
                                             <span>하체</span>
                                         </button>
                                     </li>
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="선택1">
+                                        <button class="selectset-link btn" type="button" value="복근">
                                             <span>복근</span>
                                         </button>
                                     </li>
                                     <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="선택1">
+                                        <button class="selectset-link btn" type="button" value="팔">
                                             <span>팔</span>
                                         </button>
                                     </li>
                                 </ul>
                             </div>
-                            <div class="inputset inputset-lg">
-                                <input type="text" class="inputset-input form-control" placeholder="검색어를 입력해주세요." aria-label="내용"><button class="inputset-icon icon-right icon-search btn" type="button" aria-label="아이콘"></button>
-                            </div>
+                            <form action="/tubesearch" method="post">
+                                <div class="inputset inputset-lg">
+                                    <input type="text" name="keyword" class="inputset-input form-control" placeholder="검색어를 입력해주세요." aria-label="내용"><button class="inputset-icon icon-right icon-search btn" type="submit" aria-label="아이콘"></button>
+                                </div>
+                            </form>
                         </div>
                         <div class="contents-group">
-                            <a href="javascript:void(0);" class="cardset">
+
+                            <a href="javascript:void(0);" class="cardset" th:each="list:${tubelist}">
                                 <figure class="cardset-figure">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/_He5yFI81RU?si=mrlGT_GiSfbbizvK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                                    <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/}+${list.tubelink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                 </figure>
                                 <div class="cardset-body">
-                                    <h2 class="cardset-tit"> 힙 쓰러스트 </h2>
-                                    <p class="cardset-desc">하체?</p>
+                                    <h2 class="cardset-tit">[[${list.exercisename}]]  </h2>
+                                    <h3 class="cardset-desc">[[${list.category}]] </h3>
+                                    <h3 class="cardset-desc">[[${list.tubename}]] </h3>
                                 </div>
                             </a>
-                            <a href="javascript:void(0);" class="cardset">
-                                <figure class="cardset-figure">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/QqhMqG8YO2k?si=a1LtMyI6zjczuvcZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </figure>
-                                <div class="cardset-body">
-                                    <h2 class="cardset-tit"> 덤벨숄더프레스 </h2>
-                                    <p class="cardset-desc">어깨?</p>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="cardset">
-                                <figure class="cardset-figure">
-                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/JekuOb9yctw?si=ACXzQtC-lC-CD1NB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-                                </figure>
-                                <div class="cardset-body">
-                                    <h2 class="cardset-tit"> 백 익스텐션 </h2>
-                                    <p class="cardset-desc">등?</p>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="cardset">
-                                <figure class="cardset-figure">
-                                    <img class="cardset-img" src="../resources/images/img_basic_N54_1.png" alt="카드 이미지">
-                                </figure>
-                                <div class="cardset-body">
-                                    <h2 class="cardset-tit"> 민감 피부 마스크 시트(피부진정) </h2>
-                                    <p class="cardset-desc">템하 비즈니와 함께 하세요!</p>
-                                    <span class="cardset-txt">2023.01.01 ~ 2023.01.31</span>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="cardset">
-                                <figure class="cardset-figure">
-                                    <img class="cardset-img" src="../resources/images/img_basic_N54_2.png" alt="카드 이미지">
-                                </figure>
-                                <div class="cardset-body">
-                                    <h2 class="cardset-tit"> 민감 피부 마스크 시트(피부진정) </h2>
-                                    <p class="cardset-desc">템하 비즈니와 함께 하세요!</p>
-                                    <span class="cardset-txt">2023.01.01 ~ 2023.01.31</span>
-                                </div>
-                            </a>
-                            <a href="javascript:void(0);" class="cardset">
-                                <figure class="cardset-figure">
-                                    <img class="cardset-img" src="../resources/images/img_basic_N54_3.png" alt="카드 이미지">
-                                </figure>
-                                <div class="cardset-body">
-                                    <h2 class="cardset-tit"> 민감 피부 마스크 시트(피부진정) </h2>
-                                    <p class="cardset-desc">템하 비즈니와 함께 하세요!</p>
-                                    <span class="cardset-txt">2023.01.01 ~ 2023.01.31</span>
-                                </div>
-                            </a>
+
+<!--                            <a href="javascript:void(0);" class="cardset">-->
+<!--                                <figure class="cardset-figure">-->
+<!--                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/QqhMqG8YO2k?si=a1LtMyI6zjczuvcZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+<!--                                </figure>-->
+<!--                                <div class="cardset-body">-->
+<!--                                    <h2 class="cardset-tit"> 덤벨숄더프레스 </h2>-->
+<!--                                    <p class="cardset-desc">어깨 </p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="javascript:void(0);" class="cardset">-->
+<!--                                <figure class="cardset-figure">-->
+<!--                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/JekuOb9yctw?si=ACXzQtC-lC-CD1NB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+<!--                                </figure>-->
+<!--                                <div class="cardset-body">-->
+<!--                                    <h2 class="cardset-tit"> 백 익스텐션 </h2>-->
+<!--                                    <p class="cardset-desc">등 </p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="javascript:void(0);" class="cardset">-->
+<!--                                <figure class="cardset-figure">-->
+<!--                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/nBPXoi-Jenw?si=FlW-syPcJU6Ot6Ko" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>                                </figure>-->
+<!--                                <div class="cardset-body">-->
+<!--                                    <h2 class="cardset-tit"> 바벨로우 </h2>-->
+<!--                                    <p class="cardset-desc">등 </p>-->
+
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="javascript:void(0);" class="cardset">-->
+<!--                                <figure class="cardset-figure">-->
+<!--                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/B5XJZXAfGcM?si=_3eRwzzEc1ZIwAvw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+<!--                                </figure>-->
+<!--                                <div class="cardset-body">-->
+<!--                                    <h2 class="cardset-tit"> 플랭크 </h2>-->
+<!--                                    <p class="cardset-desc">복근</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
+<!--                            <a href="javascript:void(0);" class="cardset">-->
+<!--                                <figure class="cardset-figure">-->
+<!--                                    <iframe width="560" height="315" src="https://www.youtube.com/embed/mvT4LMaT9vQ?si=3eUZfXn6dFM_Yakz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+<!--                                </figure>-->
+<!--                                <div class="cardset-body">-->
+<!--                                    <h2 class="cardset-tit"> 밀리터리프레스 </h2>-->
+<!--                                    <p class="cardset-desc">어깨</p>-->
+<!--                                </div>-->
+<!--                            </a>-->
                         </div>
                         <nav class="pagiset pagiset-line">
                             <div class="pagiset-ctrl">
@@ -180,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <!-- [E]basic-N54 -->
+
         </main>
 
         <script src="../js/tube/setting.js"></script>
