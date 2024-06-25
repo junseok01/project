@@ -19,7 +19,7 @@ public class OCRController {
 
         System.out.println("OCR 컨트롤러 진입");
         // OCR 테스트할 이미지 파일 경로
-        String imagePath = "C:\\backend23\\work\\project\\project\\src\\main\\resources\\static\\images\\OCR\\ocrTest.jpg";
+        String imagePath = "C:\\backend\\work\\gittest_private_work\\project\\myproject\\src\\main\\resources\\static\\images\\OCR\\자격증2.jpg";
         File image = new File(imagePath);
         System.out.println(image.exists());
 
@@ -28,7 +28,7 @@ public class OCRController {
 
         // tessdata 디렉토리 경로 설정
         //String tessdataPath = classLoader.getResource("tessdata").getPath();
-        tesseract.setDatapath("C:\\backend23\\work\\project\\project\\src\\main\\resources\\tessdata");
+        tesseract.setDatapath("C:\\backend\\work\\gittest_private_work\\project\\myproject\\src\\main\\resources\\tessdata");
 
         // 한글 언어 설정
         tesseract.setLanguage("kor");
@@ -57,7 +57,7 @@ public class OCRController {
         BufferedImage originalImage = ImageIO.read(imageFile);
 
         // 이미지 크기 조정
-        int targetWidth = 300;
+        int targetWidth = 500;
         int targetHeight = (int) ((double) originalImage.getHeight() / originalImage.getWidth() * targetWidth);
         BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = resizedImage.createGraphics();
