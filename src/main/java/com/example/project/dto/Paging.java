@@ -30,6 +30,5 @@ public class Paging {
 
         this.prev = this.startPage>1; //시작페이지가 1보다 크면 이전페이지 존재
         this.next = this.endPage<lastPage;//끝페이지가 마지막페이지보다 작으면 다음페이지 존재
-
     }
 }

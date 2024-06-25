@@ -37,6 +37,19 @@
 .menu-item:hover {
     background-color: #ddd; /* 호버 시 박스 배경색 변경 */
 }
+
+.custom-table-container {
+    max-width: 1200px; /* 원하는 너비로 설정 */
+    margin: 0 auto; /* 중앙 정렬 */
+        }
+.custom-table th, .custom-table td {
+    text-align: center; /* 텍스트 중앙 정렬 */
+    font-size: 18px !important; /* 원하는 크기로 설정 */
+}
+.board-title {
+    font-size: 18px !important; /* 제목 글자 크기 */
+    font-weight: bold; /* 글자 두껍게 */
+}
 table{
     width:100%;
 

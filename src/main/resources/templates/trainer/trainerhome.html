@@ -22,9 +22,25 @@
     <link rel="stylesheet" href="/css/gym/common.css">
     <link rel="stylesheet" href="/css/gym/style.css">
     <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:inline="javascript">
+        //타임리프에서 사용하는 변수를 자바스크립트에서 사용하는 경우
+        //jQuery를 이용해서 select에서 선택을 하면 컨트롤러가 요청되도록 처리
+        let category=/*[[${category}]]*/; //컨트롤러를 요청하고 response 될때 공유해준 값을 타임리프를 실행해서 받아옴
+        /*alert(category);*/
+        $(document).ready(function(){
+            //alert("컨트롤러가 공유한 데이터=>"+category);
+            //console.log("컨트롤러가 공유한 데이터=>"+category);
+            //select에서 선택된 option에 selected속성을 추가
+            $("#category").val(category).attr("selected","selected");
+            $("#category").change(function(){
+                //select가 변경되는 change이벤트가 발생하면 컨트롤러를 호출함
+                //alert($(this).val())
+                location.href="/trainerlist?category="+$(this).val()
+            })
+        });
+    </script>
 </head>
 <body>
-
 <div layout:fragment="content">
     <main class="th-layout-main ">
         <!-- [S]campland-N8 -->
@@ -34,11 +50,23 @@
                 <img class="contents-visual img-mobile" src="/images/health2.jpg" alt="서브 비주얼 모바일 이미지">
                 <div class="contents-body container-md">
                     <div class="textset textset-visual" >
-                        <h2 class="textset-tit" style="font-family: 'SUITE-Regular'; color: whitesmoke">트레이너</h2>
+                        <h2 class="textset-tit" style="font-family: 'SUITE-Regular'; color: whitesmoke" >트레이너</h2>
                     </div>
                 </div>
             </div>
         </div>
+        <li class="contents-item">
+            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                <span></span>트레이너 검색
+            </h6>
+            <form th:action="@{/trainerlist}" method="get">
+                <div class="form-wrap">
+                    <div class="inputset inputset-round">
+                        <input type="text" id="trainerName" name="trainerName" class="inputset-input form-control" aria-label="내용" placeholder="검색">
+                    </div>
+                </div>
+            </form>
+        </li>
         <!-- [E]campland-N8 -->
         <!-- [S]campland-N22 -->
         <div class="campland-N22" data-bid="tnLXfHL9xK">
@@ -103,84 +131,62 @@
                             </div>
                         </div>
                     </div>
-                    <div class="cardset cardset-hor">
+                    <div class="cardset cardset-hor" th:each="trainer:${trainerlist}">
                         <figure class="cardset-figure">
                             <img class="cardset-img" src="/images/trainer1.jpg" alt="카드 이미지">
                         </figure>
                         <div class="cardset-body">
-                            <p class="cardset-txt">트레이너번호 2024061520240615</p>
+                            <p class="cardset-txt" th:text="${trainer.writedate}">트레이너번호 2024061520240615</p>
                             <div class="badgeset-wrap">
                                 <div class="badgeset-group">
                                     <div class="badgeset badgeset-fill badgeset-border badgeset-round badgeset-primary">트레이너 인증</div>
                                 </div>
                             </div>
                             <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';">트레이너 1</h2>
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular'; color: gray; font-size: 13px; margin-left: 5px;">서울 Goodgym</h2>
+                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';" th:text="${trainer.name}"></h2>
+                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular'; color: gray; font-size: 13px; margin-left: 5px;" th:text="${trainer.GymName}"></h2>
                             </div>
                             <div class="location" style=" display:flex; flex-wrap:wrap;">
                                 <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                                <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
+                                <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${trainer.addr}"></h2>
                             </div>
-                            <p class="cardset-desc">20,000</p>
+                            <div class="pay" style=" display:flex; flex-wrap:wrap;">
+                                <i class="fa-solid fa-coins" style="margin-top: 10px; margin-right: 10px;"></i>
+                                <p class="cardset-desc" style="font-family: 'SUITE-Regular'; font-size: 20px;" th:text="${trainer.ticketprice}"></p>
+                            </div>
                             <div class="btnset-wrap">
-                                <a href="/trainerread" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
+                                <a th:href="@{/trainerread(boardNo=${trainer.boardNo},action=READ)}" style=" background-color: #1abc9c;">상세보기</a>
                                 <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
                             </div>
                         </div>
                     </div>
-                    <div class="cardset cardset-hor">
-                        <figure class="cardset-figure">
-                            <img class="cardset-img" src="/images/trainer2.jpg" alt="카드 이미지">
-                        </figure>
-                        <div class="cardset-body">
-                            <p class="cardset-txt">트레이너번호 2024061520240615</p>
-                            <div class="badgeset-wrap">
-                                <div class="badgeset-group">
-
-                                </div>
-                            </div>
-                            <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';">트레이너 2</h2>
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular'; color: gray; font-size: 13px; margin-left: 5px;">서울 Goodgym</h2>
-                            </div>
-                            <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                                <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
-                            </div>
-                            <p class="cardset-desc">20,000</p>
-                            <div class="btnset-wrap">
-                                <a href="/trainerread" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
-                                <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
-                            </div>
+                    <nav class="pagiset pagiset-circ pagiset-border">
+                        <div class="pagiset-ctrl">
+                            <a class="pagiset-link pagiset-first" href="javascript:void(0)">
+                                <span class="visually-hidden">처음</span>
+                            </a>
                         </div>
-                    </div>
-                    <div class="cardset cardset-hor">
-                        <figure class="cardset-figure">
-                            <img class="cardset-img" src="/images/trainer3.jpg" alt="카드 이미지">
-                        </figure>
-                        <div class="cardset-body">
-                            <p class="cardset-txt">트레이너번호 2024061520240615</p>
-                            <div class="badgeset-wrap">
-                                <div class="badgeset-group">
-                                    <div class="badgeset badgeset-fill badgeset-border badgeset-round badgeset-primary">트레이너 인증</div>
-                                </div>
-                            </div>
-                            <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';">트레이너 3</h2>
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular'; color: gray; font-size: 13px; margin-left: 5px;">서울 Mygym</h2>
-                            </div>
-                            <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                                <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
-                            </div>
-                            <p class="cardset-desc">20,000</p>
-                            <div class="btnset-wrap">
-                                <a href="/trainerread" class="btnset btnset-round" style="  background-color: #1abc9c;" >상세보기</a>
-                                <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
-                            </div>
+                        <div class="pagiset-ctrl">
+                            <a class="pagiset-link pagiset-prev" href="javascript:void(0)">
+                                <span class="visually-hidden">이전</span>
+                            </a>
                         </div>
-                    </div>
+                        <div class="pagiset-list">
+                            <a class="pagiset-link active-fill" href="#">1</a>
+                            <a class="pagiset-link" href="#">2</a>
+                            <a class="pagiset-link" href="">3</a>
+                        </div>
+                        <div class="pagiset-ctrl">
+                            <a class="pagiset-link pagiset-next" href="javascript:void(0)">
+                                <span class="visually-hidden">다음</span>
+                            </a>
+                        </div>
+                        <div class="pagiset-ctrl">
+                            <a class="pagiset-link pagiset-last" href="javascript:void(0)">
+                                <span class="visually-hidden">마지막</span>
+                            </a>
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
