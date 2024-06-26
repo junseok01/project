@@ -11,11 +11,12 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
+@Transactional
 public class UserDAOImpl implements UserDAO {
     private final EntityManager entityManager;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
-    @Transactional
+
     @Override
     public void insert(UserEntity entity){entityManager.persist(entity);}
 
@@ -41,4 +42,12 @@ public class UserDAOImpl implements UserDAO {
     public void deleteMember(String id) {
         userRepository.deleteById(id);
     }
+
+    @Override
+    public void updateUserType2Trainer(String id) {
+        UserEntity entity = userRepository.findByLoginId(id);
+        entity.setUserType("2");
+        userRepository.save(entity);
+    }
+
 }
