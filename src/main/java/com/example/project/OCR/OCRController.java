@@ -23,6 +23,7 @@ public class OCRController {
 
         System.out.println("OCR 컨트롤러 진입");
         // OCR 테스트할 이미지 파일 경로
+
         String imagePath = "src/main/resources/static/images/OCR/자격증2.jpg";
         File image = new File(imagePath);
         System.out.println(image.exists());
@@ -33,6 +34,7 @@ public class OCRController {
         // tessdata 디렉토리 경로 설정
         //String tessdataPath = classLoader.getResource("tessdata").getPath();
         tesseract.setDatapath("src/main/resources/tessdata");
+
 
         // 한글 언어 설정
         tesseract.setLanguage("kor");
