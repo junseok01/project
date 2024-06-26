@@ -12,8 +12,8 @@ import java.util.List;
 public class gymDAOImpl implements gymDAO{
     private final gymRepository repository;
     @Override
-    public List<Gym> gymlist() {
-        List<Gym> list = repository.findAll();
+    public List<Gym> gymlist(float x, float y) {
+        List<Gym> list = repository.AreaGym(x, y);
         return list;
     }
 
