@@ -1,11 +1,9 @@
-package com.example.project.board_kim;
+package com.example.project.board;
 
 import com.example.project.dto.BoardDTO;
 import com.example.project.dto.Criteria;
-import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
