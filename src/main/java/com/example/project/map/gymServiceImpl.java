@@ -15,8 +15,8 @@ import java.util.stream.Collectors;
 public class gymServiceImpl implements gymService {
     private final gymDAO dao;
     @Override
-    public List<GymMapResponseDTO> gymlist() {
-        List<Gym> list = dao.gymlist();
+    public List<GymMapResponseDTO> gymlist(float x, float y) {
+        List<Gym> list = dao.gymlist(x,y);
         List<GymMapResponseDTO> gymlist = list.stream()
                 .map(GymMapResponseDTO :: new)
                 .collect(Collectors.toList());
@@ -29,7 +29,7 @@ public class gymServiceImpl implements gymService {
         Matcher matcher = p.matcher(keyword);
         List<Gym> list = null;
         if (keyword.equals("헬스장") | keyword.equals(("헬스"))) {
-            list = dao.gymlist();
+            //list = dao.gymlist(, );
         }else if (keyword.startsWith("동대문") || keyword.startsWith("영등포") || keyword.startsWith("서대문") || matcher.find()) {
             String[] split = keyword.split("구");
             list = dao.gymselectaddrlist(split[0]);
