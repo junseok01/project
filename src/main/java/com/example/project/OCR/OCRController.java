@@ -1,25 +1,29 @@
 package com.example.project.OCR;
 
+import jakarta.persistence.Entity;
 import net.sourceforge.tess4j.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.*;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.UUID;
 
 @Controller
 public class OCRController {
 
     @GetMapping("/ocr/test")
     public String testOCR(Model model) {
-        ClassLoader classLoader = OCRController.class.getClassLoader();
+
 
         System.out.println("OCR 컨트롤러 진입");
         // OCR 테스트할 이미지 파일 경로
-        String imagePath = "C:\\backend23\\work\\project\\project\\src\\main\\resources\\static\\images\\OCR\\ocrTest.jpg";
+        String imagePath = "src/main/resources/static/images/OCR/자격증2.jpg";
         File image = new File(imagePath);
         System.out.println(image.exists());
 
@@ -28,7 +32,7 @@ public class OCRController {
 
         // tessdata 디렉토리 경로 설정
         //String tessdataPath = classLoader.getResource("tessdata").getPath();
-        tesseract.setDatapath("C:\\backend23\\work\\project\\project\\src\\main\\resources\\tessdata");
+        tesseract.setDatapath("src/main/resources/tessdata");
 
         // 한글 언어 설정
         tesseract.setLanguage("kor");
@@ -46,10 +50,10 @@ public class OCRController {
             System.out.println("OCR Result:");
             System.out.println(result);
 
-            return "/test/test"; // OCR 결과를 보여줄 뷰 이름 리턴
+            return "/test/test"; // 지금은 뷰리턴이지만 추후 @RestController로 바꾼후 데이터 리턴(이름,자격증,급수 등등 생각하기)
         } catch (IOException | TesseractException e) {
             e.printStackTrace();
-            return "/test/test"; // 오류 발생 시 에러 페이지 또는 다른 처리
+            return "/test/test";
         }
     }
 
@@ -57,7 +61,7 @@ public class OCRController {
         BufferedImage originalImage = ImageIO.read(imageFile);
 
         // 이미지 크기 조정
-        int targetWidth = 300;
+        int targetWidth = 500;
         int targetHeight = (int) ((double) originalImage.getHeight() / originalImage.getWidth() * targetWidth);
         BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g = resizedImage.createGraphics();
@@ -80,4 +84,11 @@ public class OCRController {
 
         return resizedImage;
     }
+
+    @GetMapping("/uploadTest")
+    public String up(){
+
+        return "/test/uploadTest";
+    }
+
 }

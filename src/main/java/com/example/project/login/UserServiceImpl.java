@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class UserServiceImpl implements UserService {
+
+
     UserDAO userDAO;
     ModelMapper modelMapper;
 
@@ -39,5 +41,11 @@ public class UserServiceImpl implements UserService {
         UserDTO userDTO = userDAO.search(id);
         System.out.println(userDTO);
         return null;
+    }
+
+    //아이디로 유저타입을 트레이너로 변경
+    @Override
+    public void updateUserType2Trainer(String id) {
+        userDAO.updateUserType2Trainer(id);
     }
 }
