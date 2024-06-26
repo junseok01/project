@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Table(name = "request")
 @Data
@@ -13,14 +15,35 @@ import lombok.NoArgsConstructor;
 public class RequestEntity {
     @Id
     @GeneratedValue
-    private Long _id;
-    @Column
-    private String loginId;
-    @Column
-    private String Request;
+    private Long id;
 
-    public RequestEntity(String loginId, String request) {
-        this.loginId = loginId;
-        Request = request;
+    @Column(nullable = false)
+    private String loginId;
+
+    @Column(nullable = false)
+    private String title;
+
+    @Column(nullable = false)
+    private String content;
+
+    @OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<FileEntity> files;
+
+
+    public RequestEntity(RequestDTO requestDTO){
+        this.loginId = requestDTO.getLoginId();
+        this.title = requestDTO.getTitle();
+        this.content = requestDTO.getContent();
+    }
+
+    @Override
+    public String toString() {
+        return "RequestEntity{" +
+                "id=" + id +
+                ", loginId='" + loginId + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", files=" + files +
+                '}';
     }
 }

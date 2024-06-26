@@ -1,17 +1,34 @@
 package com.example.project.request;
 
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
-public class RequestServiceImpl implements RequestService{
+@Transactional
+public class RequestServiceImpl implements RequestService {
     @Autowired
     RequestDAO requestDAO;
+    @Autowired
+    FileDAO fileDAO;
+
+    @Autowired
+    private RequestRepository requestRepository;
+    @Autowired
+    private FileEntityRepository fileEntityRepository;
+
     private final ModelMapper modelMapper;
 
 
@@ -20,39 +37,71 @@ public class RequestServiceImpl implements RequestService{
     }
 
 
-    public void update(RequestDTO DTO){
+    public void update(RequestDTO DTO) {
 
     }
+
 
     @Override
-    public RequestDTO saveRequest(String id, String msg) {
-        RequestEntity requestEntity = new RequestEntity(id, msg); // 식별자와 메시지를 설정합니다.
-        requestDAO.saveRequest(requestEntity);
-        return null;
+    public RequestDTO searchById(Long id) {
+        RequestEntity requestEntity = requestDAO.searchById(id);
+        RequestDTO requestDTO = modelMapper.map(requestEntity,RequestDTO.class);
+        return requestDTO;
     }
+
 
     @Override
     public List<RequestDTO> showRequest() {
         List<RequestEntity> entities = requestDAO.showRequest();
-        List<RequestDTO> requestDTO = entities.stream()
-                .map(entity -> modelMapper.map(entity, RequestDTO.class))
-                .collect(Collectors.toList());
-        return requestDTO;
+        List<RequestDTO> requestDTOList = entities.stream()
+                        .map(entity -> modelMapper.map(entity, RequestDTO.class))
+                        .collect(Collectors.toList());
+        System.out.println("리퀘스트 서비스 임플의 쇼 리퀘스트" + requestDTOList);
+        return requestDTOList;
+    }
+
+
+    @Override
+    @Transactional
+    public void deleteByLoginId(String loginId) {
+        requestDAO.deleteByLoginId(loginId);
     }
 
     @Override
-    public void updateToTrainer(String id) {
-        requestDAO.updateToTrainer(id);
-    }
-
-    @Override
-    public void delete(String id) {
+    public void deleteById(Long id) {
         requestDAO.deleteById(id);
     }
-
+    @Transactional
     @Override
-    public void deleteKey(Long key) {
-        requestDAO.deleteByKey(key);
+    public RequestDTO saveUploadFile(String uploadDirectory, RequestEntity requestEntity, List<MultipartFile> files) throws IOException{
+        //컨트롤러에서 DTO->Entity변환후 DB에 RequestDTO저장하기
+        requestEntity = requestDAO.saveRequest(requestEntity);
+        System.out.println("업로드 파일 위치" + uploadDirectory);
+        //PDF파일을 지정된 폴더에 UUID+확장자로 이름을 설정하여 저장후 fileEntity생성
+        for (MultipartFile file : files) {
+            String uuid = UUID.randomUUID().toString();
+            String name = file.getOriginalFilename();
+            String fileExtension = name.substring(name.lastIndexOf("."));
+            String fileName = uuid + fileExtension;
+
+            System.out.println("파일이름바꾸어 저장");
+            //지정된 경로에 파일저장
+            Path filepath = Paths.get(uploadDirectory, fileName);
+            String newFilePath = filepath.toString().replace("\\","/");
+            System.out.println(filepath.toString());
+            System.out.println(newFilePath);
+            Files.write(filepath,file.getBytes());
+            System.out.println("파일이름바꾸어 저장완료");
+
+            //파일 엔티티 생성
+            //requestEntity를 셋팅함으로 RequestEntity의 자녀라는걸 알수있다.
+            FileEntity fileEntity = new FileEntity(requestEntity,name,fileName,filepath.toString());
+            //생성된 엔티티 DB에 저장
+            fileDAO.save(fileEntity);
+
+        }
+        RequestDTO requestDTO = modelMapper.map(requestEntity,RequestDTO.class);
+        return requestDTO;
     }
 }
 
