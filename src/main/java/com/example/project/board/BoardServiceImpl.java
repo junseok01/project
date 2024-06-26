@@ -1,4 +1,4 @@
-package com.example.project.board_kim;
+package com.example.project.board;
 
 import com.example.project.dto.BoardDTO;
 import com.example.project.dto.Criteria;
