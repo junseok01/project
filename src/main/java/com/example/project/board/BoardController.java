@@ -1,18 +1,17 @@
-package com.example.project.board_kim;
+package com.example.project.board;
 
+import com.example.project.comment.CommentRequestDTO;
+import com.example.project.comment.CommentResponseDto;
+import com.example.project.comment.CommentService;
 import com.example.project.dto.BoardDTO;
 import com.example.project.dto.Criteria;
 import com.example.project.dto.Paging;
-import com.example.project.login.LoginService;
 import com.example.project.login.UserDTO;
-import com.example.project.login.UserEntity;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -21,10 +20,12 @@ import java.util.List;
 public class BoardController {
     private BoardService service;
     private UserDTO userId;
+    private CommentService commentService;
 
     @Autowired
-    public BoardController(BoardService service) {
+    public BoardController(BoardService service,CommentService commentService) {
         this.service = service;
+        this.commentService = commentService;
     }
 
     @GetMapping("board/myboardpage")
@@ -70,6 +71,7 @@ public class BoardController {
        // System.out.println(board_no+"==board_no"+action+"==action");
         ModelAndView mav = new ModelAndView();
         BoardDTO board = service.getBoardInfo(board_no);
+        List<CommentResponseDto> comments = commentService.findCommentByBoardId(board_no);
         String view="";
         if(action.equals("READ")) {
             view = "board/board_read";
@@ -78,7 +80,21 @@ public class BoardController {
         }
         mav.setViewName(view);
         mav.addObject("board",board);
+        mav.addObject("comments",comments);
         return mav;
+    }
+    @PostMapping("/board/comment/add")
+    @ResponseBody
+    public CommentResponseDto addComment(@RequestBody CommentRequestDTO commentRequestDTO){
+        System.out.println(commentRequestDTO);
+        return commentService.addComment(commentRequestDTO);
+    }
+    @DeleteMapping("/board/comment/delete/{commentNo}")
+    @ResponseBody
+    public Long deleteComment(@PathVariable("commentNo") Long commentNo) {
+        System.out.println(commentNo);
+        commentService.deleteComment(commentNo);
+        return commentNo;
     }
     @GetMapping("board/write")
     public String writepage(HttpSession session, Model model) {

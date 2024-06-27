@@ -3,12 +3,18 @@ package com.example.project.request;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class RequestDTO {
-    private String _Id;
+    private Long id;
     private String loginId;
-    private String Request;
+    private String title;
+    private String content;
+
+
 }

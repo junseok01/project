@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>RequestToTrainer</title>
+    <link rel="stylesheet" type="text/css" href="/css/request/requestview.css">
+    <script src="/js/requestview/requestview.js"></script>
+</head>
+<body>
+<body>
+<div class="file-upload-container">
+    <h2>아이디와 내용 입력하기</h2>
+    <form action="/RequestToTrainer" method="post" enctype="multipart/form-data" onsubmit="closePopup(event)">
+        <div>
+            <label>아이디:</label>
+            <span th:text="${session.member.loginId}"></span>
+            <input type="hidden" id="loginId" name="loginId" th:value="${session.member.loginId}">
+        </div>
+        <div>
+            <label for="title">제목:</label>
+            <input id="title" name="title" required>
+        </div>
+        <div>
+            <label for="content">내용:</label>
+            <textarea id="content" name="content" rows="5" required></textarea>
+        </div>
+        <div id="fileInputs">
+            <div class="file-upload-input">
+                <label for="files">파일 업로드:</label>
+                <input type="file" id="files" name="files" multiple>
+            </div>
+        </div>
+        <button type="button" onclick="addFileInput()">파일 추가</button>
+        <div>
+            <button type="submit">전송</button>
+        </div>
+    </form>
+</div>
+</body>
+</body>
+</html>

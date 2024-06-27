@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class RequestDAOImpl implements RequestDAO{
+public class RequestDAOImpl implements RequestDAO {
     RequestRepository requestRepository;
     UserRepository userRepository;
 
@@ -21,9 +21,16 @@ public class RequestDAOImpl implements RequestDAO{
     }
 
     @Override
-    public void saveRequest(RequestEntity requestEntity) {
+    public RequestEntity searchById(Long id) {
+        RequestEntity requestEntity = requestRepository.findById(id).get();
+        return requestEntity;
+    }
+
+    @Override
+    public RequestEntity saveRequest(RequestEntity requestEntity) {
         System.out.println("daoImple에서 save엔티티결과" + requestEntity);
-        requestRepository.save(requestEntity);
+        RequestEntity savedEntity = requestRepository.save(requestEntity);
+        return savedEntity;
     }
 
     @Override
@@ -31,33 +38,25 @@ public class RequestDAOImpl implements RequestDAO{
         return requestRepository.findAll();
     }
 
-
-
     @Override
     public RequestEntity requestEntity(String id) {
         return null;
     }
 
-    @Override
-    @Transactional
-    public void updateToTrainer(String id) {
-        System.out.println("여기는 다오임플의 업데이트");
-        UserEntity userEntity = userRepository.findById(id).get();
-        userEntity.setUserType("2");//트레이너로 변경
-        userRepository.save(userEntity);//변경문 디비에 저장
-        System.out.println("변경된 것" + userEntity);
-    }
+
 
     @Override
     @Transactional
-    public void deleteById(String loginId) {
+    public void deleteByLoginId(String loginId) {
         System.out.println("dao에서 삭제요청");
-        requestRepository.deleteByloginId(loginId);
+       // RequestEntity entity = requestRepository.findByLoginId(loginId);
+        requestRepository.deleteAllByLoginId(loginId);
     }
 
+
+    //
     @Override
-    public void deleteByKey(Long id) {
-        System.out.println(requestRepository.findById(id) + "=========");
+    public void deleteById(Long id) {
         requestRepository.deleteById(id);
     }
 
