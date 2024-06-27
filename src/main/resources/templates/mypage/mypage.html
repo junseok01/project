@@ -45,7 +45,7 @@
         <th:block th:replace="~{mypage/client :: main}"></th:block>
     </div>
     <div class="main-content" th:if="${member.userType == '2'}">
-        <th:block th:replace="~{mypage/client :: main}"></th:block>
+        <th:block th:replace="~{mypage/trainer :: main}"></th:block>
     </div>
     <div class="main-content" th:if="${member.userType == '3'}">
         <th:block th:replace="~{mypage/client :: main}"></th:block>

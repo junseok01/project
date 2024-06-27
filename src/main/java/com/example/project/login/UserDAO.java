@@ -7,6 +7,7 @@ public interface UserDAO {
     UserDTO search(String id);
     List<UserEntity> findAll();
     void deleteMember(String id);
+    void updateUserType2Trainer(String id);
 
 
 }

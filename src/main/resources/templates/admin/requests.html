@@ -24,22 +24,20 @@
                     <tr>
                         <th>번호</th>
                         <th>아이디</th>
-                        <th>요청내용</th>
+                        <th>제목</th>
                         <th>업데이트</th>
                         <th>삭제</th>
                     </tr>
                 </thead>
                 <tbody>
-                <tr th:each="request,status  : ${session.RequestList}">
-                    <td th:text="${status.index + 1}"></td>
-                    <td th:text="${request.loginId}"></td>
-                    <td th:text="${request.request}"></td>
-                    <td><a th:href="@{/request/update(_Id=${request._Id},loginId=${request.loginId})}">수락</a></td>
-                    <td><a th:href="@{/request/delete(_id=${request._Id})}">삭제</a></td>
-                </tr>
-                    <!--<tr th:each="request : ${requests}">
-                        <td th:text="${request.key+ ' : ' +  request.value.request}"></td>
-                    </tr>-->
+                    <tr th:each="request,status  : ${session.RequestList}">
+                        <td th:text="${status.index + 1}"></td>
+                        <td ><a th:href="@{/RequestToTrainer(action='READ', id=${request.id})}" th:text="${request.loginId}"></a></td>
+                        <td th:text="${request.title}"></td>
+                        <td><a th:href="@{/request/update(loginId=${request.loginId})}">수락</a></td>
+                        <td><a th:href="@{/request/delete(id=${request.id})}">삭제</a></td>
+                    </tr>
+
                 </tbody>
             </table>
         </div>

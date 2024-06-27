@@ -13,8 +13,12 @@
             <!-- 프로필 정보 텍스트 -->
             <div class="profile-info">
                 <p th:text="'이름 : ' + ${session.member.name}"></p>
-                <p>나이: 31세</p>
-                <p>직업: 개발자</p>
+                <p>나이: 5세</p>
+                <p>회원 유형 : 일반회원
+                    <button onclick="window.open('/RequestToTrainer?action=WRITE&id=1', '_blank', 'width=800,height=800,resizable=yes');">트레이너 요청하기</button>
+                </p>
+<!--                <p th:if="${session.member.userType == 1}">회원 유형 : 일반회원</p>-->
+<!--                <p th:if="${session.member.userType == 2}">회원 유형 : 트레이너</p>-->
                 <!-- 원하는 프로필 정보 추가 -->
                 <button onclick="openEditPopup()">수정하기</button>
             </div>
