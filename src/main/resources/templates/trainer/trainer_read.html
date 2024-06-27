@@ -43,8 +43,14 @@
         <div class="campland-N10" data-bid="giLXFmD3rk">
             <div class="contents-inner">
                 <div class="contents-container container-md">
-                    <div class="textset textset-sub" >
-                        <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">트레이너 정보</h2>
+                    <div class="textset textset-sub"  style="display: flex; flex-wrap: wrap;">
+                        <div class="textbox">
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">트레이너 정보</h2>
+                        </div>
+                        <div class="button2" style=" margin-left: 810px;">
+                            <a th:href="@{/trainerdelete(boardNo=${trainer.boardNo})}" class="btnset btnset-round" style="  background-color: #1abc9c; float: right;">삭제하기</a>
+                            <a href="javascript:void(0);" class="btnset btnset-round" style="  background-color: #1abc9c; ">수정하기</a>
+                        </div>
                     </div>
                     <hr/>
                     <div class="textset textset-sub" style="display: flex; flex-wrap: wrap;" >

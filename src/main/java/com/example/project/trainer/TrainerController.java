@@ -10,6 +10,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,27 +23,31 @@ public class TrainerController {
     private final TrainerService service;
 
     @GetMapping("/trainerlist")
-    public String trainerpage(Model model , String trainerName) {
-        List<TrainerResponseDTO> trainerEntityList = service.trainerList();
+    public String trainerpage(Model model , @RequestParam(defaultValue = "") String trainerName,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+        List<TrainerResponseDTO> trainerEntityList =service.pagingFindAll();
         if(trainerName==null){
-            trainerEntityList = service.trainerList();
+            trainerEntityList =service.pagingFindAll();
         }else{
-            trainerEntityList = service.findBytrainer(trainerName);
+            trainerEntityList =service.findBytrainer(trainerName,page);
         }
+        //페이징처리 - 다음 ,이전
+        Page<TrainerEntity> trainerPage = service.getTrainers(page, size);
+        model.addAttribute("trainerPage", trainerPage);
+        model.addAttribute("trainerName",trainerName);
         model.addAttribute("trainerlist",trainerEntityList);
         return "trainer/trainerhome";
     }
-
     @GetMapping("/trainerread")
     public String trainerread(@RequestParam("boardNo") long boardNo, @RequestParam("action") String action, Model model) {
         TrainerEntity read = service.gettrainerInfo(boardNo);
-        model.addAttribute("trainer", read);
+
         String view = "";
         if (action.equals("READ")) {
             view = "trainer/trainer_read";
         } else {
-            view = "board/board_update";
+            view = "trainer/trainer_update";
         }
+        model.addAttribute("trainer", read);
         return "trainer/trainer_read";
     }
 
@@ -58,5 +63,13 @@ public class TrainerController {
         service.insert(trainer);
         return "redirect:/trainerlist?category=all";
     }
-
+    @GetMapping("/trainerdelete")
+    public String delete(String boardNo){
+        service.delete(Long.parseLong(boardNo));
+        return "redirect:/trainerlist?category=all";
+    }
+    @PostMapping("/update")
+    public String update( TrainerRequestDTO trainer) {
+        return "redirect:/board/list?category=all";
+    }
 }

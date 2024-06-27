@@ -29,8 +29,8 @@ public class TrainerEntity {
     private String career;
     private String info;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
+    @CreationTimestamp
     private Date writedate;
-
 
     public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info) {
         this.name = Name;

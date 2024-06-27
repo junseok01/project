@@ -162,28 +162,13 @@
                     </div>
                     <nav class="pagiset pagiset-circ pagiset-border">
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-first" href="javascript:void(0)">
-                                <span class="visually-hidden">처음</span>
-                            </a>
-                        </div>
-                        <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-prev" href="javascript:void(0)">
+                            <a class="pagiset-link pagiset-prev"  th:href="@{/trainerlist(page=${trainerPage.number - 1}, size=${trainerPage.size})}">
                                 <span class="visually-hidden">이전</span>
                             </a>
                         </div>
-                        <div class="pagiset-list">
-                            <a class="pagiset-link active-fill" href="#">1</a>
-                            <a class="pagiset-link" href="#">2</a>
-                            <a class="pagiset-link" href="">3</a>
-                        </div>
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-next" href="javascript:void(0)">
-                                <span class="visually-hidden">다음</span>
-                            </a>
-                        </div>
-                        <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-last" href="javascript:void(0)">
-                                <span class="visually-hidden">마지막</span>
+                            <a class="pagiset-link pagiset-next"  th:href="@{/trainerlist(page=${trainerPage.number + 1}, size=${trainerPage.size})}">
+                                <span class="visually-hidden" >다음</span>
                             </a>
                         </div>
                     </nav>
@@ -199,7 +184,5 @@
     <script src="js/gym/template.js"></script>
     <script src="js/gym/common.js"></script>
     <script src="js/gym/script.js"></script>
-
-
 </body>
 </html>
