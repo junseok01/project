@@ -5,7 +5,7 @@ import com.example.project.dto.tube;
 import java.util.List;
 
 public interface tubeDAO {
-    public List<tube> tubelist();
-    public List<tube> tubeselectlist(String keyword);
-    public List<tube> tubecategorylist(String category);
+    public List<tube> tubeselectlist(String keyword,int pageNo);
+    public List<tube> tubecategorylist(String category,int pageNo);
+    public List<tube> tubelist(int pageNo);
 }
