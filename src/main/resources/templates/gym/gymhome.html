@@ -23,6 +23,23 @@
     <link rel="stylesheet" href="/css/gym/style.css">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" th:inline="javascript">
+        //타임리프에서 사용하는 변수를 자바스크립트에서 사용하는 경우
+        //jQuery를 이용해서 select에서 선택을 하면 컨트롤러가 요청되도록 처리
+        let category=/*[[${category}]]*/; //컨트롤러를 요청하고 response 될때 공유해준 값을 타임리프를 실행해서 받아옴
+        /*alert(category);*/
+        $(document).ready(function(){
+            //alert("컨트롤러가 공유한 데이터=>"+category);
+            //console.log("컨트롤러가 공유한 데이터=>"+category);
+            //select에서 선택된 option에 selected속성을 추가
+            $("#category").val(category).attr("selected","selected");
+            $("#category").change(function(){
+                //select가 변경되는 change이벤트가 발생하면 컨트롤러를 호출함
+                //alert($(this).val())
+                location.href="/trainerlist?category="+$(this).val()
+            })
+        });
+    </script>
 </head>
 <body>
 
@@ -40,6 +57,18 @@
                     </div>
                 </div>
             </div>
+            <li class="contents-item">
+                <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                    <span></span>헬스장검색 검색
+                </h6>
+                <form th:action="@{/gymlist}" method="get">
+                    <div class="form-wrap">
+                        <div class="inputset inputset-round">
+                            <input type="text" id="gymname" name="gymname" class="inputset-input form-control" aria-label="내용" placeholder="검색">
+                        </div>
+                    </div>
+                </form>
+            </li>
             <!-- [E]campland-N8 -->
             <!-- [S]campland-N22 -->
             <div class="campland-N22" data-bid="tnLXfHL9xK">
@@ -99,7 +128,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="cardset cardset-hor">
+                        <div class="cardset cardset-hor" th:each="gym:${gymlist}">
                             <figure class="cardset-figure">
                                 <img class="cardset-img" src="/images/health4.jpg" alt="카드 이미지">
                             </figure>
@@ -110,65 +139,31 @@
                                         <div class="badgeset badgeset-fill badgeset-border badgeset-round badgeset-primary">연중무휴</div>
                                     </div>
                                 </div>
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';">헬스장 1</h2>
+                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';" th:text="${gym.gymname}"></h2>
                                 <div class="location" style=" display:flex; flex-wrap:wrap;">
                                     <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                                    <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
+                                    <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${gym.gymaddr}"></h2>
                                 </div>
-                                <p class="cardset-desc">20,000</p>
+                                <p class="cardset-desc" th:text="${gym.monthprice}"></p>
+                                <p class="cardset-desc"th:text="${gym.yearprice}"></p>
                                 <div class="btnset-wrap">
-                                    <a href="/gymread" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
+                                    <a th:href="@{/gymread(gymboardnum=${gym.gymboardnum},action=READ)}" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
                                     <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
                                 </div>
                             </div>
                         </div>
-                        <div class="cardset cardset-hor">
-                            <figure class="cardset-figure">
-                                <img class="cardset-img" src="/images/health4.jpg" alt="카드 이미지">
-                            </figure>
-                            <div class="cardset-body">
-                                <p class="cardset-txt">등록번호 2024061520240615</p>
-                                <div class="badgeset-wrap">
-                                    <div class="badgeset-group">
-
-                                    </div>
-                                </div>
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';">헬스장 2</h2>
-                                <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                    <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                                    <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
-                                </div>
-                                <p class="cardset-desc">20,000</p>
-                                <div class="btnset-wrap">
-                                    <a href="/gymread" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
-                                    <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
-                                </div>
-
+                        <nav class="pagiset pagiset-circ pagiset-border">
+                            <div class="pagiset-ctrl">
+                                <a class="pagiset-link pagiset-prev"  th:href="@{/gymlist(page=${GymPage.number - 1}, size=${GymPage.size})}">
+                                    <span class="visually-hidden">이전</span>
+                                </a>
                             </div>
-                        </div>
-                        <div class="cardset cardset-hor">
-                            <figure class="cardset-figure">
-                                <img class="cardset-img" src="/images/health4.jpg" alt="카드 이미지">
-                            </figure>
-                            <div class="cardset-body">
-                                <p class="cardset-txt">등록번호 2024061520240615</p>
-                                <div class="badgeset-wrap">
-                                    <div class="badgeset-group">
-                                        <div class="badgeset badgeset-fill badgeset-border badgeset-round badgeset-primary">연중무휴</div>
-                                    </div>
-                                </div>
-                                <h2 class="cardset-tit" style="font-family: 'SUITE-Regular';">헬스장3</h2>
-                                <div class="location" style=" display:flex; flex-wrap:wrap;">
-                                    <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                                    <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
-                                </div>
-                                <p class="cardset-desc">20,000</p>
-                                <div class="btnset-wrap">
-                                    <a href="/gymread" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
-                                    <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
-                                </div>
+                            <div class="pagiset-ctrl">
+                                <a class="pagiset-link pagiset-next"  th:href="@{/gymlist(page=${GymPage.number + 1}, size=${GymPage.size})}">
+                                    <span class="visually-hidden" >다음</span>
+                                </a>
                             </div>
-                        </div>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -181,6 +176,5 @@
     <script src="js/gym/template.js"></script>
     <script src="js/gym/common.js"></script>
     <script src="js/gym/script.js"></script>
-
  </body>
 </html>
