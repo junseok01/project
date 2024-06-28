@@ -13,19 +13,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class tubeServiceImpl implements tubeService{
     private final tubeDAO dao;
-    @Override
-    public List<tubeResponseDTO> tubelist() {
-        List<tube> list = dao.tubelist();
-        ModelMapper mapper = new ModelMapper();
-        List<tubeResponseDTO> tubelist = list.stream()
-                .map(entity -> mapper.map(entity,tubeResponseDTO.class))
-                .collect(Collectors.toList());
-        return tubelist;
-    }
 
     @Override
-    public List<tubeResponseDTO> tubeselectlist(String keyword) {
-        List<tube> selectlist = dao.tubeselectlist(keyword);
+    public List<tubeResponseDTO> tubeselectlist(String keyword,int pageNo) {
+        List<tube> selectlist = dao.tubeselectlist(keyword,pageNo);
         ModelMapper mapper = new ModelMapper();
         List<tubeResponseDTO> tubeselectlist = selectlist.stream()
                 .map(entity -> mapper.map(entity,tubeResponseDTO.class))
@@ -34,12 +25,22 @@ public class tubeServiceImpl implements tubeService{
     }
 
     @Override
-    public List<tubeResponseDTO> tubecategorylist(String category) {
-        List<tube> selectlist = dao.tubecategorylist(category);
+    public List<tubeResponseDTO> tubecategorylist(String category,int pageNo) {
+        List<tube> selectlist = dao.tubecategorylist(category, pageNo);
         ModelMapper mapper = new ModelMapper();
         List<tubeResponseDTO> tubecategorylist = selectlist.stream()
                 .map(entity -> mapper.map(entity,tubeResponseDTO.class))
                 .collect(Collectors.toList());
         return tubecategorylist;
+    }
+
+    @Override
+    public List<tubeResponseDTO> tubelist(int pageNo) {
+        List<tube> list = dao.tubelist(pageNo);
+        ModelMapper mapper = new ModelMapper();
+        List<tubeResponseDTO> tubelist = list.stream()
+                .map(entity -> mapper.map(entity,tubeResponseDTO.class))
+                .collect(Collectors.toList());
+        return tubelist;
     }
 }

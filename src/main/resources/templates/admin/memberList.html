@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Requests</title>
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/paging/page.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div th:fragment="admin">
@@ -18,8 +19,8 @@
             <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
         </div>
         <div class="main-content">
-            <h1>회원목록 관리</h1>
-            <table>
+            <h1 id = "Admin-header">회원목록 관리</h1>
+            <table id="AdminTable">
                 <thead>
                 <tr>
                     <th>No</th>
@@ -35,24 +36,62 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="member,status  : ${session.memberList}">
-                    <td th:text="${status.index + 1}"></td>
+                <tr th:each="member,status  : ${memberList}">
+                    <td th:text="${status.index + 1}+(11 * ${currentPage})"></td>
                     <td th:text="${member.loginId}"></td>
                     <td th:text="${member.loginPw}"></td>
                     <td th:text="${member.name}"></td>
                     <td th:text="${member.nickname}"></td>
                     <td th:text="${member.joinDate}"></td>
                     <td th:text="${member.cellphoneNo}"></td>
-                    <td th:text="${member.userType}"></td>
-                    <td th:text="${member.loginType}"></td>
+                    <td th:text="${member.userType == '1' ? '일반' :
+                                         member.userType == '2' ? '트레이너' :
+                                         member.userType == '3' ? '관장' :
+                                         member.userType == '0' ? '관리자' :
+                                         '알 수 없음'}"></td>
+                    <td th:text="${member.loginType == 0 ? '하루헬스' :
+                                         member.loginType == 1 ? '네이버' :
+                                         member.loginType == 2 ? '카카오' :
+                                         '구글'}"></td>
                     <td><a th:href="@{/admin/deleteMember(id=${member.loginId})}">탈퇴</a></td>
                 </tr>
-                <!--<tr th:each="request : ${requests}">
-                    <td th:text="${request.key+ ' : ' +  request.value.request}"></td>
-                </tr>-->
                 </tbody>
             </table>
+            <div id="pageNavi-container">
+                    <ul class="pagination">
+                        <li>
+                            <a th:href="${currentPage > 0} ? @{/admin/memberList(page=0,searchText=${searchText},searchType=${searchType})} : '#'">처음</a>
+                        </li>
+                        <li >
+                            <a th:href="${currentPage > 0} ? @{/admin/memberList(page=${currentPage - 1},searchText=${searchText},searchType=${searchType})} : '#'">이전</a>
+                        </li>
+                        <li th:if="${totalPages > 0}" th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}" th:class="${currentPage == pageNumber} ? 'active'">
+                            <a th:href="@{/admin/memberList(page=${pageNumber},searchText=${searchText},searchType=${searchType})}"><span th:text="${pageNumber + 1}"></span></a>
+                        </li>
+                        <li th:if="${totalPages == 0}" th:class="active">
+                            <a><span th:text="1"></span></a>
+                        </li>
+                        <li>
+                            <a th:href="${currentPage < totalPages - 1} ? @{/admin/memberList(page=${currentPage + 1},searchText=${searchText},searchType=${searchType})} : '#'">다음</a>
+                        </li>
+                        <li>
+                            <a th:href="${currentPage < totalPages - 1} ? @{/admin/memberList(page=${totalPages - 1},searchText=${searchText},searchType=${searchType})} : '#'">마지막</a>
+                        </li>
+                    </ul>
+            </div>
+            <div id="searchFilter">
+                <form action="/admin/memberList/search" method="POST" >
+                    <input type="text" name="searchText" id="searchText" placeholder="검색">
+                    <select name="searchType" id="searchType">
+                        <option value="loginId">아이디</option>
+                        <option value="name">이름</option>
+                        <option value="userType">유저타입</option>
+                    </select>
+                    <button type="submit" class="new_style">검색</button>
+                </form>
+            </div>
         </div>
+
     </div>
 </div>
 

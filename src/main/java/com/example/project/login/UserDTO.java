@@ -23,6 +23,7 @@ public class UserDTO {
     private String cellphoneNo;
     private Date joinDate;
     private int loginType;
+    private Integer point=0;
 
     public UserDTO(UserEntity entity) {
         this.loginId = entity.getLoginId();
