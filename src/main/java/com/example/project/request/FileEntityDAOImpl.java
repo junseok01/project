@@ -23,12 +23,15 @@ public class FileEntityDAOImpl implements FileDAO {
 
 
     @Override
+    @Transactional
     public void save(FileEntity fileEntity) {
         fileEntityRepository.save(fileEntity);
     }
 
     @Override
+    @Transactional
     public List<FileEntity> findByRequest_Id(Long requestId) {
+
         List<FileEntity> fileEntities = fileEntityRepository.findByRequest_Id(requestId);
         return fileEntities;
         //return fileEntityRepository.findAllById(requestId);

@@ -32,6 +32,8 @@ public class UserEntity {
     private Date joinDate;
     @Column
     private int loginType;
+    @Column
+    private Integer point=0;
 
     public UserEntity(String loginId, String loginPw, String name, String nickname, String cellphoneNo) {
         this.loginId = loginId;
