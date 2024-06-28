@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GymboardEntity {
+public class GymBoardEntity {
     @Id @GeneratedValue
     private Long gymboardnum;
     private String gymname;
@@ -24,7 +24,7 @@ public class GymboardEntity {
     private String monthprice;
     private String yearprice;
 
-    public GymboardEntity(String gymtrainer, String gymtel, String info, String monthprice, String yearprice) {
+    public GymBoardEntity(String gymtrainer, String gymtel, String info, String monthprice, String yearprice) {
         this.gymtrainer = gymtrainer;
         this.gymtel = gymtel;
         this.info = info;

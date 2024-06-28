@@ -29,7 +29,7 @@ public class TrainerServiceImpl implements TrainerService{
         return trainerlist;
     }
     @Override
-    public TrainerEntity gettrainerInfo(long boardNo) {
+    public TrainerEntity gettrainerInfo(Long boardNo) {
         TrainerEntity read = dao.read(boardNo);
         return read;
     }

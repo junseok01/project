@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface TrainerDAO {
     void insert(TrainerEntity trainer);
-    TrainerEntity read(long boardNo);
+    TrainerEntity read(Long boardNo);
     void update(TrainerEntity dto);
     void delete(Long boardNo);
     List<TrainerEntity> list();
