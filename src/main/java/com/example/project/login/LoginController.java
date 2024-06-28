@@ -2,7 +2,6 @@ package com.example.project.login;
 
 
 
-import com.example.project.board_kim.BoardDAOImpl;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
