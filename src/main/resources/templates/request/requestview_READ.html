@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>RequestToTrainer - View Only</title>
     <link rel="stylesheet" type="text/css" href="/css/request/requestview.css">
+    <script src="/js/openPopUp/openPopup.js"></script>
 </head>
 <body>
 <h1>관리자가 보게될 페이지</h1>
@@ -26,17 +27,13 @@
             <label>첨부 파일:</label>
             <ul>
                 <li th:each="file : ${fileDTOList}">
-                    <a th:href="@{/pdfFileRead(filepath=${file.filepath})}" th:text="${file.fileOriginalName}" target="_blank"></a>
+                    <a th:href="@{/pdfFileRead(filepath=${file.filepath})}" th:text="${file.fileOriginalName}" onclick="openPopup(event)"></a>
 
                 </li>
             </ul>
         </div>
-
-
-        <div>
-            <button onclick="window.history.back();">뒤로 가기</button>
-        </div>
     </form>
 </div>
+
 </body>
 </html>

@@ -3,6 +3,10 @@ package com.example.project.request;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,7 +40,6 @@ public class RequestServiceImpl implements RequestService {
         this.modelMapper = modelMapper;
     }
 
-
     public void update(RequestDTO DTO) {
 
     }
@@ -59,6 +62,8 @@ public class RequestServiceImpl implements RequestService {
         System.out.println("리퀘스트 서비스 임플의 쇼 리퀘스트" + requestDTOList);
         return requestDTOList;
     }
+
+
 
 
     @Override
@@ -103,5 +108,54 @@ public class RequestServiceImpl implements RequestService {
         RequestDTO requestDTO = modelMapper.map(requestEntity,RequestDTO.class);
         return requestDTO;
     }
+
+    @Override
+    public List<RequestDTO> requestListByState(String state) {
+        List<RequestEntity> requestEntityList = requestDAO.requestListByState(state);
+        List<RequestDTO> requestDTOList = requestEntityList.stream()
+                .map(requestEntity -> modelMapper.map(requestEntity, RequestDTO.class))
+                .collect(Collectors.toList());
+        return requestDTOList;
+    }
+
+    @Override
+    public void updateState(Long id) {
+        requestDAO.updateState(id);
+    }
+
+    @Override
+    public void updateAllState(String loginId) {
+        requestDAO.updateAllState(loginId);
+    }
+
+    @Override
+    public Page<RequestDTO> getRequestPage(int page, int size) {
+        Pageable pageable = PageRequest.of(page,size);
+
+
+        Page<RequestEntity> requestEntities = requestDAO.getRequestPage(page,size,pageable);
+
+        List<RequestDTO> requestDTOList = requestEntities.getContent()
+                .stream()
+                .map(requestEntity -> modelMapper.map(requestEntity, RequestDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(requestDTOList, pageable, requestEntities.getTotalElements());
+    }
+
+    @Override
+    public Page<RequestDTO> getRequestPageByState(int page, int size, String state) {
+        Pageable pageable = PageRequest.of(page,size);
+        Page<RequestEntity> requestEntitiesByState = requestDAO.getRequestPageByState(page,size,state,pageable);
+
+        List<RequestDTO> requestDTOList = requestEntitiesByState.getContent()
+                .stream()
+                .map(requestEntity -> modelMapper.map(requestEntity, RequestDTO.class))
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(requestDTOList, pageable, requestEntitiesByState.getTotalElements());
+    }
+
+
 }
 

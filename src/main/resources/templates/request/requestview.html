@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>RequestToTrainer</title>
     <link rel="stylesheet" type="text/css" href="/css/request/requestview.css">
+    <link rel="stylesheet" type="text/css" href="/css/spinner/spinner.css">
     <script src="/js/requestview/requestview.js"></script>
+    <script src="/js/spinner/spinner.js"></script>
+
 </head>
 <body>
 <body>
 <div class="file-upload-container">
     <h2>아이디와 내용 입력하기</h2>
-    <form action="/RequestToTrainer" method="post" enctype="multipart/form-data" onsubmit="closePopup(event)">
+    <form action="/RequestToTrainer" id="requestForm" method="post" enctype="multipart/form-data" onsubmit="closePopup(event)">
         <div>
             <label>아이디:</label>
             <span th:text="${session.member.loginId}"></span>
@@ -32,9 +35,13 @@
         </div>
         <button type="button" onclick="addFileInput()">파일 추가</button>
         <div>
-            <button type="submit">전송</button>
+            <button onclick="startLongRunningTask()" type="submit">전송</button>
         </div>
     </form>
+    <div id="loadingMessage" class="hidden">
+        <div class="spinner"></div>
+        <p>수 초 소요됩니다...</p>
+    </div>
 </div>
 </body>
 </body>

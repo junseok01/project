@@ -4,6 +4,8 @@ import com.example.project.login.UserEntity;
 import com.example.project.login.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -39,6 +41,12 @@ public class RequestDAOImpl implements RequestDAO {
     }
 
     @Override
+    public List<RequestEntity> requestListByState(String state) {
+        List<RequestEntity> requestEntityListByState = requestRepository.findAllByState(state);
+        return requestEntityListByState;
+    }
+
+    @Override
     public RequestEntity requestEntity(String id) {
         return null;
     }
@@ -58,6 +66,31 @@ public class RequestDAOImpl implements RequestDAO {
     @Override
     public void deleteById(Long id) {
         requestRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateAllState(String loginId) {
+        requestRepository.updateStateByLoginId(loginId);
+    }
+
+    @Override
+    public void updateState(Long id) {
+        RequestEntity requestEntity = requestRepository.findById(id).get();
+        requestEntity.setState("0");
+        requestRepository.save(requestEntity);
+
+    }
+
+    @Override
+    public Page<RequestEntity> getRequestPage(int page, int size, Pageable pageable) {
+        Page<RequestEntity> requestPage = requestRepository.findAll(pageable);
+        return requestPage;
+    }
+
+    @Override
+    public Page<RequestEntity> getRequestPageByState(int page, int size, String state, Pageable pageable) {
+        Page<RequestEntity> reuestPageByState = requestRepository.findByState(state,pageable);
+        return reuestPageByState;
     }
 
 }

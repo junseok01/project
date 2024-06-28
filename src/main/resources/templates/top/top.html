@@ -32,8 +32,10 @@
                             <li><a href="/board/list?pageNum=1&amount=10&category=all">게시판</a></li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right cart-menu">
-                        <li><a href="#" class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><span> Cart -$0&nbsp;</span> <span class="shoping-cart">0</span></a></li>
+                        <li th:if="${session.member != null}"><a href="#">
+                            <span style="margin-right: 5px;">포인트</span>
+                            <span th:text="${session.member.point}" style="background-color: #f2f2f2; padding: 3px 5px; border-radius: 3px;"></span>
+                        </a></li>
                     </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container -->
