@@ -6,7 +6,7 @@ import com.example.project.dto.tubeResponseDTO;
 import java.util.List;
 
 public interface tubeService {
-    public List<tubeResponseDTO> tubelist();
-    public List<tubeResponseDTO> tubeselectlist(String keyword);
-    public List<tubeResponseDTO> tubecategorylist(String category);
+    public List<tubeResponseDTO> tubeselectlist(String keyword,int pageNo);
+    public List<tubeResponseDTO> tubecategorylist(String category,int pageNo);
+    public List<tubeResponseDTO> tubelist(int pageNo);
 }

@@ -26,6 +26,10 @@ public class RequestEntity {
     @Column(nullable = false)
     private String content;
 
+    //"1"은 존재 "0"은 삭제된 리퀘스트
+    @Column
+    private String state;
+
     @OneToMany(mappedBy = "request", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FileEntity> files;
 
@@ -34,6 +38,7 @@ public class RequestEntity {
         this.loginId = requestDTO.getLoginId();
         this.title = requestDTO.getTitle();
         this.content = requestDTO.getContent();
+        this.state ="1";
     }
 
     @Override
@@ -43,6 +48,7 @@ public class RequestEntity {
                 ", loginId='" + loginId + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
+                ", state='" + state + '\'' +
                 ", files=" + files +
                 '}';
     }

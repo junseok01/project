@@ -2,6 +2,7 @@ package com.example.project.map;
 
 import com.example.project.dto.Gym;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
@@ -20,14 +21,15 @@ public class gymDAOImpl implements gymDAO{
     @Override
     public List<Gym> gymselectlist(String keyword) {
         PageRequest pageRequest = PageRequest.of(0,15, Sort.by(Sort.Direction.ASC,"gymnumber"));
-        List<Gym> list = repository.findByGymaddrOrGymnameContaining(keyword,keyword, pageRequest);
-        return list;
+        Page<Gym> list = repository.findByGymaddrOrGymnameContaining(keyword,keyword, pageRequest);
+        return list.getContent();
     }
 
     @Override
     public List<Gym> gymselectaddrlist(String keyword) {
         PageRequest pageRequest = PageRequest.of(0,15, Sort.by(Sort.Direction.ASC,"gymnumber"));
-        return repository.findByGymaddrContaining(keyword,pageRequest);
+        Page<Gym> list = repository.findByGymaddrContaining(keyword, pageRequest);
+        return list.getContent();
     }
 
 }

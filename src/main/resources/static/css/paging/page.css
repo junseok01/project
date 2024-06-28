@@ -1,0 +1,75 @@
+#pageNavi-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+}
+
+
+#Admin-header{
+    text-align: center;
+}
+#AdminTable table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 16px;
+    }
+
+#AdminTable th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    width: 120px;
+    white-space: nowrap; /* 긴 텍스트가 있을 경우 줄 바꿈 방지 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 ...으로 표시 */
+}
+
+#AdminTable td {
+    padding: 10px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    width: 120px;
+    white-space: nowrap; /* 긴 텍스트가 있을 경우 줄 바꿈 방지 */
+    overflow: hidden; /* 넘치는 부분 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 대해 ...으로 표시 */
+}
+
+#searchFilter{
+    position: absolute;
+    bottom: 0;
+}
+#searchFilter {
+    padding: 8px;
+    border-radius: 5px;
+    max-width: 300px;
+    margin: 10px auto;
+}
+
+#searchFilter select {
+    padding: 6px;
+    margin-right: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+#searchFilter button {
+    padding: 6px 12px;
+    background-color: #ccc;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    width: auto;
+}
+
+#searchFilter button:hover {
+    background-color: #0056b3;
+}
+#searchFilter form {
+    all: unset; /* 모든 속성을 초기화합니다 */
+}

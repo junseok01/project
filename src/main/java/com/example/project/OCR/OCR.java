@@ -71,6 +71,8 @@ public class OCR {
             System.out.println(result);
 
             String searchText = "생 활 스 포 츠 지 도 사 자 격 증";
+
+
             if(result.contains(searchText)) {
                 System.out.println("존재합니다");
                 return "요건충족";
