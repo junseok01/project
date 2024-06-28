@@ -2,6 +2,7 @@ package com.example.project.trainer;
 
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,10 +39,9 @@ public class TrainerServiceImpl implements TrainerService{
 
         return 0;
     }
-
     @Override
-    public int delete(String board_no) {
-        return 0;
+    public void delete(Long boardNo) {
+        dao.delete(boardNo);
     }
 
     @Override
@@ -73,11 +73,20 @@ public class TrainerServiceImpl implements TrainerService{
 
     @Override
     public List<TrainerResponseDTO> findBytrainer(String trainerName) {
-        List<TrainerEntity> entityList = dao.searchName(trainerName);
+        return null;
+    }
+
+    public List<TrainerResponseDTO> findBytrainer(String trainerName,int page) {
+        List<TrainerEntity> entityList = dao.searchName(trainerName,page);
+        ModelMapper mapper = new ModelMapper();
         List<TrainerResponseDTO> trainerlist = entityList.stream()
-                .map(TrainerResponseDTO :: new)
+                .map(entity -> mapper.map(entity,TrainerResponseDTO.class))
                 .collect(Collectors.toList());
         return trainerlist;
     }
 
+    @Override
+    public Page<TrainerEntity> getTrainers(int page, int size) {
+        return dao.pagelist(page, size);
+    }
 }

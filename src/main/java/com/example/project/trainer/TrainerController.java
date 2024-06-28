@@ -22,17 +22,20 @@ public class TrainerController {
     private final TrainerService service;
 
     @GetMapping("/trainerlist")
-    public String trainerpage(Model model , String trainerName) {
-        List<TrainerResponseDTO> trainerEntityList = service.trainerList();
+    public String trainerpage(Model model , @RequestParam(defaultValue = "") String trainerName,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
+        List<TrainerResponseDTO> trainerEntityList =service.pagingFindAll();
         if(trainerName==null){
-            trainerEntityList = service.trainerList();
+            trainerEntityList =service.pagingFindAll();
         }else{
-            trainerEntityList = service.findBytrainer(trainerName);
+            trainerEntityList =service.findBytrainer(trainerName,page);
         }
+        //페이징처리 - 다음 ,이전
+        Page<TrainerEntity> trainerPage = service.getTrainers(page, size);
+        model.addAttribute("trainerPage", trainerPage);
+        model.addAttribute("trainerName",trainerName);
         model.addAttribute("trainerlist",trainerEntityList);
         return "trainer/trainerhome";
     }
-
     @GetMapping("/trainerread")
     public String trainerread(@RequestParam("boardNo") long boardNo, @RequestParam("action") String action, Model model) {
         TrainerEntity read = service.gettrainerInfo(boardNo);
@@ -41,7 +44,7 @@ public class TrainerController {
         if (action.equals("READ")) {
             view = "trainer/trainer_read";
         } else {
-            view = "board/board_update";
+            view = "trainer/trainer_update";
         }
         return "trainer/trainer_read";
     }
@@ -57,6 +60,15 @@ public class TrainerController {
         System.out.println(trainer);
         service.insert(trainer);
         return "redirect:/trainerlist?category=all";
+    }
+    @GetMapping("/trainerdelete")
+    public String delete(String boardNo){
+        service.delete(Long.parseLong(boardNo));
+        return "redirect:/trainerlist?category=all";
+    }
+    @PostMapping("/update")
+    public String update( TrainerRequestDTO trainer) {
+        return "redirect:/board/list?category=all";
     }
 
 }

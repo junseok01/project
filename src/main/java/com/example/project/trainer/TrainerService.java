@@ -1,5 +1,7 @@
 package com.example.project.trainer;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public interface TrainerService {
@@ -16,7 +18,7 @@ public interface TrainerService {
     int update(TrainerEntity board);
     //게시글삭제
     // /erp/board/delete
-    int delete(String board_no);
+    void delete(Long boardNo);
     //제목으로 검색
     List<TrainerEntity> search(String data);
     //제목,작성자, 본문, 작성일별로 검색
@@ -26,7 +28,8 @@ public interface TrainerService {
     List<TrainerResponseDTO> pagingFindAll();
     //트레이너 검색
     List<TrainerResponseDTO> findBytrainer(String trainerName);
-
+    List<TrainerResponseDTO>findBytrainer(String trainerName,int page);
+    Page<TrainerEntity> getTrainers(int page, int size);
 
     //
 /*//	//게시글을 상세보기한 경우 보여질 업로드한 파일의 목록 조회
