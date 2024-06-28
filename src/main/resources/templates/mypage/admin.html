@@ -4,23 +4,45 @@
     <meta charset="UTF-8">
     <title>프로필</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <link rel="stylesheet" href="/css/mypage/adminMypage.css">
 </head>
 <body>
 <div th:fragment="main">
-    <h1>프로필 정보</h1>
+
     <div class="box">
-        <div class="profile-info-container">
-            <!-- 프로필 이미지 -->
-            <img src="/images/1.png" alt="프로필 사진">
-            <!-- 프로필 정보 텍스트 -->
-            <div class="profile-info">
-                <p>이름: 홍길동</p>
-                <p>나이: 30세</p>
-                <p>직업: 관리자</p>
-                <!-- 원하는 프로필 정보 추가 -->
+
+        <!-- 상단 영역 -->
+        <h1>관리자 페이지</h1>
+        <div id="header">
+
+            <div class="stats">
+                <div class="stat-box">
+                    <h3>총 방문자 수</h3>
+                    <p id="totalVisitors">1000</p>
+                </div>
+                <div class="stat-box">
+                    <h3>총 게시글 수</h3>
+                    <p id="totalPosts">500</p>
+                </div>
+                <div class="stat-box">
+                    <h3>총 회원 수</h3>
+                    <p id="totalMembers">200</p>
+                </div>
             </div>
         </div>
+
+        <!-- 중단 영역 -->
+        <div id="content">
+            <h2>유저 비율</h2>
+            <canvas id="userPieChart"></canvas>
+        </div>
+
+        <!-- 하단 영역 -->
+        <div id="footer">
+            <h2>날짜별 방문자 추이</h2>
+            <canvas id="visitorsLineChart"></canvas>
+        </div>
+
 
         <h1>차트</h1>
         <div class="charts-container">
@@ -115,6 +137,7 @@
                     });
             });
         </script>
+
     </div>
 </div>
 </body>

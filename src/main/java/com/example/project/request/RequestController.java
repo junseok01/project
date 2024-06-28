@@ -6,11 +6,14 @@ import com.example.project.login.UserDTO;
 import com.example.project.login.UserService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -18,9 +21,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class RequestController {
@@ -28,6 +29,9 @@ public class RequestController {
     private final FileService fileService;
     private final UserService userService;
     private final String uploadDirectory = "src/main/resources/static/OCRPDF/";
+
+    public static final String DELETED = "0";
+    public static final String ACTIVE = "1";
 
     @Autowired
     public RequestController(RequestService requestService, FileService fileService,UserService userService) {
@@ -37,32 +41,34 @@ public class RequestController {
     }
 
     @GetMapping("/request/viewRequests")
-    public String viewRequests(HttpSession session) {
-        List<RequestDTO> requestDTOList = requestService.showRequest();
-        //List<RequestDTO> requestList = requestService.showRequest();
-        //session.setAttribute("RequestList",requestList);
-        System.out.println("반환받은 리스트" + requestDTOList);
-        session.setAttribute("RequestList", requestDTOList);
+    public String viewRequests(@RequestParam(value = "page", defaultValue = "0") int page,
+                               @RequestParam(value = "size",defaultValue = "10") int size,HttpSession session,Model model) {
 
+        Page<RequestDTO> requestPageByState = requestService.getRequestPageByState(page,size,ACTIVE);
+        System.out.println(requestPageByState.getContent());
+
+        model.addAttribute("requestListByState",requestPageByState.getContent());
+        model.addAttribute("currentPage",requestPageByState.getNumber());
+        model.addAttribute("totalPages",requestPageByState.getTotalPages());
         return "admin/requests";
     }
+
 
     @GetMapping("/request/update")
     public String update(@RequestParam("loginId") String loginId) {
         userService.updateUserType2Trainer(loginId);
-        //requestService.updateToTrainer(loginId);
-        //관리자페이지에서 요청문이 사라지게 해야하므로 삭제진행
         //아래의 delete와 다름
         //loginId로 조회해서 해당아이디로 작성된 요청문 모두삭제(수락을 눌러 업데이트를 했으면 같은 계정으로 작성된 다른 요청문은 볼 필요가 없기에)
-        requestService.deleteByLoginId(loginId);
+        //requestService.deleteByLoginId(loginId);
+        requestService.updateAllState(loginId);
         return "redirect:/request/viewRequests";
     }
 
     //generate된 pk ID로 조회하여 삭제
+    //실제 디비에서 삭제하는것이 아닌 상태값인state를 변경하여 삭제된건지 아닌지 구분
     @GetMapping("/request/delete")
     public String delete(@RequestParam("id") Long Id) {
-        //System.out.println("딜리트문 진입" + Id);
-        requestService.deleteById(Id);
+        requestService.updateState(Id);
         return "redirect:/request/viewRequests";
     }
 
@@ -88,7 +94,9 @@ public class RequestController {
     }
 
     @PostMapping("/RequestToTrainer")
+    @ResponseBody
     public String Request2Trainer(RequestDTO requestDTO, List<MultipartFile> files) throws IOException {
+        String response="";
         //요청사용자 계정은 요청페이지에서 hidden으로 보냄, 나머지는 입력
         RequestEntity requestEntity = new RequestEntity(requestDTO);
         System.out.println(requestEntity);
@@ -103,21 +111,19 @@ public class RequestController {
         List<FileDTO> fileDTOList = fileService.searchByRequest_Id(requestDTO.getId());
         OCR ocr = new OCR();
         List<String> imgPathList = ocr.convertPdfToImage(fileDTOList);
-        for(String imagePath : imgPathList){
+        for (String imagePath : imgPathList) {
             String result = ocr.imgToTxt(imagePath);
-            if(!result.equals("요건충족")){
-                System.out.println("요건이 불충족 되었습니다. 관리자 승인을 기다리세요");
-                return "main";
+            if (!result.equals("요건충족")) {
+                response ="fail";
+                return response;
             }
-
         }
 
-        System.out.println("모든요건이 충족되었습니다 유저 등급을 트레이너로 업데이트합니다");
-        return "redirect:/request/update?loginId=" + requestDTO.getLoginId();
-        //모두 요건이 충족이 되었을경우 유저등급 업데이트
-
-
+        //if문을 빠져나오면 요건이 충족됨
+        response="success";
+        userService.updateUserType2Trainer(requestDTO.getLoginId());
+        requestService.updateAllState(requestDTO.getLoginId());
+        return response;
     }
-
 
 }

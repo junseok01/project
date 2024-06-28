@@ -1,48 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!--  layout:decorate="~{mypage/mypage}">-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Requests</title>
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/paging/page.css">
+    <script src="/js/openPopUp/openPopup.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <div th:fragment="admin">
     <div id="header" th:replace="~{top/header :: header}"></div>
     <div id="top" th:insert="~{top/top :: top}"></div>
+
     <div class="mypage_container">
         <div class="sidebar">
             <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
         </div>
-        <div class="main-content">
-            <h1>트레이너 등록관리</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>아이디</th>
-                        <th>제목</th>
-                        <th>업데이트</th>
-                        <th>삭제</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="request,status  : ${session.RequestList}">
-                        <td th:text="${status.index + 1}"></td>
-                        <td ><a th:href="@{/RequestToTrainer(action='READ', id=${request.id})}" th:text="${request.loginId}"></a></td>
-                        <td th:text="${request.title}"></td>
-                        <td><a th:href="@{/request/update(loginId=${request.loginId})}">수락</a></td>
-                        <td><a th:href="@{/request/delete(id=${request.id})}">삭제</a></td>
-                    </tr>
 
-                </tbody>
-            </table>
-        </div>
+            <div class="main-content" layout:fragment="content">
+                <h1 id="Admin-header">트레이너 등록관리</h1>
+                <table id="AdminTable">
+                    <thead>
+                        <tr>
+                            <th>번호</th>
+                            <th>아이디</th>
+                            <th>제목</th>
+                            <th>업데이트</th>
+                            <th>삭제</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="request,status  : ${requestListByState}">
+                            <td th:text="${status.index + 1}"></td>
+                            <td ><a th:href="@{/RequestToTrainer(action='READ', id=${request.id})}" th:text="${request.loginId}" onclick="openPopup(event)"></a></td>
+
+                            <td th:text="${request.title}"></td>
+                            <td><a th:href="@{/request/update(loginId=${request.loginId})}">수락</a></td>
+                            <td><a th:href="@{/request/delete(id=${request.id})}">삭제</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                <div id="pageNavi-container">
+                    <ul class="pagination">
+                        <li>
+                            <a th:href="${currentPage > 0} ? @{/request/viewRequests(page=0)} : '#'">처음</a>
+                        </li>
+                        <li >
+                            <a th:href="${currentPage > 0} ? @{/request/viewRequests(page=${currentPage - 1})} : '#'">이전</a>
+                        </li>
+                        <li th:each="pageNumber : ${#numbers.sequence(0, totalPages - 1)}" th:class="${currentPage == pageNumber} ? 'active'">
+                            <a th:href="@{/request/viewRequests(page=${pageNumber})}"><span th:text="${pageNumber + 1}"></span></a>
+                        </li>
+                        <li>
+                            <a th:href="${currentPage < totalPages - 1} ? @{/request/viewRequests(page=${currentPage + 1})} : '#'">다음</a>
+                        </li>
+                        <li>
+                            <a th:href="${currentPage < totalPages - 1 ? '/request/viewRequests?page=' + (totalPages - 1) : '#'}">마지막</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
     </div>
 
 </div>
+
 </body>
 </html>

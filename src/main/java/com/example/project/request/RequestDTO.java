@@ -15,6 +15,7 @@ public class RequestDTO {
     private String loginId;
     private String title;
     private String content;
+    private String state;
 
 
 }
