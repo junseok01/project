@@ -12,7 +12,7 @@ public interface TrainerService {
     List<TrainerResponseDTO> trainerList();
     //게시글상세조회
     // /erp/board/read
-    TrainerEntity gettrainerInfo(long boardNo);
+    TrainerEntity gettrainerInfo(Long boardNo);
     //게시글수정
     // /erp/board/update
     int update(TrainerEntity board);

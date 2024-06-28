@@ -19,7 +19,7 @@ public class TrainerDAOImpl implements TrainerDAO{
     }
 
     @Override
-    public TrainerEntity read(long boardNo) {
+    public TrainerEntity read(Long boardNo) {
         return repository.findById(boardNo).get();
     }
 
@@ -42,7 +42,7 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public List<TrainerEntity> pagingFindAll() {
-        PageRequest pageRequest = PageRequest.of(0, 5, Sort.by(Sort.Direction.DESC, "boardNo"));
+        PageRequest pageRequest = PageRequest.of(0, 8, Sort.by(Sort.Direction.DESC, "boardNo"));
         Page<TrainerEntity> page = repository.findAll(pageRequest);
         System.out.println(page.getContent());
         return page.getContent();

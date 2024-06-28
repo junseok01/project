@@ -44,15 +44,15 @@
                 <div class="contents-inner">
                     <div class="contents-container container-md">
                         <div class="textset textset-sub">
-                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">헬스장 정보</h2>
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" >헬스장 정보</h2>
                         </div>
                         <hr/>
                         <div class="textset textset-sub" style="margin-top: 50px;">
-                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">헬스장 1</h2>
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${gym.gymname}"></h2>
                         </div>
                         <div class="location" style=" display:flex; flex-wrap:wrap;">
                             <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
-                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">서울특별시 xxxx xxxxx x</h2>
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${gym.gymaddr}"></h2>
                         </div>
                         <div class="contents-body">
                             <div class="contents-left">
@@ -68,16 +68,12 @@
                                     <h5 class="contents-subtit" style="font-family: 'SUITE-Regular';">이용금액</h5>
                                     <ul class="contents-list">
                                         <li class="contents-item">
-                                            <span class="contents-item-name">일일권</span>
-                                            <span class="contents-item-price">25,000원</span>
+                                            <span class="contents-item-name">한달 이용권</span>
+                                            <span class="contents-item-price" th:text="${gym.monthprice}"></span>
                                         </li>
                                         <li class="contents-item">
-                                            <span class="contents-item-name">하루헬스 일일권</span>
-                                            <span class="contents-item-price">20,000원</span>
-                                        </li>
-                                        <li class="contents-item">
-                                            <span class="contents-item-name">회원가</span>
-                                            <span class="contents-item-price">17,000원</span>
+                                            <span class="contents-item-name">연간 이용권</span>
+                                            <span class="contents-item-price" th:text="${gym.yearprice}"></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -102,13 +98,10 @@
                                     <h5 class="contents-subtit"  style="font-family: 'SUITE-Regular';">기타</h5>
                                     <ul class="contents-list">
                                         <li class="contents-item">
-                                            <span class="contents-item-name">운동복</span>
-                                            <span class="contents-item-price">월-10,000원</span>
+                                            <span class="contents-item-name"  th:text="${gym.info}"></span>
+
                                         </li>
-                                        <li class="contents-item">
-                                            <span class="contents-item-name">개인락커</span>
-                                            <span class="contents-item-price">월-10,000원</span>
-                                        </li>
+
                                         <li class="contents-item">
                                             <span class="contents-item-name">- </span>
                                             <span class="contents-item-price"></span>

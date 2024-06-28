@@ -37,7 +37,7 @@ public class TrainerController {
         return "trainer/trainerhome";
     }
     @GetMapping("/trainerread")
-    public String trainerread(@RequestParam("boardNo") long boardNo, @RequestParam("action") String action, Model model) {
+    public String trainerread(@RequestParam("boardNo") Long boardNo, @RequestParam("action") String action, Model model) {
         TrainerEntity read = service.gettrainerInfo(boardNo);
         model.addAttribute("trainer", read);
         String view = "";
