@@ -89,4 +89,10 @@ public class TrainerServiceImpl implements TrainerService{
     public Page<TrainerEntity> getTrainers(int page, int size) {
         return dao.pagelist(page, size);
     }
+
+    @Override
+    public Page<TrainerEntity> getSearchTrainer(String trainerName, int page, int size) {
+        return dao.searchName(trainerName,page,size);
+    }
+
 }

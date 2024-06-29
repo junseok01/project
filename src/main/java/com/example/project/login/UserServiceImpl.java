@@ -80,7 +80,6 @@ public class UserServiceImpl implements UserService {
 
         return new PageImpl<>(userDTOList, pageable, userEntityPage.getTotalElements());
     }
-
     @Override
     public void updatePoint(String loginId,int price) {
         userDAO.updatePoint(loginId,price);

@@ -61,9 +61,16 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public List<TrainerEntity> searchName(String trainerName,int page) {
-        PageRequest pageRequest = PageRequest.of(page,5, Sort.by(Sort.Direction.DESC, "boardNo"));
+        PageRequest pageRequest = PageRequest.of(page,10, Sort.by(Sort.Direction.DESC, "boardNo"));
         Page<TrainerEntity> pagelist = repository.findByNameContaining(trainerName,pageRequest);
+        System.out.println(pagelist.getContent());
         return pagelist.getContent();
+    }
+
+    @Override
+    public Page<TrainerEntity> searchName(String trainerName, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"boardNo"));
+        return repository.findByNameContaining(trainerName,pageRequest);
     }
 
 

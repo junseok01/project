@@ -47,8 +47,20 @@ public class GymBoardDAOImpl implements GymBoardDAO{
 
     @Override
     public List<GymBoardEntity> searchName(String gymname, int page) {
-        PageRequest pageRequest = PageRequest.of(page,5, Sort.by(Sort.Direction.DESC, "gymboardnum"));
-        Page<GymBoardEntity> pagelist = repository.findByGymnameContaining(gymname,pageRequest);
-        return pagelist.getContent();
+        return null;
     }
+    /*   @Override
+       public List<GymBoardEntity> searchName(String gymname, int page) {
+           PageRequest pageRequest = PageRequest.of(page,5, Sort.by(Sort.Direction.DESC, "gymboardnum"));
+           Page<GymBoardEntity> pagelist = repository.findByGymnameContaining(gymname,pageRequest);
+           return pagelist.getContent();
+       }
+   */
+    @Override
+    public Page<GymBoardEntity> searchGymName(String gymname, int page, int size) {
+        Pageable pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"gymname","gymaddr"));
+        return repository.findByGymnameContaining(gymname,pageable);
+    }
+
+
 }
