@@ -14,4 +14,5 @@ public interface TrainerDAO {
     List<TrainerEntity> searchName(String trainerName);
     Page<TrainerEntity> pagelist(int page, int size);
     List<TrainerEntity> searchName(String trainerName,int page);
+    Page<TrainerEntity> searchName(String trainerName,int page ,int size);
 }

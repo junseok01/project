@@ -25,9 +25,7 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public UserDTO search(String id) {
-
         UserEntity user = userRepository.findByLoginId(id);
-
         if(user !=null){
             System.out.println("--------여기"+user);
             return modelMapper.map(user, UserDTO.class);

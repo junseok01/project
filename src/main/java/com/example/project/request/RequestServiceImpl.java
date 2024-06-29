@@ -27,7 +27,6 @@ public class RequestServiceImpl implements RequestService {
     RequestDAO requestDAO;
     @Autowired
     FileDAO fileDAO;
-
     @Autowired
     private RequestRepository requestRepository;
     @Autowired
@@ -155,7 +154,5 @@ public class RequestServiceImpl implements RequestService {
 
         return new PageImpl<>(requestDTOList, pageable, requestEntitiesByState.getTotalElements());
     }
-
-
 }
 
