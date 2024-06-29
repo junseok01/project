@@ -18,6 +18,7 @@ public class GymBoardResponseDTO {
     private String info;
     private String monthprice;
     private String yearprice;
+    private String gymphoto;
 
     public GymBoardResponseDTO(GymBoardEntity gymBoardEntity) {
         this.gymboardnum = gymBoardEntity.getGymboardnum();
@@ -28,5 +29,6 @@ public class GymBoardResponseDTO {
         this.info = gymBoardEntity.getInfo();
         this.monthprice = gymBoardEntity.getMonthprice();
         this.yearprice = gymBoardEntity.getYearprice();
+        this.gymphoto = gymBoardEntity.getGymphoto();
     }
 }
