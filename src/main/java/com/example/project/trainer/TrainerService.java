@@ -30,6 +30,7 @@ public interface TrainerService {
     List<TrainerResponseDTO> findBytrainer(String trainerName);
     List<TrainerResponseDTO>findBytrainer(String trainerName,int page);
     Page<TrainerEntity> getTrainers(int page, int size);
+    Page<TrainerEntity> getSearchTrainer(String trainerName,int page, int size);
 
     //
 /*//	//게시글을 상세보기한 경우 보여질 업로드한 파일의 목록 조회

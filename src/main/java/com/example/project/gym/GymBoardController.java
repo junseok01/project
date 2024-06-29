@@ -16,20 +16,23 @@ public class GymBoardController {
     private final GymBoardService service;
 
     @GetMapping("/gymlist")
-    public String gympage(Model model , @RequestParam(defaultValue = "") String gymname,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size){
-        List<GymBoardResponseDTO> gymlist= service.pagingFindAll();
-        System.out.println("===================================================");
-        System.out.println(gymname.length());
-        if(gymname.length()==0){
-            gymlist = service.pagingFindAll();
+    public String gympage(Model model ,
+                          @RequestParam(value = "gymname",required = false) String gymname,
+                          @RequestParam(defaultValue = "0") int page,
+                          @RequestParam(defaultValue = "10") int size){
+        Page<GymBoardEntity> gymBoardEntities;
+        if(gymname==null){
+            gymBoardEntities = service.getgym(page,size);
         }else{
-            gymlist = service.findBygym(gymname,page);
+            gymBoardEntities = service.getSearchTrainer(gymname,page,size);
         }
         //페이징처리 다음 ,이전
+
         Page<GymBoardEntity> GymPage = service.getgym(page, size);
         model.addAttribute("GymPage",GymPage);
         model.addAttribute("gymname",gymname);
-        model.addAttribute("gymlist",gymlist);
+        model.addAttribute("totalPage",GymPage.getTotalPages());
+        model.addAttribute("gymlist",gymBoardEntities);
         return "gym/gymhome";
     }
     @GetMapping("/gymread")

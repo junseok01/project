@@ -40,4 +40,9 @@ public class TrainerEntity {
         this.career = Career;
         this.info = info;
     }
+    public TrainerEntity(String ticketprice,String career,String info){
+        this.ticketprice = ticketprice;
+        this.career =career;
+        this.info = info;
+    }
 }
