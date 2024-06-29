@@ -241,7 +241,7 @@
                         </div>
                         <div class="cardset cardset-hor" th:each="gym:${gymlist}">
                             <figure class="cardset-figure">
-                                <img class="cardset-img" src="/images/health4.jpg" alt="카드 이미지">
+                                <img th:src="@{/images/gym/}+${gym.gymphoto}" width="400">
                             </figure>
                             <div class="cardset-body">
                                 <p class="cardset-txt">등록번호 2024061520240615</p>

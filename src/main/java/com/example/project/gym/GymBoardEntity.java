@@ -23,6 +23,7 @@ public class GymBoardEntity {
     private String info;
     private String monthprice;
     private String yearprice;
+    private String gymphoto;
 
     public GymBoardEntity(String gymtrainer, String gymtel, String info, String monthprice, String yearprice) {
         this.gymtrainer = gymtrainer;
