@@ -8,14 +8,18 @@ function addFileInput() {
         newFileInput.classList.add('file-upload-input');
         newFileInput.innerHTML = `
             <label for="files">파일 업로드:</label>
-            <input type="file" id="files" name="files" multiple>
+            <input type="file" id="files" name="files" accept=".pdf" multiple>
+            <button type="button" onclick="removeFileInput(this)">삭제</button>
         `;
         fileInputs.appendChild(newFileInput);
     } else {
         alert('최대 5개의 파일을 업로드할 수 있습니다.');
     }
 }
-
+function removeFileInput(button) {
+        var fileInputDiv = button.parentNode;
+        fileInputDiv.parentNode.removeChild(fileInputDiv);
+}
 // 폼 제출 시 팝업 닫기
 function closePopup(event) {
     event.preventDefault();  // 기본 폼 제출 동작을 막습니다.
@@ -49,3 +53,4 @@ function closePopup(event) {
     };
     xhr.send(formData);
 }
+

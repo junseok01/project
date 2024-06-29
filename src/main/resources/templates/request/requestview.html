@@ -7,10 +7,24 @@
     <link rel="stylesheet" type="text/css" href="/css/spinner/spinner.css">
     <script src="/js/requestview/requestview.js"></script>
     <script src="/js/spinner/spinner.js"></script>
+    <style>
+        .message {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            padding-left: 10px;
+        }
+        .available {
+            color: green;
+        }
+        .unavailable {
+            color: red;
+        }
 
+    </style>
 </head>
 <body>
-<body>
+
 <div class="file-upload-container">
     <h2>아이디와 내용 입력하기</h2>
     <form action="/RequestToTrainer" id="requestForm" method="post" enctype="multipart/form-data" onsubmit="closePopup(event)">
@@ -21,7 +35,7 @@
         </div>
         <div>
             <label for="title">제목:</label>
-            <input id="title" name="title" required>
+            <span id="title">트레이너 요청</span>
         </div>
         <div>
             <label for="content">내용:</label>
@@ -30,9 +44,11 @@
         <div id="fileInputs">
             <div class="file-upload-input">
                 <label for="files">파일 업로드:</label>
-                <input type="file" id="files" name="files" multiple>
+                <input type="file" id="files" name="files" accept=".pdf" multiple>
+                <button type="button" onclick="removeFileInput(this)">삭제</button>
             </div>
         </div>
+        <div id="message" class="message"></div>
         <button type="button" onclick="addFileInput()">파일 추가</button>
         <div>
             <button onclick="startLongRunningTask()" type="submit">전송</button>
@@ -40,9 +56,18 @@
     </form>
     <div id="loadingMessage" class="hidden">
         <div class="spinner"></div>
-        <p>수 초 소요됩니다...</p>
+        <div id="loadingImage"></div>
+        <p id="loadingText">수 초 소요됩니다...</p>
     </div>
 </div>
-</body>
+
+<script>
+    // 파일 선택 시 메시지 업데이트
+    var fileInput = document.getElementById('files');
+    var messageElement = document.getElementById('message');
+    messageElement.textContent = '트레이너관련 자격증을 PDF 파일을 제출해 주세요.';
+    messageElement.classList.add('unavailable');
+</script>
+
 </body>
 </html>
