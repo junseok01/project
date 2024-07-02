@@ -24,7 +24,7 @@ public class gymServiceImpl implements gymService {
     }
 
     @Override
-    public List<GymMapResponseDTO> gymselectlist(String keyword) {
+    public List<GymMapResponseDTO> gymselectlist(String keyword, int pageNo) {
         Pattern p = Pattern.compile("^..구");
         Matcher matcher = p.matcher(keyword);
         List<Gym> list = null;
@@ -32,10 +32,10 @@ public class gymServiceImpl implements gymService {
             //list = dao.gymlist(, );
         }else if (keyword.startsWith("동대문") || keyword.startsWith("영등포") || keyword.startsWith("서대문") || matcher.find()) {
             String[] split = keyword.split("구");
-            list = dao.gymselectaddrlist(split[0]);
+            list = dao.gymselectaddrlist(split[0],pageNo);
 
         }else{
-            list = dao.gymselectlist(keyword);
+            list = dao.gymselectlist(keyword,pageNo);
         }
         List<GymMapResponseDTO> gymlist = list.stream()
                 .map(GymMapResponseDTO :: new)
