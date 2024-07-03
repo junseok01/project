@@ -1,5 +1,6 @@
 package com.example.project.login;
 
+import com.example.project.gym.GymBoardEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,6 +27,7 @@ public class UserDTO {
     private Date joinDate;
     private int loginType;
     private Integer point=0;
+    private List<GymBoardEntity> heartedGyms = new ArrayList<>();
 
     public UserDTO(UserEntity entity) {
         this.loginId = entity.getLoginId();
