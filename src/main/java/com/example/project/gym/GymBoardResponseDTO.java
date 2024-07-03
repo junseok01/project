@@ -16,9 +16,10 @@ public class GymBoardResponseDTO {
     private String gymtel;
     private String gymaddr;
     private String info;
-    private String monthprice;
-    private String yearprice;
+    private String dayprice;
+    private String weekprice;
     private String gymphoto;
+    private int heartCount = 0;
 
     public GymBoardResponseDTO(GymBoardEntity gymBoardEntity) {
         this.gymboardnum = gymBoardEntity.getGymboardnum();
@@ -27,8 +28,8 @@ public class GymBoardResponseDTO {
         this.gymtel = gymBoardEntity.getGymtel();
         this.gymaddr = gymBoardEntity.getGymaddr();
         this.info = gymBoardEntity.getInfo();
-        this.monthprice = gymBoardEntity.getMonthprice();
-        this.yearprice = gymBoardEntity.getYearprice();
+        this.dayprice = gymBoardEntity.getDayprice();
+        this.weekprice = gymBoardEntity.getWeekprice();
         this.gymphoto = gymBoardEntity.getGymphoto();
     }
 }
