@@ -19,15 +19,15 @@ public class gymDAOImpl implements gymDAO{
     }
 
     @Override
-    public List<Gym> gymselectlist(String keyword) {
-        PageRequest pageRequest = PageRequest.of(0,15, Sort.by(Sort.Direction.ASC,"gymnumber"));
+    public List<Gym> gymselectlist(String keyword,int pageNo) {
+        PageRequest pageRequest = PageRequest.of(pageNo,15, Sort.by(Sort.Direction.ASC,"gymnumber"));
         Page<Gym> list = repository.findByGymaddrOrGymnameContaining(keyword,keyword, pageRequest);
         return list.getContent();
     }
 
     @Override
-    public List<Gym> gymselectaddrlist(String keyword) {
-        PageRequest pageRequest = PageRequest.of(0,15, Sort.by(Sort.Direction.ASC,"gymnumber"));
+    public List<Gym> gymselectaddrlist(String keyword,int pageNo) {
+        PageRequest pageRequest = PageRequest.of(pageNo,15, Sort.by(Sort.Direction.ASC,"gymnumber"));
         Page<Gym> list = repository.findByGymaddrContaining(keyword, pageRequest);
         return list.getContent();
     }
