@@ -28,9 +28,7 @@ public class gymServiceImpl implements gymService {
         Pattern p = Pattern.compile("^..구");
         Matcher matcher = p.matcher(keyword);
         List<Gym> list = null;
-        if (keyword.equals("헬스장") | keyword.equals(("헬스"))) {
-            //list = dao.gymlist(, );
-        }else if (keyword.startsWith("동대문") || keyword.startsWith("영등포") || keyword.startsWith("서대문") || matcher.find()) {
+         if (keyword.startsWith("동대문") || keyword.startsWith("영등포") || keyword.startsWith("서대문") || matcher.find()) {
             String[] split = keyword.split("구");
             list = dao.gymselectaddrlist(split[0],pageNo);
 

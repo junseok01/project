@@ -136,7 +136,7 @@
                     </div>
                     <div class="contents-button">
                         <a href="javascript:void(0);" class="btnset btnset-round" style="  background-color: #1abc9c;">등록하기</a>
-                        <a href="javascript:void(0);" class="btnset btnset-round" style="  background-color: #1abc9c;">대화하기 </a>
+                        <a th:href="@{/chat(loginId=${session.loginId},boardNo=${trainer.boardNo})}" class="btnset btnset-round" style="  background-color: #1abc9c;">대화하기 </a>
                     </div>
                 </div>
             </div>

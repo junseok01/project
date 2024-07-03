@@ -1,14 +1,17 @@
 package com.example.project.login;
 
 
+
+import com.example.project.trainer.Chat.entity.ChatRoom;
 import com.example.project.gym.GymBoardEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
-
 import java.util.*;
+
 
 @Entity
 @Table(name = "member")
@@ -36,6 +39,9 @@ public class UserEntity {
     //결재를 위한 포인트
     @Column
     private Integer point=0;
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private List<ChatRoom> roomlist = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
