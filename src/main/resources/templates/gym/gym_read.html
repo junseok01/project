@@ -57,10 +57,10 @@
                         <div class="contents-body">
                             <div class="contents-left">
                                 <div class="imageset">
-                                    <img class="imageset-img" src="/images/health4.jpg" alt="캠핑장 이미지">
+                                    <img th:src="@{/images/gym/}+${gym.gymphoto}" width="400">
                                 </div>
                                 <div class="imageset">
-                                    <img class="imageset-img" src="/images/health3.jpg" alt="캠핑장 이미지">
+                                    <img th:src="@{/images/gym/}+${gym.gymphoto}" width="400">
                                 </div>
                             </div>
                             <div class="contents-right">
@@ -68,12 +68,12 @@
                                     <h5 class="contents-subtit" style="font-family: 'SUITE-Regular';">이용금액</h5>
                                     <ul class="contents-list">
                                         <li class="contents-item">
-                                            <span class="contents-item-name">한달 이용권</span>
-                                            <span class="contents-item-price" th:text="${gym.monthprice}"></span>
+                                            <span class="contents-item-name">일일 이용권</span>
+                                            <span class="contents-item-price" th:text="${gym.dayprice}"></span>
                                         </li>
                                         <li class="contents-item">
-                                            <span class="contents-item-name">연간 이용권</span>
-                                            <span class="contents-item-price" th:text="${gym.yearprice}"></span>
+                                            <span class="contents-item-name">주간 이용권</span>
+                                            <span class="contents-item-price" th:text="${gym.weekprice}"></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -111,7 +111,7 @@
                             </div>
                         </div>
                         <div class="contents-button">
-                            <a href="javascript:void(0);" class="btnset btnset-round">RESERVATION</a>
+                            <a th:href="@{/gymPayment(dayPrice=${gym.dayprice},weekPrice=${gym.weekprice})}" class="btnset btnset-round">RESERVATION</a>
                         </div>
                     </div>
                 </div>

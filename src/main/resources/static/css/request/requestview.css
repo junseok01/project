@@ -67,3 +67,29 @@ button[type="submit"] {
 button[type="submit"]:hover {
     background-color: #45a049;
 }
+.file-upload-input {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+.file-upload-input input[type=file] {
+    flex: 1; /* 입력란이 나머지 공간을 채우도록 설정 */
+}
+
+.file-upload-input button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    /*background-color: #f44336;
+    color: white;*/
+    border: none;
+    cursor: pointer;
+    /*display: none; *//* 초기에는 삭제 버튼 숨김 */
+}
+
+/*
+.file-upload-input:hover button {
+    display: inline-block; */
+/* 마우스 오버 시 삭제 버튼 보이기 *//*
+
+}*/

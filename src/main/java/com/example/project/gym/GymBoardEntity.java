@@ -1,9 +1,6 @@
 package com.example.project.gym;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,14 +18,26 @@ public class GymBoardEntity {
     private String gymtel;
     private String gymaddr;
     private String info;
-    private String monthprice;
-    private String yearprice;
+    private String dayprice;
+    private String weekprice;
+    private String gymphoto;
 
-    public GymBoardEntity(String gymtrainer, String gymtel, String info, String monthprice, String yearprice) {
+    @Column
+    private int heartCount = 0;
+
+    public void incrementHeartCount() {
+        this.heartCount++;
+    }
+
+    public void decrementHeartCount() {
+        this.heartCount--;
+    }
+
+    public GymBoardEntity(String gymtrainer, String gymtel, String info, String dayprice, String weekprice) {
         this.gymtrainer = gymtrainer;
         this.gymtel = gymtel;
         this.info = info;
-        this.monthprice = monthprice;
-        this.yearprice = yearprice;
+        this.dayprice = dayprice;
+        this.weekprice = weekprice;
     }
 }
