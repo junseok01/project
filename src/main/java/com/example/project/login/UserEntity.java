@@ -1,13 +1,17 @@
 package com.example.project.login;
 
 
+import com.example.project.trainer.Chat.entity.ChatRoom;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "member")
@@ -34,6 +38,9 @@ public class UserEntity {
     private int loginType;
     @Column
     private Integer point=0;
+    @OneToMany(mappedBy = "user")
+    @ToString.Exclude
+    private List<ChatRoom> roomlist = new ArrayList<>();
 
     public UserEntity(String loginId, String loginPw, String name, String nickname, String cellphoneNo) {
         this.loginId = loginId;
