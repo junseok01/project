@@ -26,5 +26,6 @@ public class Gym {
     private String areanum;
     private String businessnum;
     private String memberid;
+    private int dailyprice;
 }
 

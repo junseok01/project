@@ -31,8 +31,6 @@ public class LoginController {
 
 
 
-
-
     @GetMapping("/login")
     public String login(Model model,HttpSession session) {
         String stateToken = generateState();

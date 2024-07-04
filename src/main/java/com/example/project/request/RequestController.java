@@ -96,6 +96,7 @@ public class RequestController {
     @PostMapping("/RequestToTrainer")
     @ResponseBody
     public String Request2Trainer(RequestDTO requestDTO, List<MultipartFile> files) throws IOException {
+        requestDTO.setTitle("트레이너 요청");
         String response="";
         //요청사용자 계정은 요청페이지에서 hidden으로 보냄, 나머지는 입력
         RequestEntity requestEntity = new RequestEntity(requestDTO);

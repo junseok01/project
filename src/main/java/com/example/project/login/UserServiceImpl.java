@@ -1,11 +1,14 @@
 package com.example.project.login;
 
+import com.example.project.gym.GymBoardEntity;
+import com.example.project.gym.GymBoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,12 +20,16 @@ public class UserServiceImpl implements UserService {
 
     UserDAO userDAO;
     ModelMapper modelMapper;
+    GymBoardRepository gymBoardRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserDAO dao, ModelMapper modelMapper) {
-        this.userDAO = dao;
+    public UserServiceImpl(UserDAO userDAO, ModelMapper modelMapper, GymBoardRepository gymBoardRepository, UserRepository userRepository) {
+        this.userDAO = userDAO;
         this.modelMapper = modelMapper;
-
+        this.gymBoardRepository = gymBoardRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -51,8 +58,7 @@ public class UserServiceImpl implements UserService {
     public void updateUserType2Trainer(String id) {
         userDAO.updateUserType2Trainer(id);
     }
-    @Autowired
-    private UserRepository userRepository;
+
 
 
     @Override
@@ -80,9 +86,10 @@ public class UserServiceImpl implements UserService {
 
         return new PageImpl<>(userDTOList, pageable, userEntityPage.getTotalElements());
     }
-
     @Override
     public void updatePoint(String loginId,int price) {
         userDAO.updatePoint(loginId,price);
     }
+
+
 }

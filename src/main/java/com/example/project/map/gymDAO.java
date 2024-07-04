@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface gymDAO {
     public List<Gym> gymlist(float x,float y);
-    public List<Gym> gymselectlist(String keyword);
-    public List<Gym> gymselectaddrlist(String keyword);
+    public List<Gym> gymselectlist(String keyword,int pageNo);
+    public List<Gym> gymselectaddrlist(String keyword,int pageNo);
 }
