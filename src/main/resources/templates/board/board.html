@@ -78,7 +78,7 @@
                     <td th:text="${board.id }"></td>
                     <td><a th:href="@{/board/read(board_no=${board.board_no},action=READ)}">
                         <span th:text="${board.title }"></span></a></td>
-                    <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd')}"></td>
                 </tr>
                 </tbody>
             </table>
