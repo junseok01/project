@@ -44,12 +44,59 @@
 </head>
 <body>
 <div id="main-content" class="container">
+    <div style="float:left">
+        <div style="margin:30px;background-color:lightgray;width:550px;height:400px"
+             id="talklist">
+        </div>
+    </div>
     <div class="row">
         <div id='sendZone'>
+            <input type="hidden" id="sender" th:value="${session.member.loginId}" width="100px"  />
             <textarea id='msg' ></textarea>
             <input type='button' value='전송' id='sendbtn'>
         </div>
     </div>
 </div>
+<script th:inline="javascript">
+    var stompClient = null;
+    var roomId= "";
+    function onMessageReceived(payload){
+        console.log(payload);
+        let chatmsg = JSON.parse(payload.body);
+        let msgcss = "";
+        let item = "<div "+msgcss+"><span><b>"+chatmsg.sender+"</b></span>"+
+            "<b>["+chatmsg.createDate+"]</b><br/>"
+            +"<span>"+chatmsg.message+"</span></div>";
+        $("#talklist").append(item);
+    }
+    function sendChat(sender) {
+        if ($("#msg").val() != "") {
+            console.log("/pub/"+roomId)
+            console.log(stompClient)
+            stompClient.send("/pub/"+roomId, {},
+                JSON.stringify({
+                    'roomId': roomId,
+                    'sender': $("#sender").val(),
+                    'message' : $("#msg").val()
+                }));
+            $("#message").val('');
+        }
+    }
+    $(document).ready(function(){
+        var socket = new SockJS('/websocket/start');
+        stompClient = Stomp.over(socket);
+        roomId = /*[[${roomId}]]*/
+        var userId = /*[[${session.member.loginId}]]*/
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/sub/chat/room/'+roomId,onMessageReceived );
+
+        })
+        $( "#sendbtn" ).click(function() {
+            sender = $("#sender").val();
+            sendChat(sender);
+        });
+    })
+</script>
 </body>
 </html>

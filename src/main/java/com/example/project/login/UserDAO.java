@@ -14,6 +14,6 @@ public interface UserDAO {
     Page<UserEntity> getUserPage(int page, int  size, Pageable pageable);
     Page<UserEntity> getUserPage(int page, int  size, Pageable pageable,String text,String type);
     void updatePoint(String loginId,int price);
-
+    UserEntity chatsearch(String id);
 
 }
