@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout/mainLayout}">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="imagetoolbar" content="no">
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="/css/gym/template.css">
     <link rel="stylesheet" href="/css/gym/common.css">
     <link rel="stylesheet" href="/css/gym/style.css">
+    <link rel="stylesheet" href="/css/style.css">
     <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
     <script type="text/javascript" th:inline="javascript">
@@ -40,6 +42,7 @@
             })
         });
     </script>
+
 </head>
 <body>
 
@@ -108,20 +111,130 @@
                                     <button class="selectset-toggle btn" type="button">
                                         <span>강서구</span>
                                     </button>
-                                    <ul class="selectset-list">
+                                    <ul class="selectset-list" >
                                         <li class="selectset-item">
-                                            <button class="selectset-link btn" type="button" data-value="최근 6개월">
-                                                <span>강남구</span>
+                                            <button class="selectset-link btn" type="button">
+                                                <span>송파구</span>
                                             </button>
                                         </li>
                                         <li class="selectset-item">
                                             <button class="selectset-link btn" type="button" data-value="최근 3개월">
-                                                <span>동작구</span>
+                                                <span>강동구</span>
                                             </button>
                                         </li>
                                         <li class="selectset-item">
                                             <button class="selectset-link btn" type="button" data-value="최근 1개월">
                                                 <span>서초구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>강남구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>동작구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>관악구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>영등포구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>금천구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>양천구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>구로구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>강서구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>마포구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>용산구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>서대문구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>중구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>종로구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>은평구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>성동구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>광진구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>동대문구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>중량구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>성북구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>강북구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>도봉구</span>
+                                            </button>
+                                        </li>
+                                        <li class="selectset-item">
+                                            <button class="selectset-link btn" type="button" data-value="최근 1개월">
+                                                <span>노원구</span>
                                             </button>
                                         </li>
                                     </ul>
@@ -130,7 +243,7 @@
                         </div>
                         <div class="cardset cardset-hor" th:each="gym:${gymlist}">
                             <figure class="cardset-figure">
-                                <img class="cardset-img" src="/images/health4.jpg" alt="카드 이미지">
+                                <img th:src="@{/images/gym/}+${gym.gymphoto}" width="400">
                             </figure>
                             <div class="cardset-body">
                                 <p class="cardset-txt">등록번호 2024061520240615</p>
@@ -144,22 +257,31 @@
                                     <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
                                     <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${gym.gymaddr}"></h2>
                                 </div>
-                                <p class="cardset-desc" th:text="${gym.monthprice}"></p>
-                                <p class="cardset-desc"th:text="${gym.yearprice}"></p>
+                                <p class="cardset-desc" th:text="'일일권 : ' + ${gym.dayprice}"></p>
+                                <p class="cardset-desc"th:text="'일주권 : ' + ${gym.weekprice}"></p>
                                 <div class="btnset-wrap">
                                     <a th:href="@{/gymread(gymboardnum=${gym.gymboardnum},action=READ)}" class="btnset btnset-round" style="  background-color: #1abc9c;">상세보기</a>
-                                    <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
+                                    <!--이미 찜을 했다면-->
+                                    <button th:if="${session.heartedGymIds.contains(gym.gymboardnum)}"
+                                            th:id="'likeBtn_' + ${gym.gymboardnum}"
+                                            class="btnset btnset-round liked"
+                                            th:onclick="heartGym([[${gym.gymboardnum}]]) "
+                                            style="background-color: #1abc9c;">찜</button>
+                                    <!--찜을 하지 않은 상태라면-->
+                                    <button th:unless="${session.heartedGymIds.contains(gym.gymboardnum)}"
+                                            th:id="'likeBtn_' + ${gym.gymboardnum}" class="btnset btnset-round"
+                                            th:onclick="heartGym([[${gym.gymboardnum}]])">찜</button>
                                 </div>
                             </div>
                         </div>
                         <nav class="pagiset pagiset-circ pagiset-border">
                             <div class="pagiset-ctrl">
-                                <a class="pagiset-link pagiset-prev"  th:href="@{/gymlist(page=${GymPage.number - 1}, size=${GymPage.size})}">
+                                <a class="pagiset-link pagiset-prev" th:if="${GymPage.number!=0}" th:href="@{/gymlist(page=${GymPage.number - 1},gymname=${gymname} ,gymaddr=${gymaddr},size=${GymPage.size})} ">
                                     <span class="visually-hidden">이전</span>
                                 </a>
                             </div>
                             <div class="pagiset-ctrl">
-                                <a class="pagiset-link pagiset-next"  th:href="@{/gymlist(page=${GymPage.number + 1}, size=${GymPage.size})}">
+                                <a class="pagiset-link pagiset-next"  th:if="${GymPage.number+1 != totalPage}" th:href="@{/gymlist(page=${GymPage.number + 1},gymname=${gymname} , gymaddr=${gymaddr},size=${GymPage.size})}">
                                     <span class="visually-hidden" >다음</span>
                                 </a>
                             </div>
@@ -169,12 +291,46 @@
             </div>
             <!-- [E]campland-N22 -->
         </main>
+        <script>
+            function heartGym(boardNum) {
+                var likeBtnId = 'likeBtn_' + boardNum;
 
+
+                //alert("동작")
+                $.ajax({
+                    type: "GET",
+                    url: "/Heart?boardNum=" + boardNum,
+                    success: function(response) {
+                        var likeBtn = document.getElementById(likeBtnId);
+
+
+                        if (!likeBtn.classList.contains('liked')) {
+                            likeBtn.style.backgroundColor = '#1abc9c';  // 스타일 추가
+                            likeBtn.classList.add('liked');  // 'liked' 클래스 추가
+                            alert("찜하기 완료!!");
+                        } else {
+                            likeBtn.style.backgroundColor = '';
+                            likeBtn.classList.remove('liked');
+                            alert("찜하기 취소!!");
+                        }
+
+                    },
+                    error: function(error) {
+                        alert("오류 발생: " + error);
+                    }
+                });
+            }
+
+        </script>
+
+
+    </div>
     <!-- [E]campland-N2 -->
     <script src="js/gym/setting.js"></script>
     <script src="js/gym/plugin.js"></script>
     <script src="js/gym/template.js"></script>
     <script src="js/gym/common.js"></script>
     <script src="js/gym/script.js"></script>
- </body>
+
+</body>
 </html>

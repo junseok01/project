@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface gymService {
     public List<GymMapResponseDTO> gymlist(float x,float y);
-    public List<GymMapResponseDTO> gymselectlist(String keyword);
+    public List<GymMapResponseDTO> gymselectlist(String keyword,int pageNo);
 }

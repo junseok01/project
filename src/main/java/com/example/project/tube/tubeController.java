@@ -30,10 +30,10 @@ public class tubeController {
         }else if(pagingNo>4){
             pagingNo = 4;
         }
-        if (category != null &&category != "") {
+        if (category != null && category != "") {
              tubelist = tubeService.tubecategorylist(category,pagingNo);
              model.addAttribute("category",category);
-        }else if (keyword !=null &&keyword != ""){
+        }else if (keyword !=null && keyword != ""){
             tubelist = tubeService.tubeselectlist(keyword,pagingNo);
             model.addAttribute("keyword",keyword);
         }else {

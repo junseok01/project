@@ -7,6 +7,7 @@
     <title>헬스장 - HTML5 Resoponsive onepage e-commerce template </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <link rel="icon" href="images/favicon.png" >
     <link rel="stylesheet" href="css/style.css" >
@@ -14,6 +15,24 @@
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
+    <script>
+        function heartGym(boardNum) {
+            alert("동작")
+            $.ajax({
+                type: "GET",
+                url: "/Heart?boardNum=" + boardNum,
+                success: function(response) {
+                    // 성공적으로 처리된 후의 동작 (예: 알림 메시지 표시)
+                    alert("찜하기 완료!!");
+                    // 추가적으로 필요한 동작 수행 (예: 화면 갱신)
+                },
+                error: function(error) {
+                    // 오류 처리
+                    alert("오류 발생: " + error);
+                }
+            });
+        }
+    </script>
     <![endif]-->
 
 </head>
@@ -42,6 +61,7 @@
             </div>
         </div>
     </footer>
+
 
 </body>
 </html>

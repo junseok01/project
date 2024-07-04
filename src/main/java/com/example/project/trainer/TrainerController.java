@@ -22,17 +22,20 @@ public class TrainerController {
     private final TrainerService service;
 
     @GetMapping("/trainerlist")
-    public String trainerpage(Model model , @RequestParam(defaultValue = "") String trainerName,@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "10") int size) {
-        List<TrainerResponseDTO> trainerEntityList =service.pagingFindAll();
+    public String trainerpage(Model model , @RequestParam(value = "trainerName" ,required = false) String trainerName,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "7") int size) {
+        Page<TrainerEntity> trainerEntityList;
         if(trainerName==null){
-            trainerEntityList =service.pagingFindAll();
+            trainerEntityList =service.getTrainers(page,size);
         }else{
-            trainerEntityList =service.findBytrainer(trainerName,page);
+            trainerEntityList =service.getSearchTrainer(trainerName,page,size);
         }
         //페이징처리 - 다음 ,이전
         Page<TrainerEntity> trainerPage = service.getTrainers(page, size);
-        model.addAttribute("trainerPage", trainerPage);
         model.addAttribute("trainerName",trainerName);
+        model.addAttribute("trainerPage", trainerPage);
+        model.addAttribute("totalPage",trainerPage.getTotalPages());
         model.addAttribute("trainerlist",trainerEntityList);
         return "trainer/trainerhome";
     }

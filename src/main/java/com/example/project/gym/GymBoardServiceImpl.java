@@ -67,4 +67,9 @@ public class GymBoardServiceImpl implements GymBoardService{
     public Page<GymBoardEntity> getgym(int page, int size) {
         return dao.pagelist(page,size);
     }
+
+    @Override
+    public Page<GymBoardEntity> getSearchTrainer(String gymname, int page, int size) {
+        return dao.searchGymName(gymname,page,size);
+    }
 }
