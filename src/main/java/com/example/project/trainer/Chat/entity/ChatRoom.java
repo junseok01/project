@@ -20,7 +20,7 @@ import java.util.List;
 @Entity
 public class ChatRoom {
 	@Id
-	private String roomName;//채팅룸이름
+	private String roomId;//채팅룸이름
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity user;//일반회원 아이디
@@ -31,5 +31,13 @@ public class ChatRoom {
 	private Date createDate;
 	@UpdateTimestamp
 	private Date modifyDate;
+	@OneToMany(mappedBy = "room")
+	@ToString.Exclude
+	private List<ChatMessage> messages = new ArrayList<>();
 
+	public ChatRoom(String roomId, UserEntity user, TrainerEntity trainer) {
+		this.roomId = roomId;
+		this.user = user;
+		this.trainer = trainer;
+	}
 }
