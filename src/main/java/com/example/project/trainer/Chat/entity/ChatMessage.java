@@ -1,10 +1,7 @@
 package com.example.project.trainer.Chat.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
@@ -14,6 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 public class ChatMessage {
 	@Id @GeneratedValue
 	private Long messageId;
@@ -26,4 +24,11 @@ public class ChatMessage {
 	private MessageType type;
     @CreationTimestamp
 	private Date createDate;//채팅발송시간
+
+	public ChatMessage(ChatRoom room, String sender, String message, MessageType type) {
+		this.room = room;
+		this.sender = sender;
+		this.message = message;
+		this.type = type;
+	}
 }

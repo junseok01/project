@@ -1,14 +1,11 @@
 package com.example.project.login;
 
-import com.example.project.gym.GymBoardEntity;
 import com.example.project.gym.GymBoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,11 +43,12 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteMember(id);
     }
 
+    //채팅방 만들기 위한 정보가져오기
     @Override
-    public UserDTO search(String id) {
-        UserDTO userDTO = userDAO.search(id);
-        System.out.println(userDTO);
-        return null;
+    public UserEntity chatsearch(String id) {
+        //UserDTO userDTO = userDAO.search(id);
+        //System.out.println(userDTO);
+        return userDAO.chatsearch(id);
     }
 
     //아이디로 유저타입을 트레이너로 변경
