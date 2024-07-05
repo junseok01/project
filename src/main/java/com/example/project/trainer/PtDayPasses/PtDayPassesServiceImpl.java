@@ -21,11 +21,14 @@ public class PtDayPassesServiceImpl implements PtDayPassesService {
     private TrainerRepository trainerRepository;
 
     @Override
-    public void reservePt(PtDayPassesRequestDTO requestDTO) {
+    public String reservePt(PtDayPassesRequestDTO requestDTO) {
 
         UserEntity user = userRepository.findByLoginId(requestDTO.getUser());
         TrainerEntity trainer =trainerRepository.findByName(requestDTO.getTrainer());
-
+        // 현재 유저의 포인트가 일일권 가격보다 낮으면 예약실패 & 아니면 예약성공
+        if (user.getPoint() < Integer.parseInt(trainer.getTicketprice())){
+            return "failReserve";
+        }
         PtDayPassesEntity ptDayPasses = PtDayPassesEntity.builder()
                 .user(user)
                 .trainer(trainer)
@@ -34,6 +37,7 @@ public class PtDayPassesServiceImpl implements PtDayPassesService {
                 .build();
         System.out.println("service===>"+ptDayPasses);
         PtDayPassesRepository.save(ptDayPasses);
+        return "successReserve";
     }
 
     @Override
@@ -50,10 +54,17 @@ public class PtDayPassesServiceImpl implements PtDayPassesService {
     public void acceptPtDayPasses(PtDayPassesRequestDTO requestDTO) {
         PtDayPassesEntity ptDayPassesEntity = PtDayPassesRepository.findById(requestDTO.getRequestId())
                 .orElse(null);
-        if(ptDayPassesEntity != null) {
-            ptDayPassesEntity.setStatus("accept");
-            PtDayPassesRepository.save(ptDayPassesEntity);
-        }
+
+            UserEntity user = ptDayPassesEntity.getUser();
+            TrainerEntity trainer = ptDayPassesEntity.getTrainer();
+            int ticketPrice = Integer.parseInt(trainer.getTicketprice());
+
+                // PT수락시 유저 포인트 일일권 가격만큼 차감
+                user.setPoint(user.getPoint()-ticketPrice);
+                userRepository.save(user);
+
+                ptDayPassesEntity.setStatus("accept");
+                PtDayPassesRepository.save(ptDayPassesEntity);
     }
 
     @Override
