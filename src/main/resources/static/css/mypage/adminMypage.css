@@ -7,7 +7,7 @@ body {
 
 /* 상단 영역 */
 #header {
-    background-color: #333;
+    background-color: #3333333d;
     color: white;
     padding: 20px;
     text-align: center;
@@ -65,7 +65,7 @@ body {
 
 /* 하단 영역 */
 #footer {
-    background-color: #333;
+    background-color: #3333333d;
     color: white;
     padding: 20px;
     text-align: center;
@@ -76,5 +76,19 @@ body {
 #footer h2 {
     margin: 0;
     font-size: 24px;
-    color:white;
+    color:#121212;
+}
+#adminBox{
+    width:80%;
+}
+
+.chart-box {
+    flex: 0 1 40%; /* 캔버스 컨테이너의 너비를 40%로 설정 */
+    max-width: 400px; /* 최대 너비를 400px로 설정 */
+    padding: 10px;
+}
+
+canvas {
+    width: 100%;
+    height: auto;
 }

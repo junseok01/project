@@ -22,8 +22,8 @@ public class PointServiceImpl implements PointService{
     @Override
     @Transactional
     public UserDTO buyTicket(int gymPrice, String description, UserDTO user) {
-        user.setPoint(user.getPoint()-gymPrice);
-        UserEntity userEntity = modelMapper.map(user,UserEntity.class);
+        user.setPoint(user.getPoint()-gymPrice);//dto
+        UserEntity userEntity = modelMapper.map(user,UserEntity.class);//entity변환
         userRepository.save(userEntity);
 
         PointEntity point=new PointEntity();
@@ -50,4 +50,5 @@ public class PointServiceImpl implements PointService{
 
         return user;
     }
+
 }

@@ -9,10 +9,9 @@
 <body>
 <div th:fragment="main">
 
-    <div class="box">
+    <div class="adminBox">
 
         <!-- 상단 영역 -->
-        <h1>관리자 페이지1</h1>
         <div id="header">
 
             <div class="stats">
@@ -22,11 +21,11 @@
                 </div>
                 <div class="stat-box">
                     <h3>총 게시글 수</h3>
-                    <p id="totalPosts">500</p>
+                    <p id="totalPosts" th:text="${TotalBoard}"></p>
                 </div>
                 <div class="stat-box">
                     <h3>총 회원 수</h3>
-                    <p id="totalMembers">200</p>
+                    <p id="totalMembers" th:text="${TotalUser}"></p>
                 </div>
             </div>
         </div>
@@ -34,24 +33,20 @@
         <!-- 중단 영역 -->
         <div id="content">
             <h2>유저 비율</h2>
-            <canvas id="userPieChart"></canvas>
+            <div class="charts-container" style="display: flex;">
+                <div class="chart-box">
+                    <canvas id="genderChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="userTypeChart"></canvas>
+                </div>
+            </div>
         </div>
 
         <!-- 하단 영역 -->
         <div id="footer">
             <h2>날짜별 방문자 추이</h2>
             <canvas id="visitorsLineChart"></canvas>
-        </div>
-
-
-        <h1>차트</h1>
-        <div class="charts-container">
-            <div class="chart-box">
-                <canvas id="genderChart"></canvas>
-            </div>
-            <div class="chart-box">
-                <canvas id="userTypeChart" width="400" height="400"></canvas>
-            </div>
         </div>
 
         <script>
@@ -96,7 +91,15 @@
                     .then(response => response.json())
                     .then(data => {
                         const userTypeCtx = document.getElementById('userTypeChart').getContext('2d');
-                        const userTypeLabels = Object.keys(data);
+
+                        const userTypeMapping = {
+                            0: '관리자',
+                            1: '일반유저',
+                            2: '트레이너'
+                        };
+
+
+                        const userTypeLabels = Object.keys(data).map(key => userTypeMapping[key]);
                         const userTypeCounts = Object.values(data);
 
                         new Chart(userTypeCtx, {

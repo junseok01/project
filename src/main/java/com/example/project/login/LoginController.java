@@ -24,6 +24,8 @@ import java.security.SecureRandom;
 public class LoginController {
     private LoginService service;
 
+
+
     @Autowired
     public LoginController(LoginService service) {
         this.service = service;
