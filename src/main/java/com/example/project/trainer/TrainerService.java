@@ -14,13 +14,13 @@ public interface TrainerService {
     List<TrainerResponseDTO> trainerList();
     //게시글상세조회
     // /erp/board/read
-    TrainerEntity gettrainerInfo(Long boardNo);
+    TrainerEntity gettrainerInfo(String trainerId);
     //게시글수정
     // /erp/board/update
     void update(String trainerId, String ticketprice,String career, String info);
     //게시글삭제
     // /erp/board/delete
-    void delete(Long boardNo);
+    void delete(String trainerId);
     //제목으로 검색
     List<TrainerEntity> search(String data);
     //제목,작성자, 본문, 작성일별로 검색

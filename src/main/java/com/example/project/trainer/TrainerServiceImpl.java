@@ -33,8 +33,8 @@ public class TrainerServiceImpl implements TrainerService{
         return trainerlist;
     }
     @Override
-    public TrainerEntity gettrainerInfo(Long boardNo) {
-        TrainerEntity read = dao.read(boardNo);
+    public TrainerEntity gettrainerInfo(String trainerId) {
+        TrainerEntity read = dao.read(trainerId);
         return read;
     }
 
@@ -50,8 +50,8 @@ public class TrainerServiceImpl implements TrainerService{
         repository.save(trainer);
     }
     @Override
-    public void delete(Long boardNo) {
-        dao.delete(boardNo);
+    public void delete(String trainerId) {
+        dao.delete(trainerId);
     }
 
     @Override
