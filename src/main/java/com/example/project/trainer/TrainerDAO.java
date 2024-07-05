@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface TrainerDAO {
     void insert(TrainerEntity trainer, MultipartFile file) throws IOException;
-    TrainerEntity read(Long boardNo);
+    TrainerEntity read(String trainerId);
     void update(TrainerEntity dto);
-    void delete(Long boardNo);
+    void delete(String trainerId);
     List<TrainerEntity> list();
     List<TrainerEntity> pagingFindAll();
     List<TrainerEntity> searchName(String trainerName);
