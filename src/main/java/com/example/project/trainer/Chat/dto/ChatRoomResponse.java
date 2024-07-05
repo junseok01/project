@@ -11,6 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class ChatRoomResponse {
     private String roomId;//채팅룸이름
+    private Long trainer;
     private Date createDate;
     private Date modifyDate;
 }
