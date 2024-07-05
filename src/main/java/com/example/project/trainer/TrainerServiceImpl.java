@@ -7,11 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -43,9 +40,9 @@ public class TrainerServiceImpl implements TrainerService{
 
     @Override
     @Transactional
-    public void update(Long boardNo,String ticketprice,String career, String info) {
-        TrainerEntity trainer= repository.findById(boardNo)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid trainer Id:" + boardNo));
+    public void update(String trainerId, String ticketprice, String career, String info) {
+        TrainerEntity trainer= repository.findById(trainerId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid trainer Id:" + trainerId));
         // 더티체킹을 통해 엔티티 수정
         trainer.setTicketprice(ticketprice);
         trainer.setCareer(career);

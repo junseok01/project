@@ -1,6 +1,5 @@
 package com.example.project.trainer;
 
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -47,8 +46,8 @@ public class TrainerDAOImpl implements TrainerDAO{
     }
 
     @Override
-    public TrainerEntity read(Long boardNo) {
-        return repository.findById(boardNo).get();
+    public TrainerEntity read(String trainerId) {
+        return repository.findById(trainerId).get();
     }
 
     @Override
@@ -56,9 +55,9 @@ public class TrainerDAOImpl implements TrainerDAO{
     }
 
     @Override
-    public void delete(Long boardNo) {
+    public void delete(String trainerId) {
         //영속성을 받기위해서 boardNo값을 넘겨줌
-        TrainerEntity trainerEntity = repository.findById(boardNo).get();
+        TrainerEntity trainerEntity = repository.findById(trainerId).get();
         repository.delete(trainerEntity);
     }
 

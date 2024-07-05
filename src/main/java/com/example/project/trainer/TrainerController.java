@@ -74,7 +74,7 @@ public class TrainerController {
     }
     @PostMapping("/update")
     public String update(@ModelAttribute TrainerEntity trainer) {
-        service.update(trainer.getBoardNo(),trainer.getTicketprice(),trainer.getCareer(),trainer.getInfo());
+        service.update(trainer.getTrainerId(),trainer.getTicketprice(),trainer.getCareer(),trainer.getInfo());
         return "redirect:/trainerlist" ;
     }
 

@@ -21,9 +21,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainerEntity {
-    @Id
-    @GeneratedValue
-    private Long boardNo;
+    @Id 
+    private String trainerId;
     private String name;
     private String gymName;
     private String addr;
@@ -37,6 +36,7 @@ public class TrainerEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "trainer")
     private List<ChatRoom> roomList = new ArrayList<>();
+
 
     public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info,String imageurl,String imagename) {
         this.name = Name;

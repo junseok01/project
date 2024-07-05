@@ -17,7 +17,7 @@ public interface TrainerService {
     TrainerEntity gettrainerInfo(Long boardNo);
     //게시글수정
     // /erp/board/update
-    void update(Long boardNo, String ticketprice,String career, String info);
+    void update(String trainerId, String ticketprice,String career, String info);
     //게시글삭제
     // /erp/board/delete
     void delete(Long boardNo);
