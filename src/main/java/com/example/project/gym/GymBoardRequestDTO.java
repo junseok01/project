@@ -10,10 +10,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class GymBoardRequestDTO {
-
     private String gymtrainer;
     private String gymtel;
     private String info;
     private String monthprice;
     private String yearprice;
+
+
+
 }

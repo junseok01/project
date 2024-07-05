@@ -10,8 +10,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name="trainerboard")
@@ -28,17 +30,21 @@ public class TrainerEntity {
     private String ticketprice;
     private String career;
     private String info;
+    private String imagename;
+    private String imageurl;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
     private Date writedate;
 
 
-    public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info) {
+    public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info,String imageurl,String imagename) {
         this.name = Name;
         this.gymName= GymName;
         this.addr = Addr;
         this.ticketprice = ticketprice;
         this.career = Career;
         this.info = info;
+        this.imageurl=imageurl;
+        this.imagename =imagename;
     }
     public TrainerEntity(String ticketprice,String career,String info){
         this.ticketprice = ticketprice;

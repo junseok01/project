@@ -70,9 +70,9 @@
         <div class="form-group">
             <div class="read-buttons">
                 <div class="edit-button">
-                <input type="button" class="btn btn-lg btn-primary" value="수정"
-                        th:if="${session.member!=null and (session.member.loginId == board.id or session.member.userType == 0)}"
-                       th:onclick="|location.href='@{/board/read(board_no=${board.board_no},action=UPDATE)}'|">
+                    <input type="button" class="btn btn-lg btn-primary" value="수정"
+                           th:if="${session.member!=null and (session.member.loginId == board.id or session.member.userType == 0)}"
+                           th:onclick="|location.href='@{/board/read(board_no=${board.board_no},action=UPDATE)}'|">
                 </div>
                 <button type="button" class="btn btn-danger btn-lg" id="deletebtn"
                         th:if="${session.member!=null and (session.member.loginId == board.id or session.member.userType == 0)}"

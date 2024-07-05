@@ -7,14 +7,42 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Repository
 public class TrainerDAOImpl implements TrainerDAO{
     private final TrainerRepository repository;
 
     @Override
-    public void  insert(TrainerEntity trainer) {
+    public void  insert(TrainerEntity trainer, MultipartFile file) throws IOException {
+        //현재 실행중인 디렉토리 위치를 설정 + 파일이 저장될 경로 지정
+        String basePath = System.getProperty("user.dir") + "/static/images/trainer";
+        // 디렉토리가 존재하는지 확인
+        Path path = Paths.get(basePath);
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+
+        // 고유한 파일이름 랜덤으로생성
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + file.getOriginalFilename();
+        File saveFile = new File(basePath, fileName);
+        file.transferTo(saveFile);
+
+        // 이미지설정
+        trainer.setImagename(fileName);
+        trainer.setImageurl("/images/trainer/" + fileName);
+
+
         repository.save(trainer);
     }
 
@@ -25,7 +53,6 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public void update(TrainerEntity dto) {
-
     }
 
     @Override
@@ -55,7 +82,7 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public Page<TrainerEntity> pagelist(int page, int size) {
-        Pageable pageable =PageRequest.of(page,size);
+        Pageable pageable =PageRequest.of(page,size, Sort.by(Sort.Direction.DESC, "boardNo"));
         return repository.findAll(pageable);
     }
 

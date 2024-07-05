@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="웹사이트">
+    <meta name="description" content="웹사이트입니다.">
+    <meta name="keywords" content="키워드,키워드,키워드">
+    <meta property="og:title" content="웹사이트">
+    <meta property="og:description" content="웹사이트입니다">
+    <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+    <meta property="og:url" content="https://웹사이트">
+    <title>시설소개 | 프로젝트1610</title>
+    <link rel="stylesheet" href="/css/gym/setting.css">
+    <link rel="stylesheet" href="/css/gym/plugin.css">
+    <link rel="stylesheet" href="/css/gym/template.css">
+    <link rel="stylesheet" href="/css/gym/common.css">
+    <link rel="stylesheet" href="/css/gym/style.css">
+    <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
+    <!-- jquery CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- fullcalendar CDN -->
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>
+    <!-- fullcalendar 언어 CDN -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script>
+</head>
+<body>
+<div layout:fragment="content">
+    <main class="th-layout-main ">
+        <!-- [S]campland-N8 -->
+        <!-- [E]campland-N8 -->
+        <!-- [S]campland-N10 -->
+        <div class="campland-N10" data-bid="giLXFmD3rk">
+            <div class="contents-inner">
+                <div class="contents-container container-md">
+                    <div class="textset textset-sub"  style="display: flex; flex-wrap: wrap;">
+                        <div class="textbox">
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">트레이너 수정</h2>
+                        </div>
+                    </div>
+                    <hr/>
+                    <form action="/update" method="post">
+                        <input type="hidden" th:name="boardNo" th:value="${trainer.boardNo}">
+                        <div class="textset textset-sub" style="display: flex; flex-wrap: wrap;" >
+                            <i class="fa-solid fa-user" style="margin-top: 30px; margin-right: 10px;"></i>
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${trainer.name}"></h2>
+                        </div>
+                        <div class="textset textset-sub"  style="display: flex; flex-wrap: wrap;" >
+                            <i class="fa-solid fa-dumbbell" style="margin-top: 30px; margin-right: 10px;"></i>
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${trainer.gymName}"></h2>
+                        </div>
+                        <div class="location" style=" display:flex; flex-wrap:wrap;">
+                            <i class="fa-solid fa-location-dot" style="margin-top: 30px; margin-right: 10px;"></i>
+                            <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';" th:text="${trainer.addr}"></h2>
+                        </div>
+                        <div class="contents-body">
+                            <div class="contents-right">
+                                <div class="contents-group">
+                                    <h5 class="contents-subtit" style="font-family: 'SUITE-Regular';">이용금액</h5>
+                                    <ul class="contents-list">
+                                        <li class="contents-item">
+                                            <span class="contents-item-name">일일권</span>
+                                            <input type="text" th:name="ticketprice" th:value="${trainer.ticketprice}">
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="contents-group">
+                                    <h5 class="contents-subtit"  style="font-family: 'SUITE-Regular';">트레이너 경력</h5>
+                                    <ul class="contents-list">
+                                        <li class="contents-item">
+                                            <textarea id="career" class="contents-item-name"
+                                                      style="width: 100%; border: 1; overflow: visible; text-overflow: ellipsis;"
+                                                      rows=15 th:name="career" th:text="${trainer.career}"></textarea>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="contents-group">
+                                    <h5 class="contents-subtit"  style="font-family: 'SUITE-Regular';">기타</h5>
+                                    <ul class="contents-list">
+                                        <li class="contents-item">
+                                          <textarea id="info" class="contents-item-name"
+                                                    style="width: 100%; border: 1; overflow: visible; text-overflow: ellipsis;"
+                                                    rows=15 th:name="info" th:text="${trainer.info}"></textarea>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="button23" style="display: flex; flex-wrap: wrap" >
+                            <div class="contents-button">
+                                <button type="submit" class="btnset btnset-round" style="  background-color: #1abc9c;">수정완료</button>
+                            </div>
+                            <div class="contents-button">
+                                <button type="reset" class="btnset btnset-round" style="  background-color: #1abc9c;">취소</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+<script src="js/gym/setting.js"></script>
+<script src="js/gym/plugin.js"></script>
+<script src="js/gym/template.js"></script>
+<script src="js/gym/common.js"></script>
+<script src="js/gym/script.js"></script>
+</body>
+</html>

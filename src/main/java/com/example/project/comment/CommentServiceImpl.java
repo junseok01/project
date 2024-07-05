@@ -9,13 +9,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class CommentServiceImpl implements CommentService{
-    @Autowired
-    private CommentRepository commentRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Override
+    @Service
+    public class CommentServiceImpl implements CommentService{
+        @Autowired
+        private CommentRepository commentRepository;
+        @Autowired
+        private UserRepository userRepository;
+        @Override
     public List<CommentResponseDto> findCommentByBoardId(String boardId){
         return commentRepository.findByBoardId(boardId).stream()
                 .map(commentEntity -> new CommentResponseDto(commentEntity.getCommentNo()
@@ -37,7 +37,6 @@ public class CommentServiceImpl implements CommentService{
         CommentEntity comment = commentRepository.save(commentEntity);
         return new CommentResponseDto(comment);
     }
-
     @Override
     public Long deleteComment(Long commentNo) {
         commentRepository.deleteById(commentNo);

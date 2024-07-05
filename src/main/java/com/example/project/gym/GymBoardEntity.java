@@ -32,4 +32,5 @@ public class GymBoardEntity {
         this.monthprice = monthprice;
         this.yearprice = yearprice;
     }
+
 }

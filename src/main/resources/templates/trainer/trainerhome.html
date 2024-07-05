@@ -36,7 +36,7 @@
             $("#category").change(function(){
                 //select가 변경되는 change이벤트가 발생하면 컨트롤러를 호출함
                 //alert($(this).val())
-                location.href="/trainerlist?category="+$(this).val()
+                location.href="/erp/board/list?category="+$(this).val()
             })
         });
     </script>
@@ -244,7 +244,7 @@
                     </div>
                     <div class="cardset cardset-hor" th:each="trainer:${trainerlist}">
                         <figure class="cardset-figure">
-                            <img class="cardset-img" src="/images/trainer1.jpg" alt="카드 이미지">
+                            <img th:src="@{/images/trainer/}+${trainer.imagename}" width="400">
                         </figure>
                         <div class="cardset-body">
                             <p class="cardset-txt" th:text="${trainer.writedate}">트레이너번호 2024061520240615</p>

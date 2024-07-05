@@ -11,5 +11,6 @@ public interface GymBoardDAO {
     List<GymBoardEntity> pagingFindAll();
     Page<GymBoardEntity> pagelist(int page, int size);
     List<GymBoardEntity> searchName(String gymname, int page);
-    Page<GymBoardEntity> searchGymName(String gymname ,int page,int size);
+    Page<GymBoardEntity> searchGymName(String gymname , int page, int size);
+    Page<GymBoardEntity> searchGymaddr(String gymaddr ,int page,int size);
 }

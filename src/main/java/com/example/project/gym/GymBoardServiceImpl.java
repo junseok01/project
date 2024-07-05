@@ -1,7 +1,6 @@
 package com.example.project.gym;
 
 import com.example.project.trainer.TrainerEntity;
-import com.example.project.trainer.TrainerResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -66,10 +65,15 @@ public class GymBoardServiceImpl implements GymBoardService{
     @Override
     public Page<GymBoardEntity> getgym(int page, int size) {
         return dao.pagelist(page,size);
+
+    }
+    @Override
+    public Page<GymBoardEntity> getSearchgymname(String gymname, int page, int size) {
+        return dao.searchGymName(gymname,page,size);
     }
 
     @Override
-    public Page<GymBoardEntity> getSearchTrainer(String gymname, int page, int size) {
-        return dao.searchGymName(gymname,page,size);
+    public Page<GymBoardEntity> getSearchgymaddr(String gymaddr, int page, int size) {
+        return dao.searchGymaddr(gymaddr,page,size);
     }
 }
