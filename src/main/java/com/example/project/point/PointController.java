@@ -25,14 +25,13 @@ public class PointController {
         //DB에 55,000원 형식으로 저장되어있기에 바꾸는작업
         String cleanprice = price.replaceAll("[,원]","");
         int gymPrice = Integer.parseInt(cleanprice);
+
         UserDTO userDTO = (UserDTO)session.getAttribute("member");
         description=description+"-"+type;
 
         if(userDTO.getPoint()-gymPrice<0){
             //가지고있는 돈보다 구매금액이 크기때문에 결제안됨
             // 추가 결제페이지로 이동
-
-
 
         }else{
             //결제진행
