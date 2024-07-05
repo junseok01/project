@@ -1,7 +1,7 @@
 package com.example.project.login;
 
+import com.example.project.gym.GymBoardRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -17,12 +17,16 @@ public class UserServiceImpl implements UserService {
 
     UserDAO userDAO;
     ModelMapper modelMapper;
+    GymBoardRepository gymBoardRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserDAO dao, ModelMapper modelMapper) {
-        this.userDAO = dao;
+    public UserServiceImpl(UserDAO userDAO, ModelMapper modelMapper, GymBoardRepository gymBoardRepository, UserRepository userRepository) {
+        this.userDAO = userDAO;
         this.modelMapper = modelMapper;
-
+        this.gymBoardRepository = gymBoardRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -39,11 +43,12 @@ public class UserServiceImpl implements UserService {
         userDAO.deleteMember(id);
     }
 
+    //채팅방 만들기 위한 정보가져오기
     @Override
-    public UserDTO search(String id) {
-        UserDTO userDTO = userDAO.search(id);
-        System.out.println(userDTO);
-        return null;
+    public UserEntity chatsearch(String id) {
+        //UserDTO userDTO = userDAO.search(id);
+        //System.out.println(userDTO);
+        return userDAO.chatsearch(id);
     }
 
     //아이디로 유저타입을 트레이너로 변경
@@ -51,8 +56,7 @@ public class UserServiceImpl implements UserService {
     public void updateUserType2Trainer(String id) {
         userDAO.updateUserType2Trainer(id);
     }
-    @Autowired
-    private UserRepository userRepository;
+
 
 
     @Override
@@ -84,4 +88,6 @@ public class UserServiceImpl implements UserService {
     public void updatePoint(String loginId,int price) {
         userDAO.updatePoint(loginId,price);
     }
+
+
 }

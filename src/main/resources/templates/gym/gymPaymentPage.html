@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1 th:text="'당신의 포인트 : ' + ${session.member.point}"></h1>
+    <h1 th:text="'체육관 정보 : ' + ${session.gyminfo}"></h1>
+    <button th:text="${session.gyminfo.dayprice}" th:onclick="'location.href=\'' + @{/payment/buyTicket(price=${session.gyminfo.dayprice},description=${session.gyminfo.gymname},type=day)} + '\''"></button>
+    <button th:text="${session.gyminfo.weekprice}" th:onclick="'location.href=\'' + @{/payment/buyTicket(price=${session.gyminfo.weekprice},description=${session.gyminfo.gymname},type=week)} + '\''"></button>
+</body>
+</html>

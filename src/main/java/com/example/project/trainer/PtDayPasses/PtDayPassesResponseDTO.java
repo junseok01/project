@@ -1,4 +1,4 @@
-package com.example.project.trainer.PtPlan;
+package com.example.project.trainer.PtDayPasses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,10 +11,10 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PtRequestResponseDTO {
+public class PtDayPassesResponseDTO {
     private Long requestId;
-    private String userName;
-    private String trainerName;
+    private String user;
+    private String trainer;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String status;

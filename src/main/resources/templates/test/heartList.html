@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>My Heart List</h1>
+<ul>
+    <li th:each="gymBoard : ${heartList}">
+        <p th:text="${gymBoard}"></p>
+
+        <!-- 필요한 다른 속성들도 동일한 방식으로 출력할 수 있음 -->
+    </li>
+</ul>
+</body>
+</html>

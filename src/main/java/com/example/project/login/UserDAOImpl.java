@@ -75,5 +75,10 @@ public class UserDAOImpl implements UserDAO {
         UserEntity userEntity = userRepository.findById(loginId).get();
         userEntity.setPoint(price);
     }
+    //채팅방
+    @Override
+    public UserEntity chatsearch(String id) {
+        return userRepository.findByLoginId(id);
+    }
 
 }

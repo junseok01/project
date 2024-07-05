@@ -1,13 +1,18 @@
 package com.example.project.login;
 
 
+
+import com.example.project.trainer.Chat.entity.ChatRoom;
+import com.example.project.gym.GymBoardEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
+import java.util.*;
 
-import java.util.Date;
 
 @Entity
 @Table(name = "member")
@@ -32,8 +37,20 @@ public class UserEntity {
     private Date joinDate;
     @Column
     private int loginType;
+    //결재를 위한 포인트
     @Column
     private Integer point=0;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    private List<ChatRoom> roomlist = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_hearts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "gymboard_id")
+    )
+    private List<GymBoardEntity> heartedGyms = new ArrayList<>();
 
     public UserEntity(String loginId, String loginPw, String name, String nickname, String cellphoneNo) {
         this.loginId = loginId;
@@ -67,5 +84,22 @@ public class UserEntity {
         this.nickname = nickname;
         this.userType = userType;
         this.loginType = loginType;
+    }
+
+    public void heartGym(GymBoardEntity gymBoard) {
+        // 이미 하트를 누른 게시물인지 확인
+        if (!heartedGyms.contains(gymBoard)) {
+            gymBoard.incrementHeartCount();
+            heartedGyms.add(gymBoard);
+        }
+    }
+
+    public void unheartGym(GymBoardEntity gymBoard) {
+        if (heartedGyms.contains(gymBoard)) {
+            gymBoard.decrementHeartCount();
+            System.out.println(gymBoard.hashCode() + " : " + heartedGyms);
+            heartedGyms.remove(gymBoard);
+            System.out.println("삭제 후 언하트 입니다 +++++++++" + heartedGyms);
+        }
     }
 }

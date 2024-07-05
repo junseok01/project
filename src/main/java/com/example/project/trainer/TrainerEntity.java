@@ -1,17 +1,17 @@
 package com.example.project.trainer;
 
+import com.example.project.trainer.Chat.entity.ChatRoom;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +34,9 @@ public class TrainerEntity {
     private String imageurl;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
     private Date writedate;
-
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trainer")
+    private List<ChatRoom> roomList = new ArrayList<>();
 
     public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info,String imageurl,String imagename) {
         this.name = Name;

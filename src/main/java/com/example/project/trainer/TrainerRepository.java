@@ -9,4 +9,6 @@ import java.util.List;
 public interface TrainerRepository extends JpaRepository<TrainerEntity,Long> {
     Page<TrainerEntity> findByNameContaining(String trainerName,Pageable pageRequest);
     List<TrainerEntity> findByNameContaining(String trainerName);
+    // 트레이너 이름으로 검색
+    TrainerEntity findByName(String name);
 }
