@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PtDayPassesService {
-    void reservePt(PtDayPassesRequestDTO requestDTO);
+    String reservePt(PtDayPassesRequestDTO requestDTO);
 
     List<PtDayPassesResponseDTO> getAllPtDayPasses();
 

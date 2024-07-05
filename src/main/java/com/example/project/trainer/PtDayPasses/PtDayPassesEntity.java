@@ -32,5 +32,6 @@ public class PtDayPassesEntity {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
 
-    private String status; // 예약 상태 확인하는 객체(수락,거절)
+    private String status;// 예약 상태 확인하는 객체(수락,거절)
+    private int Price;
 }

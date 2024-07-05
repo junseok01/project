@@ -227,10 +227,13 @@
                                     url: '/ptDayPasses/reserve',
                                     contentType: 'application/json',
                                     data: JSON.stringify(reservationData),
-                                    success: function () {
-                                        console.log(JSON.stringify(reservationData));
-                                        alert('예약이 완료되었습니다');
-                                        window.location.reload();
+                                    success: function (response) {
+                                        // 유저 포인트가 티켓값보다 높아야 예약성공
+                                        if (response === 'successReserve'){
+                                            console.log(JSON.stringify(reservationData));
+                                            alert('예약이 완료되었습니다');
+                                            window.location.reload();
+                                        }
                                     },
                                     error: function () {
                                         console.log(JSON.stringify(reservationData));
