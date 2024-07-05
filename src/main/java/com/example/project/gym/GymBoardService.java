@@ -13,6 +13,7 @@ public interface GymBoardService {
     List<GymBoardResponseDTO> pagingFindAll();
     List<GymBoardResponseDTO> findBygym(String gymname, int page);
     Page<GymBoardEntity> getgym(int page, int size);
-    Page<GymBoardEntity> getSearchTrainer(String gymname,int page, int size);
+    Page<GymBoardEntity> getSearchgymname(String gymname, int page, int size);
+    Page<GymBoardEntity> getSearchgymaddr(String gymaddr, int page, int size);
 
 }

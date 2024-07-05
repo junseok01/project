@@ -40,4 +40,5 @@ public class GymBoardEntity {
         this.dayprice = dayprice;
         this.weekprice = weekprice;
     }
+
 }

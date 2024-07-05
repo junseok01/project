@@ -67,9 +67,6 @@ public class UserDAOImpl implements UserDAO {
         }else{
             pagingUser = userRepository.findByUserTypeContaining(text,pageable);
         }
-
-
-
         return pagingUser;
     }
 

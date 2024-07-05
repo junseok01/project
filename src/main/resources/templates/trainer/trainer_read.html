@@ -71,7 +71,7 @@
                         </div>
                         <div class="button2" style=" margin-left: 810px;">
                             <a th:href="@{/trainerdelete(boardNo=${trainer.boardNo})}" class="btnset btnset-round" style="  background-color: #1abc9c; float: right;">삭제하기</a>
-                            <a href="javascript:void(0);" class="btnset btnset-round" style="  background-color: #1abc9c; ">수정하기</a>
+                            <a th:href="@{/trainerread(boardNo=${trainer.boardNo},action=UPDATE)}" class="btnset btnset-round" style="  background-color: #1abc9c; ">수정하기</a>
                         </div>
                     </div>
                     <hr/>
@@ -91,10 +91,7 @@
                     <div class="contents-body">
                         <div class="contents-left">
                             <div class="imageset">
-                                <img class="imageset-img" src="/images/trainer3.jpg" alt="캠핑장 이미지">
-                            </div>
-                            <div class="imageset">
-                                <img class="imageset-img" src="/images/trainer4.jpg" alt="캠핑장 이미지">
+                                <img class="imageset-img" th:src="@{/images/trainer/}+${trainer.imagename}" alt="캠핑장 이미지">
                             </div>
                         </div>
                         <div class="contents-right">

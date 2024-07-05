@@ -4,8 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -15,10 +21,11 @@ public class TrainerServiceImpl implements TrainerService{
     private final TrainerDAO dao;
     private final TrainerRepository repository;
     @Override
-    public void insert(TrainerRequestDTO trainer ) {
+    @Transactional
+    public void insert(TrainerRequestDTO trainer,MultipartFile file) throws IOException {
         ModelMapper mapper = new ModelMapper();
         TrainerEntity entity =mapper.map(trainer,TrainerEntity.class);
-        dao.insert(entity);
+        dao.insert(entity,file);
     }
     @Override
     public List<TrainerResponseDTO> trainerList() {
@@ -35,9 +42,15 @@ public class TrainerServiceImpl implements TrainerService{
     }
 
     @Override
-    public int update(TrainerEntity board) {
-
-        return 0;
+    @Transactional
+    public void update(Long boardNo,String ticketprice,String career, String info) {
+        TrainerEntity trainer= repository.findById(boardNo)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid trainer Id:" + boardNo));
+        // 더티체킹을 통해 엔티티 수정
+        trainer.setTicketprice(ticketprice);
+        trainer.setCareer(career);
+        trainer.setInfo(info);
+        repository.save(trainer);
     }
     @Override
     public void delete(Long boardNo) {
