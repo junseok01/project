@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CreationTimestamp;
 import java.util.*;
 
@@ -39,8 +40,8 @@ public class UserEntity {
     //결재를 위한 포인트
     @Column
     private Integer point=0;
-    @OneToMany(mappedBy = "user")
-    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
     private List<ChatRoom> roomlist = new ArrayList<>();
 
     @ManyToMany

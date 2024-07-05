@@ -10,7 +10,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChatRoomResponse {
-    private String roomName;//채팅룸이름
+    private String roomId;//채팅룸이름
+    private Long trainer;
     private Date createDate;
     private Date modifyDate;
 }

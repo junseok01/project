@@ -9,9 +9,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,11 +27,15 @@ public class TrainerController {
         Page<TrainerEntity> trainerEntityList;
         if(trainerName==null){
             trainerEntityList =service.getTrainers(page,size);
-        }else{
+        }else if(trainerName == ""){
+            trainerEntityList =service.getTrainers(page,size);
+        } else{
             trainerEntityList =service.getSearchTrainer(trainerName,page,size);
         }
         //페이징처리 - 다음 ,이전
         Page<TrainerEntity> trainerPage = service.getTrainers(page, size);
+        model.addAttribute("page",page);
+        model.addAttribute("size",size);
         model.addAttribute("trainerName",trainerName);
         model.addAttribute("trainerPage", trainerPage);
         model.addAttribute("totalPage",trainerPage.getTotalPages());
@@ -49,7 +52,7 @@ public class TrainerController {
         } else {
             view = "trainer/trainer_update";
         }
-        return "trainer/trainer_read";
+        return view;
     }
 
     @GetMapping("/trainerregister")
@@ -58,20 +61,21 @@ public class TrainerController {
     }
 
     @PostMapping("/trainerregister")
-    public String register(TrainerRequestDTO trainer, HttpSession session)
+    public String register(TrainerRequestDTO trainer, MultipartFile file,HttpSession session)
             throws IllegalStateException, IOException {
         System.out.println(trainer);
-        service.insert(trainer);
-        return "redirect:/trainerlist?category=all";
+        service.insert(trainer,file);
+        return "redirect:/trainerlist";
     }
     @GetMapping("/trainerdelete")
     public String delete(String boardNo){
         service.delete(Long.parseLong(boardNo));
-        return "redirect:/trainerlist?category=all";
+        return "redirect:/trainerlist";
     }
     @PostMapping("/update")
-    public String update( TrainerRequestDTO trainer) {
-        return "redirect:/board/list?category=all";
+    public String update(@ModelAttribute TrainerEntity trainer) {
+        service.update(trainer.getBoardNo(),trainer.getTicketprice(),trainer.getCareer(),trainer.getInfo());
+        return "redirect:/trainerlist" ;
     }
 
 }

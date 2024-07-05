@@ -24,13 +24,12 @@ import java.security.SecureRandom;
 public class LoginController {
     private LoginService service;
 
+
+
     @Autowired
     public LoginController(LoginService service) {
         this.service = service;
     }
-
-
-
     @GetMapping("/login")
     public String login(Model model,HttpSession session) {
         String stateToken = generateState();

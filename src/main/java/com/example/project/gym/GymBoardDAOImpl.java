@@ -1,10 +1,8 @@
 package com.example.project.gym;
 
-import com.example.project.trainer.TrainerEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +39,8 @@ public class GymBoardDAOImpl implements GymBoardDAO{
 
     @Override
     public Page<GymBoardEntity> pagelist(int page, int size) {
-        Pageable pageable = PageRequest.of(page,size);
+        //Page<GymBoardEntity>를 리턴하지 않고 List<GymBoardEntity>
+        PageRequest pageable = PageRequest.of(page,size,Sort.by(Sort.Direction.DESC, "gymboardnum"));
         return repository.findAll(pageable);
     }
 
@@ -58,8 +57,14 @@ public class GymBoardDAOImpl implements GymBoardDAO{
    */
     @Override
     public Page<GymBoardEntity> searchGymName(String gymname, int page, int size) {
-        Pageable pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"gymname","gymaddr"));
+        PageRequest pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"gymname"));
         return repository.findByGymnameContaining(gymname,pageable);
+    }
+
+    @Override
+    public Page<GymBoardEntity> searchGymaddr(String gymaddr, int page, int size) {
+        PageRequest pageable = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"gymaddr"));
+        return repository.findByGymaddrContaining(gymaddr,pageable);
     }
 
 

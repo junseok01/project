@@ -1,13 +1,15 @@
 package com.example.project.trainer;
 
 import org.springframework.data.domain.Page;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface TrainerService {
     //게시글등록  - tbboard테이블과 board_file테이블에 저장
     /*int insert(TrainerEntity board, List<BoardFileDTO> boardfiledtolist);*/
-    void insert(TrainerRequestDTO trainer);
+    void insert(TrainerRequestDTO trainer,MultipartFile file) throws IOException;
     //게시글목록보기
     List<TrainerResponseDTO> trainerList();
     //게시글상세조회
@@ -15,7 +17,7 @@ public interface TrainerService {
     TrainerEntity gettrainerInfo(Long boardNo);
     //게시글수정
     // /erp/board/update
-    int update(TrainerEntity board);
+    void update(Long boardNo, String ticketprice,String career, String info);
     //게시글삭제
     // /erp/board/delete
     void delete(Long boardNo);

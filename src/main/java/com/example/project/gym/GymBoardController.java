@@ -1,5 +1,15 @@
 package com.example.project.gym;
 
+import com.example.project.comment.CommentRequestDTO;
+import com.example.project.comment.CommentResponseDto;
+import com.example.project.gymcomment.GymCommentEntity;
+import com.example.project.gymcomment.GymCommentRequestDTO;
+import com.example.project.gymcomment.GymCommentResponseDTO;
+import com.example.project.gymcomment.GymCommentService;
+import com.example.project.login.UserEntity;
+import com.example.project.rating.RatingEntity;
+import com.example.project.rating.RatingRepository;
+import com.example.project.rating.RatingService;
 import com.example.project.heart.HeartService;
 import com.example.project.login.UserDTO;
 import com.example.project.trainer.TrainerEntity;
@@ -7,20 +17,22 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class GymBoardController {
     private final GymBoardService service;
+    private final RatingService ratingService;
     @Autowired
     HeartService heartService;
-
     @GetMapping("/gymlist")
     public String gympage(Model model , HttpSession session,
                           @RequestParam(value = "gymname",required = false) String gymname,
@@ -38,12 +50,12 @@ public class GymBoardController {
             gymBoardEntities = service.getSearchTrainer(gymname,page,size);
         }
         //페이징처리 다음 ,이전
-
-        Page<GymBoardEntity> GymPage = service.getgym(page, size);
-        model.addAttribute("GymPage",GymPage);
+        model.addAttribute("Page",page);
+        model.addAttribute("Size",size);
+        model.addAttribute("totalPage",gymlist.getTotalPages());
+        model.addAttribute("gymlist",gymlist);
         model.addAttribute("gymname",gymname);
-        model.addAttribute("totalPage",GymPage.getTotalPages());
-        model.addAttribute("gymlist",gymBoardEntities);
+        model.addAttribute("gymaddr",gymaddr);
         return "gym/gymhome";
     }
     @GetMapping("/gymread")
@@ -51,14 +63,17 @@ public class GymBoardController {
         GymBoardEntity read = service.getgymInfo(gymboardnum);
         model.addAttribute("gym",read);
         session.setAttribute("gyminfo",read);
-
         String view ="";
         if(action.equals("READ")){
             view = "gym/gym_read";
         }else{
             view = "gym/gym_update";
         }
-        return "gym/gym_read";
+        System.out.println(read+"==============================");
+        System.out.println(action+"++++++++++++++++++++++++++++++++++++");
+        model.addAttribute("gym",read);
+
+        return view;
     }
     @GetMapping("/gymdelete")
     public String delete(String gymboardnum){
@@ -66,6 +81,20 @@ public class GymBoardController {
         return "redirect:/gym?category=all";
     }
 
+    @PostMapping("/gymread/{id}/rating")
+    public String saveRating(@PathVariable Long id, @RequestParam("score") int score,
+                             @AuthenticationPrincipal UserDetails userDetails, Model model) {
+        //현재 로그인한 사용자 정보를 가져옴
+        UserEntity user = (UserEntity) userDetails;
+        RatingEntity rating = new RatingEntity();
+        rating.setUserId(user);
+        rating.setRating(score);
+        GymBoardEntity gym = service.getgymInfo(id);
+        rating.setGymInfo(gym);
+        ratingService.saveRating(rating);
+        System.out.println(rating+"========================================================");
+        return "redirect:/gymread?gymboardnum=" + id;
+    }
     //결재페이지로 이동하는 컨트롤러
     @GetMapping("/gymPayment")
     public String payment(@RequestParam("dayPrice") String dayPrice,@RequestParam("weekPrice") String weekPrice){
@@ -73,5 +102,4 @@ public class GymBoardController {
         System.out.println(weekPrice);
         return "/gym/gymPaymentPage";
     }
-
 }

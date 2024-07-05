@@ -18,7 +18,6 @@ public class mapController {
     private final gymService mapService;
     @GetMapping("/map")
     public String mappage(){ return "map/mappage4";}
-
     @GetMapping("/mapMarker")
     @ResponseBody
     public List<GymMapResponseDTO> mapMarker(@RequestParam("xvalue") String x,@RequestParam("yvalue") String y){
@@ -27,7 +26,6 @@ public class mapController {
     }
     @GetMapping("/mapSearch")
     @ResponseBody
-
     public List<GymMapResponseDTO> mapsearch(String keyword, Model model,int pageNo){
         List<GymMapResponseDTO> gymselectlist = mapService.gymselectlist(keyword,pageNo);
         return gymselectlist;

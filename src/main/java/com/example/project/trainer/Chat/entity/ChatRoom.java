@@ -20,16 +20,20 @@ import java.util.List;
 @Entity
 public class ChatRoom {
 	@Id
-	private String roomName;//채팅룸이름
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserEntity user;//일반회원 아이디
-	@ManyToOne
-	@JoinColumn(name = "trainer_id")
-	private TrainerEntity trainer;//트레이너 번호
+	private String roomId;//채팅룸이름
+	private String userId;//일반회원 아이디
+	private Long trainer;//트레이너 번호
 	@CreationTimestamp
 	private Date createDate;
 	@UpdateTimestamp
 	private Date modifyDate;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "roomId")
+	private List<ChatMessage> messages = new ArrayList<>();
 
+	public ChatRoom(String roomId, String userId, Long trainer) {
+		this.roomId = roomId;
+		this.userId = userId;
+		this.trainer = trainer;
+	}
 }

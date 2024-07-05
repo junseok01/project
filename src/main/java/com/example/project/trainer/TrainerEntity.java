@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,19 +30,23 @@ public class TrainerEntity {
     private String ticketprice;
     private String career;
     private String info;
+    private String imagename;
+    private String imageurl;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
     private Date writedate;
-    @OneToMany(mappedBy = "trainer")
-    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trainer")
     private List<ChatRoom> roomList = new ArrayList<>();
 
-    public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info) {
+    public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info,String imageurl,String imagename) {
         this.name = Name;
         this.gymName= GymName;
         this.addr = Addr;
         this.ticketprice = ticketprice;
         this.career = Career;
         this.info = info;
+        this.imageurl=imageurl;
+        this.imagename =imagename;
     }
     public TrainerEntity(String ticketprice,String career,String info){
         this.ticketprice = ticketprice;

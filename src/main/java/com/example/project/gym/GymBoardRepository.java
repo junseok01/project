@@ -10,4 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface GymBoardRepository extends JpaRepository<GymBoardEntity,Long> {
     Page<GymBoardEntity> findByGymnameContaining(String gymname, Pageable pageRequest);
+    Page<GymBoardEntity> findByGymaddrContaining(String gymaddr,Pageable pageRequest);
+
 }

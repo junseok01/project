@@ -38,7 +38,7 @@
                         <div class="textset textset-sub textset-center">
                             <h2 class="textset-tit" style="font-family: 'SUITE-Regular';">트레이너 등록</h2>
                         </div>
-                        <form  class="register-form"  action="/trainerregister"   method="POST" name="myform">
+                        <form  class="register-form"  action="/trainerregister"  encType="multipart/form-data" method="POST" name="myform">
                             <ul class="contents-list">
                                 <li class="contents-item">
                                     <h6 class="form-tit form-tit-deco" style="font-family: 'SUITE-Regular';">
@@ -47,6 +47,16 @@
                                     <div class="form-wrap">
                                         <div class="inputset inputset-round">
                                             <input type="text" id="Name" name="Name" class="inputset-input form-control" aria-label="내용" placeholder="이름를 입력해주세요.">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="contents-item">
+                                    <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+                                        <span></span>프로필 사진 첨부
+                                    </h6>
+                                    <div class="form-wrap">
+                                        <div class="inputset inputset-round">
+                                            <input type="file" id="file" name="file" class="inputset-input form-control" aria-label="내용" placeholder="사진을 첨부해주세요">
                                         </div>
                                     </div>
                                 </li>

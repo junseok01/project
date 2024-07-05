@@ -16,4 +16,6 @@ public class TrainerRequestDTO {
     private String ticketprice;
     private String Career;
     private String info;
+    private String imagename;
+    private String imageurl;
 }

@@ -67,9 +67,6 @@ public class UserDAOImpl implements UserDAO {
         }else{
             pagingUser = userRepository.findByUserTypeContaining(text,pageable);
         }
-
-
-
         return pagingUser;
     }
 
@@ -77,6 +74,11 @@ public class UserDAOImpl implements UserDAO {
     public void updatePoint(String loginId,int price) {
         UserEntity userEntity = userRepository.findById(loginId).get();
         userEntity.setPoint(price);
+    }
+    //채팅방
+    @Override
+    public UserEntity chatsearch(String id) {
+        return userRepository.findByLoginId(id);
     }
 
 }
