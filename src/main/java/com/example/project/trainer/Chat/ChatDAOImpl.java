@@ -7,6 +7,8 @@ import com.example.project.trainer.Chat.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ChatDAOImpl implements ChatDAO{
@@ -17,11 +19,16 @@ public class ChatDAOImpl implements ChatDAO{
         chatRoomRepository.save(room);
     }
     public ChatRoom findChatRoom(String user_id, Long trainer_id) {
-        return chatRoomRepository.findByUser_LoginIdAndTrainer_BoardNo(user_id,trainer_id);
+        return chatRoomRepository.findByuserIdAndTrainer(user_id,trainer_id);
     }
 
     @Override
     public ChatMessage saveMessage(ChatMessage message) {
         return chatMessageRepository.save(message);
+    }
+
+    @Override
+    public List<ChatRoom> findAllChatRooms(String user_id) {
+        return chatRoomRepository.findByuserId(user_id);
     }
 }

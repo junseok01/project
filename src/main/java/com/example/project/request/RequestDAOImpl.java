@@ -57,7 +57,7 @@ public class RequestDAOImpl implements RequestDAO {
     @Transactional
     public void deleteByLoginId(String loginId) {
         System.out.println("dao에서 삭제요청");
-       // RequestEntity entity = requestRepository.findByLoginId(loginId);
+       // RequestEntity entity = requestRepository.findByUser(loginId);
         requestRepository.deleteAllByLoginId(loginId);
     }
 

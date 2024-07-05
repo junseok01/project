@@ -31,8 +31,8 @@ public class TrainerEntity {
     private String info;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
     private Date writedate;
-    @OneToMany(mappedBy = "trainer")
-    @ToString.Exclude
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "trainer")
     private List<ChatRoom> roomList = new ArrayList<>();
 
     public TrainerEntity(String Name, String GymName, String Addr, String ticketprice, String Career,String info) {
