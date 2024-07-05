@@ -36,11 +36,11 @@ public class PtDayPassesController {
     public ResponseEntity<String> reserve(@RequestBody PtDayPassesRequestDTO requestDTO){
         System.out.println("---------------------------------");
         System.out.println(requestDTO);
-        try {
-            ptDayPassesService.reservePt(requestDTO);
-            return ResponseEntity.ok("예약 완료");
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("예약 실패");
+        String response = ptDayPassesService.reservePt(requestDTO);
+        if (response.equals("failReserve")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+        }else {
+            return ResponseEntity.ok(response);
         }
     }
     // 예약 목록 정보 불러오기
