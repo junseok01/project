@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class TrainerRequestDTO {
+    private String trainerId;
     private String Name;
     private String GymName;
     private String Addr;

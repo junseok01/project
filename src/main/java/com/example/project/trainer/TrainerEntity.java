@@ -32,9 +32,10 @@ public class TrainerEntity {
     private String imagename;
     private String imageurl;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Seoul")
+    @CreationTimestamp
     private Date writedate;
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "trainer")
+    @JoinColumn(name = "trainerId")
     private List<ChatRoom> roomList = new ArrayList<>();
 
 
