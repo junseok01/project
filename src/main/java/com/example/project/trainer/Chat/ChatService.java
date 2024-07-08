@@ -8,8 +8,10 @@ import com.example.project.trainer.Chat.entity.ChatRoom;
 import java.util.List;
 
 public interface ChatService {
-    void createChatRoom(String loginId, Long boardNo);
-    ChatRoom getChatRoom(String loginId, Long boardNo);
+    void createChatRoom(String loginId, String trainerId);
+    ChatRoom getChatRoom(String loginId, String trainerId);
     ChatMessageResponse saveMessage(ChatMessageRequest message);
     List<ChatRoomResponse> findAllChatRooms(String loginId);
+    List<ChatRoomResponse> findAllChatRoomsTrainerVer(String trainerId);
+    List<ChatMessageResponse> findAllChatMessages(String roomId);
 }
