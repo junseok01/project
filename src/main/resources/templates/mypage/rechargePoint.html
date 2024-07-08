@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트 충전</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/paging/page.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .contentsArticle {
+            width: 1200px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header_article {
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .header_article .sub_title {
+            font-size: 24px;
+            color: #333;
+            margin: 0;
+        }
+        .header_article .location {
+            font-size: 14px;
+            color: #666;
+            margin: 10px 0 0;
+        }
+        .location a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .location .gt {
+            margin: 0 5px;
+        }
+        .content_wrap {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .tbl_data {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tbl_data th, .tbl_data td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        .tbl_data th {
+            width: 180px;
+            background-color: #f5f5f5;
+        }
+        .tbl_data caption {
+            caption-side: top;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .btns_submit {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .btn_common {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        .btn_common:hover {
+            background-color: #0056b3;
+        }
+        .list_text_common {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f5f5f5;
+            border-radius: 8px;
+        }
+        .list_text_common li {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .list_text_common .color_key2 {
+            color: #28a745;
+        }
+        .box_process_vertical_tit {
+            font-size: 18px;
+            color: #333;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .box_process {
+            margin-bottom: 20px;
+        }
+        .box_process ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+        }
+        .box_process li {
+            flex-grow: 1;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+        }
+        .box_process li strong {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+<div id="header" th:replace="~{top/header :: header}"></div>
+<div id="top" th:insert="~{top/top :: top}"></div>
+<div class="mypage_container">
+    <div class="sidebar" th:if="${session.member.userType =='1'}">
+        <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
+    </div>
+    <div class="sidebar" th:if="${session.member.userType =='2'}">
+        <th:block th:replace="~{mypageLayout/trainer :: trainer}"></th:block>
+    </div>
+    <div id="article" class="contentsArticle">
+
+        <div class="header_article">
+            <h3 class="sub_title">충전하기</h3>
+        </div>
+        <div>
+            <div class="content_wrap content_balance_charge_once">
+                <div class="group_content">
+                    <div id="boxTabContent" class="box_tab_ec box_tab_show1">
+
+                        <div id="boxTabContent_1" class="box_tab_inner box_tab_inner1">
+                            <div class="group_content">
+                                <form id="frmEasyCharge" method="post">
+                                    <table class="tbl_data tbl_form">
+                                        <colgroup>
+                                            <col style="width:180px">
+                                            <col>
+                                        </colgroup>
+                                        <tbody>
+                                        <tr>
+                                            <th scope="row">입금내역</th>
+                                            <td>포인트 충전</td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">금액</th>
+                                            <td>
+                                                <select id="EcAmt" name="EcAmt" style="width:200px;"
+                                                        title="예치금 충전 금액 선택">
+                                                    <option value="5000">5,000원</option>
+                                                    <option value="10000">10,000원</option>
+                                                    <option value="20000" selected="">20,000원</option>
+                                                    <option value="30000">30,000원</option>
+                                                    <option value="50000">50,000원</option>
+                                                    <option value="100000">100,000원</option>
+                                                    <option value="200000">200,000원</option>
+                                                    <option value="300000">300,000원</option>
+                                                    <option value="500000">500,000원</option>
+                                                    <option value="700000">700,000원</option>
+                                                    <option value="1000000">1,000,000원</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+
+                                        </tbody>
+                                    </table>
+                                </form>
+                            </div>
+                            <div id="btn2" class="btns_submit">
+                                <button class="btn_common mid blu" onclick="requestKakaoPay()">충전하기</button>
+                            </div>
+                            <div class="ing_payment" style="display:none"></div>
+                            <ul class="list_text_common">
+                                <li>포인트란 헬스장이용권 및 PT를 구매 할 수 있도록 미리 충전해 둔 결제수단입니다.</li>
+                                <li class="color_key2">간편충전은 카카오페이 계좌를 이용해 간편하게 포인트를 충전하는 서비스이며, 카카오페이 계좌연결 후 이용
+                                    가능합니다.
+                                </li>
+                                <li class="color_key2">카카오페이 계좌가 없는 경우 계좌 개설을 먼저 하셔야 합니다. <strong>(카카오페이는 간편충전 및 출금 수수료
+                                    무료)</strong></li>
+                                <li>포인트충전은 입금액을 선택하고, 간편충전 비빌번호가 확인되면 포인트가 바로 충전됩니다.(최대 5분 소요)</li>
+                                <li>은행 영업시간은 0시 10분 부터 23시 55분까지 입니다.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function requestKakaoPay() {
+        // 선택된 충전 금액 가져오기
+        var selectedAmount = document.getElementById("EcAmt").value;
+
+        // 팝업 창 열기
+        var popupUrl = '/kakaoPay/rechargePoint?amount=' + encodeURIComponent(selectedAmount);
+        var popupWindow = window.open(popupUrl, 'PaymentPopup', 'width=600,height=800');
+
+        // 팝업이 차단되었을 경우 대비
+        if (!popupWindow || popupWindow.closed || typeof popupWindow.closed == 'undefined') {
+            alert('팝업 창이 차단되었습니다. 팝업 차단을 해제하고 다시 시도해 주세요.');
+        }
+    }
+</script>
+</body>
+</html>

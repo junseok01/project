@@ -96,9 +96,12 @@ public class GymBoardController {
     }
     //결재페이지로 이동하는 컨트롤러
     @GetMapping("/gymPayment")
-    public String payment(@RequestParam("dayPrice") String dayPrice,@RequestParam("weekPrice") String weekPrice){
-        System.out.println(dayPrice);
-        System.out.println(weekPrice);
+    public String payment(@RequestParam("dayPrice") String dayPrice,@RequestParam("weekPrice") String weekPrice,@RequestParam("gymboardnum") Long gymBoardNum,
+                          Model model){
+        GymBoardEntity gymBoardEntity = service.getgymInfo(gymBoardNum);
+        model.addAttribute("gym",gymBoardEntity);
         return "/gym/gymPaymentPage";
     }
+
+
 }

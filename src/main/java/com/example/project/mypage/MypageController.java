@@ -1,5 +1,7 @@
 package com.example.project.mypage;
 
+import com.example.project.admin.VisitorEntity;
+import com.example.project.admin.VisitorService;
 import com.example.project.board.BoardServiceImpl;
 import com.example.project.dto.BoardDTO;
 import com.example.project.login.UserDTO;
@@ -18,6 +20,8 @@ public class MypageController {
 	BoardServiceImpl boardService;
 	@Autowired
 	UserService userService;
+	@Autowired
+	VisitorService visitorService;
 
 	
 	@GetMapping("/mypage")
@@ -25,6 +29,11 @@ public class MypageController {
 		UserDTO member = (UserDTO)session.getAttribute("member");
 		List<BoardDTO> boardDTOList = boardService.boardList();
 		List<UserDTO> userDTOList = userService.findAll();
+		List<VisitorEntity> allVisitors = visitorService.getAllVisitors();
+		int visitCount=0;
+		for(int i=0;i<allVisitors.size();i++){
+			visitCount+= allVisitors.get(i).getVisitCount();
+		}
 
 		System.out.println("전체 보드리스트: " +  boardDTOList);
 		System.out.println(member);
@@ -32,6 +41,7 @@ public class MypageController {
 			model.addAttribute("member",member);
 			model.addAttribute("TotalBoard",boardDTOList.size());
 			model.addAttribute("TotalUser",userDTOList.size());
+			model.addAttribute("TotalVisitor",visitCount);
 		}
 		return "/mypage/mypage";
 	}
