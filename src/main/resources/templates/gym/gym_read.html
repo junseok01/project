@@ -22,19 +22,7 @@
     <link rel="stylesheet" href="/css/gym/common.css">
     <link rel="stylesheet" href="/css/gym/style.css">
     <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
-    <style>
-        .star {
-            cursor: pointer;
-            font-size: 2em;
-        }
-    </style>
-    <script>
-        function rate(event) {
-            var score = event.target.getAttribute("data-score");
-            document.getElementById("score").value = score;
-            document.getElementById("ratingForm").submit();
-        }
-    </script>
+
 </head>
 <body>
     <div layout:fragment="content">
@@ -121,15 +109,6 @@
                         <div class="contents-button">
                             <a th:href="@{/gymPayment(dayPrice=${gym.dayprice},weekPrice=${gym.weekprice},gymboardnum=${gym.gymboardnum})}" class="btnset btnset-round">RESERVATION</a>
                         </div>
-                       <!-- <div id ="rating">
-                            <div>
-                                <span class="star" th:each="star:${#numbers.sequence(1, 5)}" th:text="*"
-                                      th:data-score="${star}" onclick="rate(event)"></span>
-                            </div>
-                            <form id="ratingForm" th:action="@{/gymread/{id}/rating(id=${gym.gymboardnum})}" method="post" style="display: none;">
-                                <input type="hidden" name="score" id="score"/>
-                            </form>
-                        </div>-->
                     </div>
                 </div>
             </div>
