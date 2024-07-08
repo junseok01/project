@@ -2,6 +2,8 @@ package com.example.project.login;
 
 
 
+import com.example.project.admin.RestController;
+import com.example.project.admin.VisitorService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +25,10 @@ import java.security.SecureRandom;
 @Controller
 public class LoginController {
     private LoginService service;
+
+    @Autowired
+    private VisitorService visitorService;
+
 
 
 
@@ -52,6 +58,7 @@ public class LoginController {
         if(member.getLoginId().equals(id) && member.getLoginPw().equals(pass)){
             System.out.println("로그인성공!!");
             session.setAttribute("member",member);
+            visitorService.incrementVisitorCount();
             return "redirect:/main";
         }else{
             System.out.println("로그인실패 비밀번호 불일치!!");

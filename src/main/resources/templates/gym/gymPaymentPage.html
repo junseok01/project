@@ -2,12 +2,176 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .product {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .product img {
+            max-width: 80px;
+            border-radius: 8px;
+        }
+        .product-info {
+            flex-grow: 1;
+            margin-left: 20px;
+        }
+        .product-info h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        .product-info p {
+            margin: 5px 0;
+            color: #999;
+        }
+        .product-price {
+            font-size: 16px;
+            font-weight: bold;
+            color: #5467F5;
+        }
+        .summary {
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        .summary div {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .summary div:last-child {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .summary div:last-child span {
+            color: #5467F5;
+        }
+        .btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #5467F5;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1 th:text="'당신의 포인트 : ' + ${session.member.point}"></h1>
-    <h1 th:text="'체육관 정보 : ' + ${session.gyminfo}"></h1>
-    <button th:text="${session.gyminfo.dayprice}" th:onclick="'location.href=\'' + @{/payment/buyTicket(price=${session.gyminfo.dayprice},description=${session.gyminfo.gymname},type=day)} + '\''"></button>
-    <button th:text="${session.gyminfo.weekprice}" th:onclick="'location.href=\'' + @{/payment/buyTicket(price=${session.gyminfo.weekprice},description=${session.gyminfo.gymname},type=week)} + '\''"></button>
+<div class="container">
+    <div class="product">
+        <img th:src="@{/images/gym/}+${gym.gymphoto}" alt="제품 이미지">
+        <div class="product-info">
+            <h2 th:text="${gym.gymname}+' 회원권'"></h2>
+        </div>
+        <!-- 가격 부분 -->
+        <div class="product-price" id="productPrice">
+            <select id="priceSelect" onchange="updatePrices()">
+                <option th:value="${gym.dayprice}"
+                        th:data-userPoint="${session.member.point}"
+                        th:data-price="${gym.dayprice}"
+                        th:data-description="${gym.gymname}"
+                        th:data-type="'일일권'"
+                        th:text="'일일권 - ' + ${gym.dayprice}">
+
+                </option>
+                <option th:value="${gym.weekprice}"
+                        th:data-userPoint="${session.member.point}"
+                        th:data-price="${gym.weekprice}"
+                        th:data-description="${gym.gymname}"
+                        th:data-type="'일주권'"
+                        th:text="'일주권 - ' + ${gym.weekprice}">
+                </option>
+            </select>
+        </div>
+    </div>
+    <div class="summary">
+        <div>
+            <span>상품 금액</span>
+            <span id="selectedProductPrice"></span>
+        </div>
+        <div>
+            <span>할인가격</span>
+            <span>0원</span>
+        </div>
+        <div>
+            <span>결제 금액</span>
+            <span id="totalPrice"></span>
+        </div>
+    </div>
+    <button class="btn"  onclick="confirmPurchase()">구매하기</button>
+</div>
+
+<script>
+    function updatePrices() {
+        // 선택된 가격 가져오기
+        var selectedPrice = document.getElementById("priceSelect").value;
+
+
+        // 상품 금액 업데이트
+        document.getElementById("selectedProductPrice").textContent = selectedPrice;
+
+        // 결제 금액 업데이트 (여기서는 할인 없이 선택된 가격 그대로 사용)
+        document.getElementById("totalPrice").textContent = selectedPrice;
+    }
+
+    function confirmPurchase() {
+        var confirmed = confirm("구매하시겠습니까?");
+
+        if (confirmed) {
+            // 예를 선택한 경우
+            var selectElement = document.getElementById("priceSelect");
+            var selectedOption = selectElement.options[selectElement.selectedIndex];
+
+            var userPoint = selectedOption.getAttribute('data-userPoint');
+            var price = selectedOption.getAttribute('data-price');
+
+            //price의 형태 바꾸기
+            var cleanPrice = price.replace(/[^\d]/g, ''); // 정규식을 사용하여 숫자만 남기기
+            var numericPrice = parseInt(cleanPrice, 10); // 10진수로 변환
+            // userPoint를 정수로 변환
+            var numericUserPoint = parseInt(userPoint, 10);
+
+            var description = selectedOption.getAttribute('data-description');
+            var type = selectedOption.getAttribute('data-type');
+
+            if(numericUserPoint<numericPrice){
+                alert("잔액이부족합니다")
+            }else{
+                alert("구매완료 메인페이지로 이동합니다");
+                var url = "/payment/buyTicket?price=" + price + "&description=" + description + "&type=" + type;
+                window.location.href = url;
+            }
+
+        } else {
+            // 아니오를 선택한 경우
+            console.log("구매가 취소되었습니다.");
+        }
+    }
+
+    // 페이지 로드시 초기화
+    updatePrices();
+</script>
+
 </body>
 </html>

@@ -47,20 +47,20 @@ public class GymBoardController {
         if(gymname==null){
             gymBoardEntities = service.getgym(page,size);
         }else{
-            gymBoardEntities = service.getSearchTrainer(gymname,page,size);
+            gymBoardEntities = service.getSearchgymname(gymname,page,size);
         }
         //페이징처리 다음 ,이전
         model.addAttribute("Page",page);
         model.addAttribute("Size",size);
-        model.addAttribute("totalPage",gymlist.getTotalPages());
-        model.addAttribute("gymlist",gymlist);
+        model.addAttribute("totalPage",gymBoardEntities.getTotalPages());
+        model.addAttribute("gymlist",gymBoardEntities);
         model.addAttribute("gymname",gymname);
-        model.addAttribute("gymaddr",gymaddr);
         return "gym/gymhome";
     }
     @GetMapping("/gymread")
     public String gymread(@RequestParam("gymboardnum") Long gymboardnum, @RequestParam("action") String action, Model model,HttpSession session){
         GymBoardEntity read = service.getgymInfo(gymboardnum);
+        System.out.println(gymboardnum);
         model.addAttribute("gym",read);
         session.setAttribute("gyminfo",read);
         String view ="";
@@ -81,25 +81,14 @@ public class GymBoardController {
         return "redirect:/gym?category=all";
     }
 
-    @PostMapping("/gymread/{id}/rating")
-    public String saveRating(@PathVariable Long id, @RequestParam("score") int score,
-                             @AuthenticationPrincipal UserDetails userDetails, Model model) {
-        //현재 로그인한 사용자 정보를 가져옴
-        UserEntity user = (UserEntity) userDetails;
-        RatingEntity rating = new RatingEntity();
-        rating.setUserId(user);
-        rating.setRating(score);
-        GymBoardEntity gym = service.getgymInfo(id);
-        rating.setGymInfo(gym);
-        ratingService.saveRating(rating);
-        System.out.println(rating+"========================================================");
-        return "redirect:/gymread?gymboardnum=" + id;
-    }
     //결재페이지로 이동하는 컨트롤러
     @GetMapping("/gymPayment")
-    public String payment(@RequestParam("dayPrice") String dayPrice,@RequestParam("weekPrice") String weekPrice){
-        System.out.println(dayPrice);
-        System.out.println(weekPrice);
+    public String payment(@RequestParam("dayPrice") String dayPrice,@RequestParam("weekPrice") String weekPrice,@RequestParam("gymboardnum") Long gymBoardNum,
+                          Model model){
+        GymBoardEntity gymBoardEntity = service.getgymInfo(gymBoardNum);
+        model.addAttribute("gym",gymBoardEntity);
         return "/gym/gymPaymentPage";
     }
+
+
 }

@@ -44,6 +44,7 @@ public class TrainerServiceImpl implements TrainerService{
     @Override
     @Transactional
     public void update(Long boardNo,String ticketprice,String career, String info) {
+        //예외처리
         TrainerEntity trainer= repository.findById(boardNo)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid trainer Id:" + boardNo));
         // 더티체킹을 통해 엔티티 수정
