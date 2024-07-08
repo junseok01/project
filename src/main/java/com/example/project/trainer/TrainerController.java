@@ -43,8 +43,8 @@ public class TrainerController {
         return "trainer/trainerhome";
     }
     @GetMapping("/trainerread")
-    public String trainerread(@RequestParam("boardNo") Long boardNo, @RequestParam("action") String action, Model model) {
-        TrainerEntity read = service.gettrainerInfo(boardNo);
+    public String trainerread(@RequestParam("trainerId") String trainerId, @RequestParam("action") String action, Model model) {
+        TrainerEntity read = service.gettrainerInfo(trainerId);
         model.addAttribute("trainer", read);
         String view = "";
         if (action.equals("READ")) {
@@ -68,13 +68,13 @@ public class TrainerController {
         return "redirect:/trainerlist";
     }
     @GetMapping("/trainerdelete")
-    public String delete(String boardNo){
-        service.delete(Long.parseLong(boardNo));
+    public String delete(String trainerId){
+        service.delete(trainerId);
         return "redirect:/trainerlist";
     }
     @PostMapping("/update")
     public String update(@ModelAttribute TrainerEntity trainer) {
-        service.update(trainer.getBoardNo(),trainer.getTicketprice(),trainer.getCareer(),trainer.getInfo());
+        service.update(trainer.getTrainerId(),trainer.getTicketprice(),trainer.getCareer(),trainer.getInfo());
         return "redirect:/trainerlist" ;
     }
 

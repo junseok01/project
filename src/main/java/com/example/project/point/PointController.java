@@ -51,16 +51,21 @@ public class PointController {
         return "redirect:/main";
     }
 
-    @GetMapping("/payment/addPoint")
-    public String addpoint(@RequestParam("addpoint") int addpoint,
+
+    public void addpoint(int addpoint,
                             HttpSession session){
 
         UserDTO userDTO = (UserDTO)session.getAttribute("member");
         UserDTO user = pointService.addPoint(addpoint,userDTO);
         session.setAttribute("member",user);
 
-        return "redirect:/main";
     }
+
+    @GetMapping("/payment/rechargePoint")
+    public String rechargePoint(){
+        return "/mypage/rechargePoint";
+    }
+
     public void sendSms(UserDTO user,String description,String type) {
         LocalDate today = LocalDate.now();
         String api_key = "NCSPDPGSX6ABHYGX";

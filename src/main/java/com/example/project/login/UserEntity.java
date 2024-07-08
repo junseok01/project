@@ -43,7 +43,6 @@ public class UserEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private List<ChatRoom> roomlist = new ArrayList<>();
-
     @ManyToMany
     @JoinTable(
             name = "user_hearts",
