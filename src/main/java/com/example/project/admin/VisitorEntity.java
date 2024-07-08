@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class visitorEntity {
+public class VisitorEntity {
     @Id
     @GeneratedValue
     private Long id;
@@ -24,7 +24,7 @@ public class visitorEntity {
 
     @Column
     private int visitCount;
-    public visitorEntity(LocalDate visitDate, int visitCount) {
+    public VisitorEntity(LocalDate visitDate, int visitCount) {
         this.visitDate = visitDate;
         this.visitCount = visitCount;
     }

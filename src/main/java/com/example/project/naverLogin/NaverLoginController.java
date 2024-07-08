@@ -1,5 +1,6 @@
 package com.example.project.naverLogin;
 
+import com.example.project.admin.VisitorService;
 import com.example.project.login.LoginService;
 import com.example.project.login.UserDTO;
 import com.example.project.login.UserEntity;
@@ -23,6 +24,9 @@ import org.springframework.web.client.RestTemplate;
 @Controller
 public class NaverLoginController {
     private LoginService service;
+
+    @Autowired
+    VisitorService visitorService;
 
     @Autowired
     public NaverLoginController(LoginService service) {
@@ -90,6 +94,7 @@ public class NaverLoginController {
             }else if(service.search(userEmail)!=null){
                 UserDTO member = service.search(userEmail);
                 session.setAttribute("member",member);
+                visitorService.incrementVisitorCount();
                 return "redirect:/main";
             }
 
