@@ -266,7 +266,7 @@
                                 <p class="cardset-desc" style="font-family: 'SUITE-Regular'; font-size: 20px;" th:text="${trainer.ticketprice}"></p>
                             </div>
                             <div class="btnset-wrap">
-                                <a th:href="@{/trainerread(boardNo=${trainer.boardNo},action=READ)}" style=" background-color: #1abc9c;">상세보기</a>
+                                <a th:href="@{/trainerread(trainerId=${trainer.trainerId},action=READ)}" style=" background-color: #1abc9c;">상세보기</a>
                                 <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
                             </div>
                         </div>

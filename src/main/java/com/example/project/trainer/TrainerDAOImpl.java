@@ -68,7 +68,7 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public List<TrainerEntity> pagingFindAll() {
-        PageRequest pageRequest = PageRequest.of(0, 8, Sort.by(Sort.Direction.DESC, "boardNo"));
+        PageRequest pageRequest = PageRequest.of(0, 8, Sort.by(Sort.Direction.DESC, "writedate"));
         Page<TrainerEntity> page = repository.findAll(pageRequest);
         System.out.println(page.getContent());
         return page.getContent();
@@ -81,13 +81,13 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public Page<TrainerEntity> pagelist(int page, int size) {
-        Pageable pageable =PageRequest.of(page,size, Sort.by(Sort.Direction.DESC, "boardNo"));
+        Pageable pageable =PageRequest.of(page,size, Sort.by(Sort.Direction.DESC, "writedate"));
         return repository.findAll(pageable);
     }
 
     @Override
     public List<TrainerEntity> searchName(String trainerName,int page) {
-        PageRequest pageRequest = PageRequest.of(page,10, Sort.by(Sort.Direction.DESC, "boardNo"));
+        PageRequest pageRequest = PageRequest.of(page,10, Sort.by(Sort.Direction.DESC, "writedate"));
         Page<TrainerEntity> pagelist = repository.findByNameContaining(trainerName,pageRequest);
         System.out.println(pagelist.getContent());
         return pagelist.getContent();
@@ -95,7 +95,7 @@ public class TrainerDAOImpl implements TrainerDAO{
 
     @Override
     public Page<TrainerEntity> searchName(String trainerName, int page, int size) {
-        PageRequest pageRequest = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"boardNo"));
+        PageRequest pageRequest = PageRequest.of(page,size, Sort.by(Sort.Direction.DESC,"writedate"));
         return repository.findByNameContaining(trainerName,pageRequest);
     }
 

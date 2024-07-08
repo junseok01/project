@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,7 +12,7 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <style type="text/css">
         #talklist{
-                  border:1px solid;
+                  border:1px solid black;
                   width: 600px;
                   height: 400px;
                   overflow: auto;
@@ -29,13 +31,13 @@
                   margin-bottom: 10px
               }
               .me{
-                  background-color: #FAECC5;
+                  background-color: yellowgreen;
                   width: 70%;
                   float: right;
                   margin: 1px
               }
               .other{
-                  background-color: #EAEAEA;
+                  background-color: gray;
                   width: 70%;
                   float: left;
                   margin: 1px
@@ -43,10 +45,23 @@
     </style>
 </head>
 <body>
+<div id="all" layout:fragment="content">
 <div id="main-content" class="container">
     <div style="float:left">
         <div style="margin:30px;background-color:lightgray;width:550px;height:400px"
              id="talklist">
+            <th:block th:unless="${chatList==null}" th:each="chat:${chatList}">
+            <div th:if="${chat.sender==session.member.loginId}" class="me">
+                <span><b th:value="${chat.sender}"></b></span>
+            <b>[[${chat.createDate}]]</b><br/>
+            <span th:value="${chat.message}"></span></div>
+
+            <div th:unless="${chat.sender==session.member.loginId}" class="other">
+            <span><b th:value="${chat.sender}"></b></span>
+            <b>[[${chat.createDate}]]</b><br/>
+            <span th:value="${chat.message}"></span></div>
+            </th:block>
+            <th:block th:if="${chatList==null}"></th:block>
         </div>
     </div>
     <div class="row">
@@ -64,6 +79,11 @@
         console.log(payload);
         let chatmsg = JSON.parse(payload.body);
         let msgcss = "";
+        if(chatmsg.sender == $("#sender").val()){//내가 작성한 메시지인지 확인
+            msgcss = "class=me";
+        }else{
+            msgcss ="class=other";
+        }
         let item = "<div "+msgcss+"><span><b>"+chatmsg.sender+"</b></span>"+
             "<b>["+chatmsg.createDate+"]</b><br/>"
             +"<span>"+chatmsg.message+"</span></div>";
@@ -92,11 +112,19 @@
             stompClient.subscribe('/sub/chat/room/'+roomId,onMessageReceived );
 
         })
+
         $( "#sendbtn" ).click(function() {
             sender = $("#sender").val();
             sendChat(sender);
         });
+        $("#msg").on("keyup",function(ev){
+            if(ev.keyCode == 13){
+                sendChat(sender);
+            }
+
+        })
     })
 </script>
+</div>
 </body>
 </html>
