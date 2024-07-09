@@ -17,7 +17,7 @@
             <div class="stats">
                 <div class="stat-box">
                     <h3>총 방문자 수</h3>
-                    <p id="totalVisitors">1000</p>
+                    <p id="totalVisitors" th:text="${TotalVisitor}"></p>
                 </div>
                 <div class="stat-box">
                     <h3>총 게시글 수</h3>
@@ -46,7 +46,7 @@
         <!-- 하단 영역 -->
         <div id="footer">
             <h2>날짜별 방문자 추이</h2>
-            <canvas id="visitorsLineChart"></canvas>
+            <canvas id="visitorBarChart"></canvas>
         </div>
 
         <script>
@@ -138,6 +138,60 @@
                             },
                         });
                     });
+            });
+
+            function fetchVisitorStats(startDate, endDate) {
+            return fetch(`/admin/visitor-stats?startDate=${startDate}&endDate=${endDate}`)
+                .then(response => response.json());
+        }
+
+        // 오늘 날짜 구하기
+        const endDate = new Date().toISOString().split('T')[0];
+
+        // 오늘 날짜 기준 일주일 전 날짜 구하기
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 7);
+        const startDateString = startDate.toISOString().split('T')[0];
+
+        fetchVisitorStats(startDateString, endDate)
+            .then(data => {
+                const ctx = document.getElementById('visitorBarChart').getContext('2d');
+
+                // 데이터 처리
+                const labels = data.map(visitor => visitor.visitDate);
+                const counts = data.map(visitor => visitor.visitCount);
+
+                // 차트 생성
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: '방문자 수',
+                            data: counts,
+                            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top',
+                            },
+                            title: {
+                                display: true,
+                                text: '날짜별 방문자 수'
+                            }
+                        }
+                    }
+                });
             });
         </script>
 

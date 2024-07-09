@@ -23,5 +23,4 @@ public class BoardDTO {
     private Date write_date;
     private String category;
     private String user_type;
-
 }

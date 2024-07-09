@@ -1,37 +1,136 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
 <head>
-    <title>프로필</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="imagetoolbar" content="no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="title" content="웹사이트">
+    <meta name="description" content="웹사이트입니다.">
+    <meta name="keywords" content="키워드,키워드,키워드">
+    <meta property="og:title" content="웹사이트">
+    <meta property="og:description" content="웹사이트입니다">
+    <meta property="og:image" content="https://웹사이트/images/opengraph.png">
+    <meta property="og:url" content="https://웹사이트">
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="/css/MessagePack/setting.css">
+    <link rel="stylesheet" href="/css/MessagePack/plugin.css">
+    <link rel="stylesheet" href="/css/MessagePack/template.css">
+    <link rel="stylesheet" href="/css/MessagePack/common.css">
+    <link rel="stylesheet" href="/css/MessagePack/style.css">
 </head>
 <body>
-<div th:fragment="main">
-    <h1>프로필 정보</h1>
-    <div class="box">
-        <div class="profile-info-container">
-            <!-- 프로필 이미지 -->
-            <img src="/images/1.png" alt="프로필 사진">
-            <!-- 프로필 정보 텍스트 -->
-            <div class="profile-info">
-                <p th:text="'이름 : ' + ${session.member.name}"></p>
-                <p>나이: 5세</p>
-                <p>회원 유형 : 일반회원
-                    <button onclick="window.open('/RequestToTrainer?action=WRITE&id=1', '_blank', 'width=800,height=800,resizable=yes');">트레이너 요청하기</button>
-                </p>
-<!--                <p th:if="${session.member.userType == 1}">회원 유형 : 일반회원</p>-->
-<!--                <p th:if="${session.member.userType == 2}">회원 유형 : 트레이너</p>-->
-                <!-- 원하는 프로필 정보 추가 -->
-                <button onclick="openEditPopup()">수정하기</button>
+    <div th:fragment="main">
+        <main class="th-layout-main">
+            <!-- [S]campland-N23 -->
+            <div class="campland-N23" data-bid="omlycHKw1B">
+                <div class="contents-inner" style="display: flex; justify-content: center;">
+                    <div class="contents-container">
+                        <div class="textset textset-sub textset-center">
+                            <h2 class="textset-tit">My Page</h2>
+                        </div>
+                        <ul class="contents-group contents-profile">
+                            <li class="contents-profile-item">
+                                <i class="fa-regular fa-user fa-2x"></i>
+                                <p class="contents-name" th:text="${session.member.name}">홍길동</p>
+                                <p class="contents-name" style="font-size: medium; font-family: 'SUITE-Regular'; color: gray;"> 일반회원
+                                </p>
+                            </li>
+                            <li class="contents-profile-item">
+                                <a href="#" class="btnset btnset-round">내 정보 관리</a>
+                            </li>
+                        </ul>
+                        <ul class="contents-group contents-benefit">
+                            <li class="contents-benefit-item">
+                                <a href="#" class="contents-benefit-link">
+                                    <div class="iconset">
+                                        <img class="iconset-icon" src="images/icons/ico_coupon_circle.svg" alt="내 쿠폰">
+                                    </div>
+                                    <p class="contents-text">내 쿠폰</p>
+                                </a>
+                            </li>
+                            <li class="contents-benefit-item">
+                                <a href="#" class="contents-benefit-link">
+                                    <div class="iconset">
+                                        <img class="iconset-icon" src="images/icons/ico_point_circle.svg" alt="포인트">
+                                    </div>
+                                    <p class="contents-text">포인트 충전</p>
+                                </a>
+                            </li>
+                            <li class="contents-benefit-item">
+                                <a href="#" class="contents-benefit-link">
+                                    <div class="iconset">
+                                        <img class="iconset-icon" src="images/icons/ico_card_circle.svg" alt="결제수단">
+                                    </div>
+                                    <p class="contents-text">결제수단</p>
+                                </a>
+                            </li>
+                            <li class="contents-benefit-item">
+                                <a href="#" class="contents-benefit-link">
+                                    <div class="iconset">
+                                        <a  href="/board/myboardpage">
+                                            <img class="iconset-icon" src="images/icons/ico_chat_circle.svg" alt="내 후기">
+                                        </a>
+                                    </div>
+                                    <p class="contents-text">내 후기</p>
+                                </a>
+                            </li>
+                            <li class="contents-benefit-item">
+                                <a href="#" class="contents-benefit-link">
+                                    <div class="iconset">
+                                        <img class="iconset-icon" src="images/icons/ico_star_circle.svg" alt="내 찜">
+                                    </div>
+                                    <p class="contents-text">내 찜</p>
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="contents-group contents-reservation">
+                            <h2 class="contents-tit"> 최근 예약내역 <a href="#" class="contents-more">더보기</a>
+                            </h2>
+                            <div class="cardset cardset-hor cardset-sm">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [E]campland-N23 -->
+        </main>
+    </div>
+    <!--
+        <div class="box">
+            <div class="profile-info-container">
+                &lt;!&ndash; 프로필 이미지 &ndash;&gt;
+                <img src="/images/1.png" alt="프로필 사진">
+                &lt;!&ndash; 프로필 정보 텍스트 &ndash;&gt;
+                <div class="profile-info">
+                    <p th:text="'이름 : ' + ${session.member.name}"></p>
+                    <p>나이: 5세</p>
+                    <p>회원 유형 : 일반회원
+                        <button onclick="window.open('/RequestToTrainer?action=WRITE&id=1', '_blank', 'width=800,height=800,resizable=yes');">트레이너 요청하기</button>
+                    </p>
+                    &lt;!&ndash;                <p th:if="${session.member.userType == 1}">회원 유형 : 일반회원</p>&ndash;&gt;
+                    &lt;!&ndash;                <p th:if="${session.member.userType == 2}">회원 유형 : 트레이너</p>&ndash;&gt;
+                    &lt;!&ndash; 원하는 프로필 정보 추가 &ndash;&gt;
+                    <button onclick="openEditPopup()">수정하기</button>
+                </div>
+
             </div>
 
+
         </div>
+    -->
+
+    <!-- [E]campland-N2 -->
+    <script src="/js/mypage/setting.js"></script>
+    <script src="/js/mypage/plugin.js"></script>
+    <script src="/js/mypage/template.js"></script>
+    <script src="/js/mypage/common.js"></script>
+    <script src="/js/mypage/script.js"></script>
 
 
-    </div>
-
-
-
-
-</div>
 
 </body>
 </html>

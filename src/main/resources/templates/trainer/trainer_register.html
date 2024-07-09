@@ -39,6 +39,7 @@
                             <h2 class="textset-tit" style="font-family: 'SUITE-Regular';">트레이너 등록</h2>
                         </div>
                         <form  class="register-form"  action="/trainerregister"  encType="multipart/form-data" method="POST" name="myform">
+                            <input type="hidden" id="trainerId" name="trainerId" th:value="${session.member.loginId}">
                             <ul class="contents-list">
                                 <li class="contents-item">
                                     <h6 class="form-tit form-tit-deco" style="font-family: 'SUITE-Regular';">

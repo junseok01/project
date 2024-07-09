@@ -7,11 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 
@@ -36,16 +33,16 @@ public class TrainerServiceImpl implements TrainerService{
         return trainerlist;
     }
     @Override
-    public TrainerEntity gettrainerInfo(Long boardNo) {
-        TrainerEntity read = dao.read(boardNo);
+    public TrainerEntity gettrainerInfo(String trainerId) {
+        TrainerEntity read = dao.read(trainerId);
         return read;
     }
 
     @Override
     @Transactional
-    public void update(Long boardNo,String ticketprice,String career, String info) {
-        TrainerEntity trainer= repository.findById(boardNo)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid trainer Id:" + boardNo));
+    public void update(String trainerId, String ticketprice, String career, String info) {
+        TrainerEntity trainer= repository.findById(trainerId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid trainer Id:" + trainerId));
         // 더티체킹을 통해 엔티티 수정
         trainer.setTicketprice(ticketprice);
         trainer.setCareer(career);
@@ -53,8 +50,8 @@ public class TrainerServiceImpl implements TrainerService{
         repository.save(trainer);
     }
     @Override
-    public void delete(Long boardNo) {
-        dao.delete(boardNo);
+    public void delete(String trainerId) {
+        dao.delete(trainerId);
     }
 
     @Override

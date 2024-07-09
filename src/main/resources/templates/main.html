@@ -201,7 +201,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                               map: map,
                                               position: coords
                                           });
+                                           var iwContent = '<div style="padding:5px;">'+markerList[i].dailyprice.toLocaleString()+'원<div>',
+                                               iwPosition = new kakao.maps.LatLng(result[0].y, result[0].x);
+                                           var infowindow = new kakao.maps.InfoWindow({
+                                               position : iwPosition,
+                                               content : iwContent,
+                                               disableAutoPan: true
+                                           });
 
+                                       // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+                                       infowindow.open(map, marker);
                                           markers[i] =marker;
                                           // 커스텀 오버레이에 표시할 컨텐츠 입니다
                                           // 커스텀 오버레이는 아래와 같이 사용자가 자유롭게 컨텐츠를 구성하고 이벤트를 제어할 수 있기 때문에
@@ -218,6 +227,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
                                                       '           </div>' +
                                                       '            <div class="desc">' +
                                                       '                <div class="ellipsis">'+ markerList[i].gymaddr+'</div>' +
+                                                      '                <div class="ellipsis">'+markerList[i].dailyprice.toLocaleString()+'원</div>' +
                                                       '                <div class="jibun ellipsis">(우) '+markerList[i].addrnum+'</div>' +
                                                       '                <div><a href="https://www.kakaocorp.com/main" target="_blank" class="link">상세페이지</a></div>' +
                                                       '            </div>' +
