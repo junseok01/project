@@ -47,15 +47,14 @@ public class GymBoardController {
         if(gymname==null){
             gymBoardEntities = service.getgym(page,size);
         }else{
-            gymBoardEntities = service.getSearchTrainer(gymname,page,size);
+            gymBoardEntities = service.getSearchgymname(gymname,page,size);
         }
         //페이징처리 다음 ,이전
         model.addAttribute("Page",page);
         model.addAttribute("Size",size);
-        model.addAttribute("totalPage",gymlist.getTotalPages());
-        model.addAttribute("gymlist",gymlist);
+        model.addAttribute("totalPage",gymBoardEntities.getTotalPages());
+        model.addAttribute("gymlist",gymBoardEntities);
         model.addAttribute("gymname",gymname);
-        model.addAttribute("gymaddr",gymaddr);
         return "gym/gymhome";
     }
     @GetMapping("/gymread")
