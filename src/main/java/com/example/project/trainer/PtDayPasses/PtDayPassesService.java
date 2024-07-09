@@ -1,5 +1,7 @@
 package com.example.project.trainer.PtDayPasses;
 
+import com.example.project.login.UserDTO;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -8,7 +10,7 @@ public interface PtDayPassesService {
 
     List<PtDayPassesResponseDTO> getAllPtDayPasses();
 
-    void  acceptPtDayPasses(PtDayPassesRequestDTO requestDTO);
+    void acceptPtDayPasses(PtDayPassesRequestDTO requestDTO);
 
     void rejectPtDayPasses(PtDayPassesRequestDTO requestDTO);
 
