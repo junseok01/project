@@ -14,7 +14,7 @@ import java.util.Date;
 @NoArgsConstructor
 @Builder
 public class TrainerResponseDTO {
-    private Long boardNo;
+    private String trainerId;
     private String Name;
     private String GymName;
     private String Addr;
@@ -24,7 +24,7 @@ public class TrainerResponseDTO {
     private String Career;
     private String info;
     public TrainerResponseDTO(TrainerEntity trainerEntity) {
-        this.boardNo = trainerEntity.getBoardNo();
+        this.trainerId = trainerEntity.getTrainerId();
         this.Name = trainerEntity.getName();
         this.GymName = trainerEntity.getGymName();
         this.Addr = trainerEntity.getAddr();

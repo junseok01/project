@@ -1,10 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/chat/chat.css">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/paging/page.css">
+    <script src="/js/openPopUp/openPopup.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
+<div id="header" th:replace="~{top/header :: header}"></div>
+<div id="top" th:insert="~{top/top :: top}"></div>
+<div class="mypage_container">
+<div class="sidebar">
+    <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
+</div>
+<div class="container">
+    <h3 class=" text-center">Messaging</h3>
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar"  placeholder="Search" >
+                            <span class="input-group-addon">
+                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                </span> </div>
+                    </div>
+                </div>
+                <div class="inbox_chat" th:unless="${roomlist==null}" th:each="room:${roomlist}">
+                    <div class="chat_list active_chat">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="/images/profile.png"> </div>
+                            <div class="chat_ib">
+                                <h5>[[${room.trainerName}]] <span class="chat_date">[[${room.modifyDate}]]</span></h5>
+                                <p th:if="${message}">[[${room.lastMessage}]]</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inbox_chat" th:if="${roomlist==null}">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>

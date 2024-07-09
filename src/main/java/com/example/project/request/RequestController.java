@@ -2,6 +2,7 @@ package com.example.project.request;
 
 
 import com.example.project.OCR.OCR;
+import com.example.project.login.LoginService;
 import com.example.project.login.UserDTO;
 import com.example.project.login.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -28,28 +29,30 @@ public class RequestController {
     private final RequestService requestService;
     private final FileService fileService;
     private final UserService userService;
+    private final LoginService loginService;
     private final String uploadDirectory = "src/main/resources/static/OCRPDF/";
 
     public static final String DELETED = "0";
     public static final String ACTIVE = "1";
 
     @Autowired
-    public RequestController(RequestService requestService, FileService fileService,UserService userService) {
+    public RequestController(RequestService requestService, FileService fileService, UserService userService,LoginService loginService) {
         this.requestService = requestService;
         this.fileService = fileService;
         this.userService = userService;
+        this.loginService = loginService;
     }
 
     @GetMapping("/request/viewRequests")
     public String viewRequests(@RequestParam(value = "page", defaultValue = "0") int page,
-                               @RequestParam(value = "size",defaultValue = "10") int size,HttpSession session,Model model) {
+                               @RequestParam(value = "size", defaultValue = "10") int size, HttpSession session, Model model) {
 
-        Page<RequestDTO> requestPageByState = requestService.getRequestPageByState(page,size,ACTIVE);
+        Page<RequestDTO> requestPageByState = requestService.getRequestPageByState(page, size, ACTIVE);
         System.out.println(requestPageByState.getContent());
 
-        model.addAttribute("requestListByState",requestPageByState.getContent());
-        model.addAttribute("currentPage",requestPageByState.getNumber());
-        model.addAttribute("totalPages",requestPageByState.getTotalPages());
+        model.addAttribute("requestListByState", requestPageByState.getContent());
+        model.addAttribute("currentPage", requestPageByState.getNumber());
+        model.addAttribute("totalPages", requestPageByState.getTotalPages());
         return "admin/requests";
     }
 
@@ -95,9 +98,9 @@ public class RequestController {
 
     @PostMapping("/RequestToTrainer")
     @ResponseBody
-    public String Request2Trainer(RequestDTO requestDTO, List<MultipartFile> files) throws IOException {
+    public String Request2Trainer(RequestDTO requestDTO, List<MultipartFile> files,HttpSession session) throws IOException {
         requestDTO.setTitle("트레이너 요청");
-        String response="";
+        String response = "";
         //요청사용자 계정은 요청페이지에서 hidden으로 보냄, 나머지는 입력
         RequestEntity requestEntity = new RequestEntity(requestDTO);
         System.out.println(requestEntity);
@@ -115,14 +118,16 @@ public class RequestController {
         for (String imagePath : imgPathList) {
             String result = ocr.imgToTxt(imagePath);
             if (!result.equals("요건충족")) {
-                response ="fail";
+                response = "fail";
                 return response;
             }
         }
 
         //if문을 빠져나오면 요건이 충족됨
-        response="success";
+        response = "success";
         userService.updateUserType2Trainer(requestDTO.getLoginId());
+        UserDTO userDTO = loginService.search(requestDTO.getLoginId());
+        session.setAttribute("member",userDTO);
         requestService.updateAllState(requestDTO.getLoginId());
         return response;
     }
