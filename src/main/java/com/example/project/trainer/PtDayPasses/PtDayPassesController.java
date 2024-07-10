@@ -19,14 +19,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PtDayPassesController {
    private final PtDayPassesService ptDayPassesService;
-    private final LoginService loginService;
-
+   private final LoginService loginService;
 
     @GetMapping("/trainerPTpage")
-    public String PtPage(Model model){
-        List<PtDayPassesResponseDTO> ptDayPasses = ptDayPassesService.getAllPtDayPasses();
+    public String PtPage(HttpSession session, Model model){
+        UserDTO trainer = (UserDTO) session.getAttribute("member");
+        trainer.setLoginId(trainer.getLoginId());
+
+        List<PtDayPassesResponseDTO> ptDayPasses = ptDayPassesService.getPtDayPassesByTrainer(trainer.getLoginId());
+        //List<PtDayPassesResponseDTO> ptDayPasses = ptDayPassesService.getAllPtDayPasses();
         System.out.println("ptDayPasses === "+ptDayPasses);
         model.addAttribute("ptDayPasses", ptDayPasses);
+        model.addAttribute("reservationTrainerId", trainer.getLoginId());
 
         return "mypage/trainerPTPage";
     }
@@ -67,7 +71,7 @@ public class PtDayPassesController {
     // 예약 수락
     @PostMapping("/ptDayPasses/accept")
     @ResponseBody
-    public ResponseEntity<String> acceptReservation(@RequestBody PtDayPassesRequestDTO requestDTO, HttpSession session){
+    public ResponseEntity<String> acceptReservation(@RequestBody PtDayPassesRequestDTO requestDTO){
         try {
             ptDayPassesService.acceptPtDayPasses(requestDTO);
             PtDayPassesEntity ptDayPasses = ptDayPassesService.getPtDayPassById(requestDTO.getRequestId());

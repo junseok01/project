@@ -154,6 +154,8 @@
                 let calendarEl = $('#calendar')[0];
                 // 오늘 날짜
                 let today = new Date();
+                // 트레이너 ID
+                let trainerId = $("#trainerId").val();
                 // full-calendar 생성하기
                 let calendar = new FullCalendar.Calendar(calendarEl, {
                     height: '800px',// calendar 높이 설정
@@ -177,10 +179,10 @@
 
                     events: function (fetchInfo, successCallback) {
                         $.ajax({
-                            url: '/ptDayPasses/getReservations',
+                            url: '/ptDayPasses/getReservationsByTrainer',
                             method: 'GET',
+                            data:{trainerId:trainerId},
                             success: function (data) {
-
                                 let reservations = data.map(function (reservation) {
                                     let title, backgroundColor;
                                     if (reservation.status === 'accept'){
