@@ -35,12 +35,11 @@ public class PointController {
 
         UserDTO userDTO = (UserDTO)session.getAttribute("member");
         description=description+"-"+type;
-
+        System.out.println(des+"$4444444444444444444444444444444444444444");
         if(userDTO.getPoint()-gymPrice<0){
             //가지고있는 돈보다 구매금액이 크기때문에 결제안됨
             // 추가 결제페이지로 이동
             //7월6일 자바스크립트로 금액부족시 결재진행 안되게 막아놈
-
         }else{
             //결제진행
             UserDTO user = pointService.buyTicket(gymPrice, description, userDTO);
@@ -49,7 +48,6 @@ public class PointController {
             //테스트하고싶으면 주석지우고 실행
             //sendSms(user,des,type);
         }
-
         return "redirect:/main";
     }
 
@@ -62,11 +60,11 @@ public class PointController {
         session.setAttribute("member",user);
 
     }
+
     @GetMapping("/payment/rechargePoint")
     public String rechargePoint(){
         return "/mypage/rechargePoint";
     }
-
 
     public void sendSms(UserDTO user,String description,String type) {
         LocalDate today = LocalDate.now();
@@ -100,5 +98,4 @@ public class PointController {
             System.out.println(e.getCode());
         }
     }
-
 }

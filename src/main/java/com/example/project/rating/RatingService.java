@@ -6,5 +6,6 @@ import com.example.project.login.UserEntity;
 import java.util.List;
 
 public interface RatingService {
-    RatingEntity saveRating(RatingEntity rating);
+    boolean hasUserRated(Long gymId, String username);
+    void saveRating(Long gymId, int score, String username);
 }

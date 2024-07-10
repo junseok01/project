@@ -9,6 +9,7 @@ import com.example.project.trainer.TrainerEntity;
 import com.example.project.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,6 @@ public class ChatServiceImpl implements ChatService {
     public void createChatRoom(String loginId, String trainerId) {
         UserEntity user = userService.chatsearch(loginId);
         TrainerEntity trainer = trainerService.gettrainerInfo(trainerId);
-        System.out.println(loginId+"--------------------------------------------");
         dao.createChatRoom(new ChatRoom(UUID.randomUUID().toString(), loginId, user.getName(), trainerId, trainer.getName()));
     }
 
@@ -78,7 +78,6 @@ public class ChatServiceImpl implements ChatService {
                     .collect(Collectors.toList());
 
     }
-
     @Override
     public ChatRoomResponsechat findAllChatMessagesByRoomId(String roomId) {
         ModelMapper modelMapper = new ModelMapper();

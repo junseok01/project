@@ -4,28 +4,134 @@
     <title>프로필</title>
 </head>
 <body>
-<div th:fragment="main">
-    <h1>프로필 정보</h1>
-    <div class="box">
-        <div class="profile-info-container">
-            <!-- 프로필 이미지 -->
-            <img src="/images/1.png" alt="프로필 사진">
-            <!-- 프로필 정보 텍스트 -->
-            <div class="profile-info">
-                <p th:text="'이름 : ' + ${session.member.name}"></p>
-                <p>나이: 5세</p>
-                <p>회원 유형 : 트레이너
+    <div th:fragment="main">
+        <main class="th-layout-main ">
+            <!-- [S]campland-N23 -->
+            <div class="campland-N23" data-bid="omlycHKw1B">
+                <div class="contents-inner">
+                    <div class="contents-container" >
+                        <div class="textset textset-sub textset-center">
+                            <h2 class="textset-tit" >My Page</h2>
+                        </div>
+                        <ul class="contents-group contents-profile">
+                            <li class="contents-profile-item">
+                                <i class="fa-regular fa-user fa-2x"></i>
+                                <p class="contents-name" th:text="${session.member.name}" style="margin-top: 10px;"></p>
+                            </li>
+                            <li class="contents-profile-item">
+                                <a href="javascript:void(0);" class="btnset btnset-round">내 정보 관리</a>
+                            </li>
+                        </ul>
+                        <ul class="contents-group contents-benefit" style="display: flex; flex-wrap: nowrap; justify-content: space-between;">
+                            <div id="box" style="width: 390px; height: 160px; background-color: #ffcf0a; border-radius: 20px; margin-right: 10px;">
+                                <p class="contents-name" style="margin-top: 10px;">
+                                    Point
+                                </p>
+                                <div id="boxes">
+                                    <p class="contents-name" style="font-size: 42px; color: white; margin-right: 60px;" th:text="${session.member.point}+' P'">
+                                    </p>
+                                </div>
+                                <div id="box2" class="btnset btnset-round" style="margin-left: 220px; background-color: black; margin-bottom: 50px; border-radius: 20px;">
+                                    <a href="/payment/rechargePoint" style="color: white;">
+                                        충전
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="newBox" style="width: 390px; height: 160px; background-color:#0dcaf0; border-radius: 20px;">
+                                <p class="contents-name" style="margin-top: 10px;">
+                                    회원등급
+                                </p>
+                                <div id="newBoxes">
+                                    <p class="contents-name" style="font-size: 42px; color: white; margin-right: 30px; margin-top: 30px;">
+                                        트레이너
+                                    </p>
+                                </div>
+                            </div>
+                        </ul>
 
-                </p>
-                <button onclick="openEditPopup()">수정하기</button>
+                        <div>
+                            <div id="tpt1" class="btnset btnset-round" style=" background-color: blue; border-radius: 20px;margin-top: 30px; border:none;">
+                                PT신청받기
+                            </div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>이름</th>
+                                    <th>날짜,시간</th>
+                                    <th>수락</th>
+                                    <th>거절</th>
+                                </tr>
+                                </thead>
+                                <tbody id="ptRequestList">
+                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.status != 'accept' && ptDayPass.status != 'reject'}">
+                                    <td th:text="${ptDayPass.requestId}">1</td>
+                                    <td th:text="${ptDayPass.user}">신청한user_name</td>
+                                    <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
+                                    <td><button type="button" style="background-color: #0dcaf0" class="acceptReservation" th:value="${ptDayPass.requestId}">수락</button></td>
+                                    <td><button type="button" class="rejectReservation" th:value="${ptDayPass.requestId}">거절</button></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="tpt2" class="btnset btnset-round" style=" background-color: blue; border-radius: 20px;margin-top: 50px; border:none;">
+                                PT일정
+                            </div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>이름</th>
+                                    <th>날짜,시간</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.status == 'accept'}">
+                                    <td th:text="${ptDayPass.requestId}">1</td>
+                                    <td th:text="${ptDayPass.user}">신청한user_name</td>
+                                    <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <script type="text/javascript">
+                                $(document).ready(function (){
+                                    $("#ptRequestList").on('click','.acceptReservation',function (){
+                                        if (confirm("PT요청을 수락하시겠습니까?")) {
+                                            let requestId = $(this).val();
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '/ptDayPasses/accept',
+                                                contentType: 'application/json',
+                                                data: JSON.stringify({requestId: requestId}),
+                                                success: function () {
+                                                    alert("예약을 수락하셨습니다.");
+                                                    window.location.reload();
+                                                }
+                                            });
+                                        }
+                                    });
+                                    $("#ptRequestList").on('click','.rejectReservation',function (){
+                                        if (confirm("PT요청을 거절하시겠습니까?")) {
+                                            let requestId = $(this).val();
+                                            $.ajax({
+                                                type: 'POST',
+                                                url: '/ptDayPasses/reject',
+                                                contentType: 'application/json',
+                                                data: JSON.stringify({requestId: requestId}),
+                                                success: function () {
+                                                    alert("예약을 거절하셨습니다.");
+                                                    window.location.reload();
+                                                }
+                                            });
+                                        }
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+        </main>
     </div>
-
-
-
-
-</div>
 
 </body>
 </html>

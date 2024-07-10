@@ -48,7 +48,6 @@ public class ChatController {
     @GetMapping("/chatRoom")
     public String ChatRoomList(String loginId,Model model){
         List<ChatRoomResponse> chatRooms = service.findAllChatRooms(loginId);
-        System.out.println("12323"+chatRooms);
         model.addAttribute("roomlist",chatRooms);
         return "mypage/chatlist";
     }

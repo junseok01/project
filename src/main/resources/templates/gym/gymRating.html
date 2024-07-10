@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .star {
+            cursor: pointer;
+            font-size: 3em;
+            color: gold;
+        }
+    </style>
+    <script>
+        function rate(event) {
+            var score = event.target.getAttribute("data-score");
+            var form = document.getElementById("ratingForm");
+            var formData = new FormData(form);
+            formData.set("score", score);
+
+            fetch(form.action, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+                .then(response => response.text())
+                .then(handleRatingResponse)
+                .catch(error => console.error('Error:', error));
+        }
+
+        function handleRatingResponse(response) {
+            if (response === "fail") {
+                alert("별점을 이미 주었습니다");
+            } else {
+                alert("별점이 부여되었습니다");
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="rating">
+    <h2>평점을 남겨주세요</h2>
+    <div>
+        <span class="star" data-score="1" onclick="rate(event)">&#9733;</span>
+        <span class="star" data-score="2" onclick="rate(event)">&#9733;</span>
+        <span class="star" data-score="3" onclick="rate(event)">&#9733;</span>
+        <span class="star" data-score="4" onclick="rate(event)">&#9733;</span>
+        <span class="star" data-score="5" onclick="rate(event)">&#9733;</span>
+    </div>
+    <form id="ratingForm" th:action="@{/{id}/rating(id=${gym.gymboardnum})}" method="post" style="display: none;">
+        <input type="hidden" name="score" id="score"/>
+    </form>
+</div>
+</body>
+</html>
