@@ -46,7 +46,7 @@ public class PointController {
             session.setAttribute("member",user);
             //문자보낼때마다 돈들어서 막아놈
             //테스트하고싶으면 주석지우고 실행
-            //sendSms(user,des,type);
+            sendSms(user,des,type);
         }
         return "redirect:/main";
     }
