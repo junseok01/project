@@ -1,21 +1,27 @@
 package com.example.project.trainer.PtDayPasses;
 
-import com.example.project.login.UserDTO;
+import com.example.project.login.*;
 import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor
 public class PtDayPassesController {
-    @Autowired
-    private PtDayPassesService ptDayPassesService;
+   private final PtDayPassesService ptDayPassesService;
+    private final LoginService loginService;
+
+
     @GetMapping("/trainerPTpage")
     public String PtPage(Model model){
         List<PtDayPassesResponseDTO> ptDayPasses = ptDayPassesService.getAllPtDayPasses();
@@ -51,15 +57,35 @@ public class PtDayPassesController {
         List<PtDayPassesResponseDTO> reservations = ptDayPassesService.getAllPtDayPasses();
         return ResponseEntity.ok(reservations);
     }
+    // 예약 목록 정보 트레이너 Id로 검색
+    @GetMapping("/ptDayPasses/getReservationsByTrainer")
+    @ResponseBody
+    public ResponseEntity<List<PtDayPassesResponseDTO>> getReservationsByTrainer(@RequestParam String trainerId) {
+        List<PtDayPassesResponseDTO> reservations = ptDayPassesService.getPtDayPassesByTrainer(trainerId);
+        return ResponseEntity.ok(reservations);
+    }
     // 예약 수락
     @PostMapping("/ptDayPasses/accept")
     @ResponseBody
-    public ResponseEntity<String> acceptReservation(@RequestBody PtDayPassesRequestDTO requestDTO){
-        try{
+    public ResponseEntity<String> acceptReservation(@RequestBody PtDayPassesRequestDTO requestDTO, HttpSession session){
+        try {
             ptDayPassesService.acceptPtDayPasses(requestDTO);
+            PtDayPassesEntity ptDayPasses = ptDayPassesService.getPtDayPassById(requestDTO.getRequestId());
+            UserEntity requestUser = ptDayPasses.getUser();
+
+            int updatedPoint = requestUser.getPoint();
+            System.out.println("결제후 포인트 ===== : " + updatedPoint);
+
+//            UserDTO userDTO = (UserDTO) session.getAttribute("member");
+//            if (userDTO.getLoginId().equals(requestUser.getLoginId())) {
+//                userDTO.setPoint(updatedPoint);
+//                session.setAttribute("member", userDTO);
+//            }
+
+            // 요청을 보낸 유저의 포인트 반환
             return ResponseEntity.ok("예약 수락");
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
     // 예약 거절
@@ -90,4 +116,17 @@ public class PtDayPassesController {
             return ResponseEntity.ok().body("신청 확인중");
         }
     }
+    @GetMapping("/ptDayPasses/currentUserPoint")
+    @ResponseBody
+    public ResponseEntity<Integer> getCurrentUserPoint(HttpSession session) {
+        UserDTO userDTO = (UserDTO) session.getAttribute("member");
+        UserDTO requestUserDTO = loginService.search(userDTO.getLoginId());
+        session.setAttribute("member", requestUserDTO);
+        System.out.println("유저=========" + requestUserDTO);
+        if (userDTO != null) {
+            return ResponseEntity.ok(requestUserDTO.getPoint());
+        } else{
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+            }
+        }
 }
