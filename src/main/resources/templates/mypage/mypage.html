@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/mypage/adminMypage.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="imagetoolbar" content="no">
@@ -22,25 +23,24 @@
     <meta property="og:description" content="웹사이트입니다">
     <meta property="og:image" content="https://웹사이트/images/opengraph.png">
     <meta property="og:url" content="https://웹사이트">
-    <title>마이페이지</title>
+    <title>마이페이지 | 프로젝트3324</title>
     <link rel="stylesheet" href="/css/MessagePack/setting.css">
     <link rel="stylesheet" href="/css/MessagePack/plugin.css">
     <link rel="stylesheet" href="/css/MessagePack/template.css">
     <link rel="stylesheet" href="/css/MessagePack/common.css">
     <link rel="stylesheet" href="/css/MessagePack/style.css">
-    <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="header" th:replace="~{top/header :: header}"></div>
 <div id="top" th:insert="~{top/top :: top}"></div>
 
-<div class="mypage_container" style="margin-left: 320px;" th:switch="${member.userType}">
+<div class="mypage_container" th:switch="${member.userType}">
     <div class="sidebar" th:if="${member.userType == '0'}">
         <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
     </div>
- <!--   <div class="sidebar" th:if="${member.userType == '1'}">
+    <div class="sidebar" th:if="${member.userType == '1'}">
         <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
-    </div>-->
+    </div>
     <div class="sidebar" th:if="${member.userType == '2'}">
         <th:block th:replace="~{mypageLayout/trainer :: trainer}"></th:block>
     </div>

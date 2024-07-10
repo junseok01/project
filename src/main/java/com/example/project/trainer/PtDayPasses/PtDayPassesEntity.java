@@ -26,7 +26,7 @@ public class PtDayPassesEntity {
     private UserEntity user;
 
     @ManyToOne
-    @JoinColumn(name = "boardNo")
+    @JoinColumn(name = "trainerId")
     private TrainerEntity trainer;
 
     private LocalDateTime startTime;
