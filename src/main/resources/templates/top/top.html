@@ -25,7 +25,7 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav" style="padding-top:10px" id="content">
                             <li class="active"><a href="/main">Home</a></li>
-                            <li><a th:href="@{/gymlist}">헬스장</a></li>
+                            <li><a th:href="@{/gymlist(page=0,gymname=,gymaddr=,size=10)}">헬스장</a></li>
                             <li><a th:href="@{/trainerlist}">트레이너</a></li>
                             <li><a href="/map">지도</a></li>
                             <li><a href="/tube">강의</a></li>

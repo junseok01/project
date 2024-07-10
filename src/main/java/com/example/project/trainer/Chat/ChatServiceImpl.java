@@ -2,9 +2,7 @@ package com.example.project.trainer.Chat;
 
 import com.example.project.login.UserEntity;
 import com.example.project.login.UserService;
-import com.example.project.trainer.Chat.dto.ChatMessageRequest;
-import com.example.project.trainer.Chat.dto.ChatMessageResponse;
-import com.example.project.trainer.Chat.dto.ChatRoomResponse;
+import com.example.project.trainer.Chat.dto.*;
 import com.example.project.trainer.Chat.entity.ChatMessage;
 import com.example.project.trainer.Chat.entity.ChatRoom;
 import com.example.project.trainer.TrainerEntity;
@@ -64,10 +62,10 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<ChatRoomResponse> findAllChatRoomsTrainerVer(String trainerId) {
+    public List<ChatRoomResponseTrainerVer> findAllChatRoomsTrainerVer(String trainerId) {
         ModelMapper modelMapper = new ModelMapper();
         return dao.findAllChatRoomsTrainerVer(trainerId).stream()
-                .map(entity ->new ChatRoomResponse(entity.getRoomId(),
+                .map(entity ->new ChatRoomResponseTrainerVer(entity.getRoomId(),
                         entity.getUserName(), entity.getUserId(),entity.getCreateDate(),entity.getModifyDate(),entity.getMessage()))
                 .collect(Collectors.toList());
     }
@@ -79,5 +77,10 @@ public class ChatServiceImpl implements ChatService {
                     .map(entity -> modelMapper.map(entity, ChatMessageResponse.class))
                     .collect(Collectors.toList());
 
+    }
+    @Override
+    public ChatRoomResponsechat findAllChatMessagesByRoomId(String roomId) {
+        ModelMapper modelMapper = new ModelMapper();
+        return modelMapper.map(dao.findChatRoomById(roomId), ChatRoomResponsechat.class);
     }
 }
