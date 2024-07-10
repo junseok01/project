@@ -3,11 +3,14 @@ package com.example.project.trainer.PtDayPasses;
 import com.example.project.login.*;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.async.DeferredResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +20,6 @@ import java.util.List;
 public class PtDayPassesController {
    private final PtDayPassesService ptDayPassesService;
    private final LoginService loginService;
-
 
     @GetMapping("/trainerPTpage")
     public String PtPage(HttpSession session, Model model){
