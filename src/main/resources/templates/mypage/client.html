@@ -64,7 +64,7 @@
                                 </tr>
                                 </thead>
                                 <tbody id="ptRequestList">
-                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status != 'accept' && ptDayPass.status != 'reject'}">
+                                <tr th:each="ptDayPass : ${ptDayPassesClient}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status != 'accept' && ptDayPass.status != 'reject'}">
                                     <td th:text="${ptDayPass.requestId}">1</td>
                                     <td th:text="${ptDayPass.trainer}">트레이너 name</td>
                                     <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
@@ -83,12 +83,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status == 'accept'}">
+                                <tr th:each="ptDayPass : ${ptDayPassesClient}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status == 'accept'}">
                                     <td th:text="${ptDayPass.requestId}">1</td>
                                     <td th:text="${ptDayPass.trainer}">트레이너 name</td>
                                     <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
                                 </tr>
-                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status == 'reject'}">
+                                <tr th:each="ptDayPass : ${ptDayPassesClient}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status == 'reject'}">
                                     <td th:text="${ptDayPass.requestId}">1</td>
                                     <td th:text="${ptDayPass.trainer}">트레이너 name</td>
                                     <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>

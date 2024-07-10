@@ -25,7 +25,8 @@
                 </tr>
                 </thead>
                 <tbody id="ptRequestList">
-                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.status != 'accept' && ptDayPass.status != 'reject'}">
+                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.status != 'accept' && ptDayPass.status != 'reject'
+                                                                && ptDayPass.trainer == reservationTrainerId}">
                     <td th:text="${ptDayPass.requestId}">1</td> <!-- 번호 -->
                     <td th:text="${ptDayPass.user}">신청한user_name</td> <!-- 신청한 유저의 이름 -->
                     <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td> <!-- PT 시간 -->
@@ -44,7 +45,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.status == 'accept'}">
+                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.status == 'accept'&& ptDayPass.trainer == reservationTrainerId}">
                     <td th:text="${ptDayPass.requestId}">1</td> <!-- 번호 -->
                     <td th:text="${ptDayPass.user}">신청한user_name</td> <!-- 신청한 유저의 이름 -->
                     <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td> <!-- PT 시간 -->
