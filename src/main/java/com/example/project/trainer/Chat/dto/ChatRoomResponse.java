@@ -22,6 +22,4 @@ public class ChatRoomResponse {
     @JsonFormat(pattern = "MM-dd",timezone = "Asia/Seoul")
     private Date modifyDate;
     private String lastMessage;
-
-
 }

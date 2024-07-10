@@ -1,9 +1,7 @@
 package com.example.project.trainer.Chat;
 
 import com.example.project.login.UserService;
-import com.example.project.trainer.Chat.dto.ChatMessageRequest;
-import com.example.project.trainer.Chat.dto.ChatMessageResponse;
-import com.example.project.trainer.Chat.dto.ChatRoomResponse;
+import com.example.project.trainer.Chat.dto.*;
 import com.example.project.trainer.Chat.entity.MessageType;
 import com.example.project.trainer.TrainerService;
 import lombok.RequiredArgsConstructor;
@@ -14,6 +12,7 @@ import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
@@ -54,8 +53,15 @@ public class ChatController {
     }
     @GetMapping("/chatRoom2")
     public String ChatRoomList2(String trainerId,Model model){
-        List<ChatRoomResponse> chatRooms = service.findAllChatRooms(trainerId);
+        List<ChatRoomResponseTrainerVer> chatRooms = service.findAllChatRoomsTrainerVer(trainerId);
+        System.out.println("qwrrq"+chatRooms);
         model.addAttribute("roomlist",chatRooms);
-        return "mypageLayout/chatlist";
+        return "chatlistTrainerVer";
+    }
+    @GetMapping("/chatchange")
+    @ResponseBody
+    public List<ChatMessageResponse> findAllChatMessages(String roomId){
+        ChatRoomResponsechat room = service.findAllChatMessagesByRoomId(roomId);
+        return room.getMessages();
     }
 }

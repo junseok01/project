@@ -1,0 +1,24 @@
+package com.example.project.trainer.Chat.dto;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.Date;
+import java.util.List;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class ChatRoomResponsechat {
+    private String roomId;//채팅룸이름
+    private String trainerName;
+    private String trainerId;
+    private Date createDate;
+    @JsonFormat(pattern = "MM-dd",timezone = "Asia/Seoul")
+    private Date modifyDate;
+    private List<ChatMessageResponse> messages;
+}

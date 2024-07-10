@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/js/openPopUp/openPopup.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/chat/chat.css">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/paging/page.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="header" th:replace="~{top/header :: header}"></div>
+<div id="top" th:insert="~{top/top :: top}"></div>
+<div class="mypage_container">
+<div class="sidebar">
+    <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
+</div>
+<div class="container">
+    <div class="messaging">
+        <div class="inbox_msg">
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>Recent</h4>
+                    </div>
+                    <div class="srch_bar">
+                        <div class="stylish-input-group">
+                            <input type="text" class="search-bar"  placeholder="Search" style="display: flex">
+                            <span class="input-group-addon">
+                                <button type="button"> <i class="fa fa-search" aria-hidden="true"></i> </button>
+                        </span></div>
+                            </div>
+                </div>
+                <div class="inbox_chat" id="inbox_chat" th:unless="${roomlist==null}" >
+                    <th:block th:each="room:${roomlist}">
+                    <div class="chat_list" th:onclick="loadchat(/*[[${room.roomId}]]*/)">
+                        <div class="chat_people">
+                            <div class="chat_img"> <img src="/images/profile.png"> </div>
+                            <div class="chat_ib">
+                                <h5>[[${room.userName}]] <span class="chat_date">[[${room.modifyDate}]]</span></h5>
+                                <p th:if="${message}">[[${room.lastMessage}]]</p>
+                            </div>
+                        </div>
+                    </div>
+                    </th:block>
+                </div>
+                <div class="inbox_chat" th:if="${roomlist==null}">
+                </div>
+            </div>
+            <div class="mesgs">
+                <div class="msg_history" id="msg_history">
+                    <th:block th:unless="${chatList==null}" th:each="chat:${chatList}">
+                        <div class="incoming_msg" th:unless="${chat.sender==session.member.loginId}">
+                            <div class="incoming_msg_img"> <img src="/images/profile.png"> </div>
+                            <div class="received_msg">
+                                <div class="received_withd_msg">
+                                    <p>[[${chat.message}]]</p>
+                                    <span class="time_date">[[${chat.createDate}]]</span></div>
+                            </div>
+                        </div>
+                        <div class="outgoing_msg" th:if="${chat.sender==session.member.loginId}">
+                            <div class="sent_msg">
+                                <p>[[${chat.message}]]</p>
+                                <span class="time_date">[[${chat.createDate}]]</span></div>
+                        </div>
+                    </th:block>
+                    <th:block th:if="${chatList==null}">
+                    </th:block>
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                        <input id="msg" type="text" class="write_msg" placeholder="Type a message" />
+                        <button id="sendbtn" class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        var stompClient = null;
+        var roomId = null;
+        var userId = /*[[${session.member.loginId}]]*/ '';
+        var userName = /*[[${session.member.name}]]*/ '';
+        var subscribeRoot = null;
+        var msgHistory = document.getElementById('msg_history');
+        function onMessageReceived(payload){
+            console.log(payload);
+            let chatmsg = JSON.parse(payload.body);
+            if(chatmsg.sender == userId) {//내가 작성한 메시지인지 확인
+                let item =  " <div class='outgoing_msg'>"+
+                    " <div class='sent_msg'>"+
+                    " <p>"+chatmsg.message+"</p>"+
+                    " <span class='time_date'>"+chatmsg.createDate+"</span></div>"+
+                    "</div>"
+                $("#msg_history").append(item);
+            } else {
+                let item =  " <div class='incoming_msg'>"+
+                    "<div class='incoming_msg_img'> <img src='/images/profile.png'> </div>"+
+                    " <div class='received_msg'>"+
+                    "<div class='received_withd_msg'>"+
+                    " <p>"+chatmsg.message+"</p>"+
+                    " <span class='time_date'>"+chatmsg.createDate+"</span></div>"+
+                    "</div>"+
+                    "</div>"
+                $("#msg_history").append(item);
+            }
+            msgHistory.scrollTop = msgHistory.scrollHeight;
+        }
+        function sendChat(userId) {
+            if ($("#msg").val() != "") {
+                console.log("/pub/"+roomId)
+                console.log(stompClient)
+                stompClient.send("/pub/"+roomId, {},
+                    JSON.stringify({
+                        'roomId': roomId,
+                        'sender': userId,
+                        'senderName': userName,
+                        'message' : $("#msg").val()
+
+                    }));
+                $("#msg").val('');
+            }
+        }
+
+        $(document).ready(function(){
+            $( "#sendbtn" ).click(function() {
+                sendChat(userId);
+            });
+            $("#msg").on("keyup",function(ev){
+                if(ev.keyCode == 13){
+                    sendChat(userId);
+                }
+            })
+            $("#inbox_chat>div").each(function(){
+                $(this).click(function(){
+                    $("#inbox_chat>div").removeClass("active_chat");
+                    $(this).attr("class","active_chat");
+                })
+            })
+        })
+        function loadchat(roomId1){
+            roomId = roomId1;
+            var socket = new SockJS('/websocket/start');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                if (subscribeRoot!=null){
+                    subscribeRoot.unsubscribe();
+                }
+                console.log('Connected: ' + frame);
+                subscribeRoot = stompClient.subscribe('/sub/chat/room/'+roomId,onMessageReceived );
+            })
+            $.ajax({
+                url:"/chatchange",
+                type:"get",
+                data:{"roomId":roomId1},
+                dataType:"json",
+                success:function (chatList){
+                    $("#msg_history").empty();
+                    for (let i=0;i<chatList.length;i++){
+                        dividechat(chatList[i]);
+                    }
+                    msgHistory.scrollTop = msgHistory.scrollHeight;
+                }
+            })
+        }
+        function dividechat(chat){
+            if(chat.sender == userId) {//내가 작성한 메시지인지 확인
+                let item =  " <div class='outgoing_msg'>"+
+                    " <div class='sent_msg'>"+
+                    " <p>"+chat.message+"</p>"+
+                    " <span class='time_date'>"+chat.createDate+"</span></div>"+
+                    "</div>"
+                $("#msg_history").append(item);
+            } else {
+                let item =  " <div class='incoming_msg'>"+
+                    "<div class='incoming_msg_img'> <img src='/images/profile.png'> </div>"+
+                    " <div class='received_msg'>"+
+                    "<div class='received_withd_msg'>"+
+                    " <p>"+chat.message+"</p>"+
+                    " <span class='time_date'>"+chat.createDate+"</span></div>"+
+                    "</div>"+
+                    "</div>"
+                $("#msg_history").append(item);
+            }
+
+        }
+    </script>
+</div>
+</div>
+</body>
+</html>

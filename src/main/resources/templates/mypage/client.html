@@ -1,37 +1,134 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
 <head>
-    <title>프로필</title>
 </head>
 <body>
-<div th:fragment="main">
-    <h1>프로필 정보</h1>
-    <div class="box">
-        <div class="profile-info-container">
-            <!-- 프로필 이미지 -->
-            <img src="/images/1.png" alt="프로필 사진">
-            <!-- 프로필 정보 텍스트 -->
-            <div class="profile-info">
-                <p th:text="'이름 : ' + ${session.member.name}"></p>
-                <p>나이: 5세</p>
-                <p>회원 유형 : 일반회원
-                    <button onclick="window.open('/RequestToTrainer?action=WRITE&id=1', '_blank', 'width=800,height=800,resizable=yes');">트레이너 요청하기</button>
-                </p>
-<!--                <p th:if="${session.member.userType == 1}">회원 유형 : 일반회원</p>-->
-<!--                <p th:if="${session.member.userType == 2}">회원 유형 : 트레이너</p>-->
-                <!-- 원하는 프로필 정보 추가 -->
-                <button onclick="openEditPopup()">수정하기</button>
+    <div th:fragment="main">
+        <main class="th-layout-main ">
+            <!-- [S]campland-N23 -->
+            <div class="campland-N23" data-bid="omlycHKw1B">
+                <div class="contents-inner">
+                    <div class="contents-container" >
+                        <div class="textset textset-sub textset-center">
+                            <h2 class="textset-tit" >My Page</h2>
+                        </div>
+                        <ul class="contents-group contents-profile">
+                            <li class="contents-profile-item">
+                                <i class="fa-regular fa-user fa-2x"></i>
+                                <p class="contents-name" th:text="${session.member.name}" style="margin-top: 10px;"></p>
+                            </li>
+                            <li class="contents-profile-item">
+                                <button  class="btnset btnset-round" onclick="window.open('/RequestToTrainer?action=WRITE&id=1', '_blank ,resizable=yes');">트레이너 요청하기</button>
+                                <a href="javascript:void(0);" class="btnset btnset-round">내 정보 관리</a>
+                            </li>
+                        </ul>
+                        <ul class="contents-group contents-benefit" style="display: flex; flex-wrap: nowrap; justify-content: space-between;">
+                            <div id="box" style="width: 390px; height: 160px; background-color: #ffcf0a; border-radius: 20px; margin-right: 10px;">
+                                <p class="contents-name" style="margin-top: 10px;">
+                                    Point
+                                </p>
+                                <div id="boxes">
+                                    <p class="contents-name" style="font-size: 42px; color: white; margin-right: 60px;" th:text="${session.member.point}+' P'">
+                                    </p>
+                                </div>
+                                <div id="box2" class="btnset btnset-round" style="margin-left: 220px; background-color: black; margin-bottom: 50px; border-radius: 20px;">
+                                    <a href="/payment/rechargePoint" style="color: white;">
+                                        충전
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="newBox" style="width: 390px; height: 160px; background-color: #00cf0a; border-radius: 20px;">
+                                <p class="contents-name" style="margin-top: 10px;">
+                                    회원등급
+                                </p>
+                                <div id="newBoxes">
+                                    <p class="contents-name" style="font-size: 42px; color: white; margin-right: 30px; margin-top: 30px;">
+                                        일반회원
+                                    </p>
+                                </div>
+                            </div>
+                        </ul>
+
+                        <div style="margin-top: 60px;">
+                            <div id="pt1" class="btnset btnset-round" style=" background-color: blue; border-radius: 20px; border:none;">
+                                PT예약중
+                            </div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>트레이너 이름</th>
+                                    <th>날짜,시간</th>
+                                </tr>
+                                </thead>
+                                <tbody id="ptRequestList">
+                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status != 'accept' && ptDayPass.status != 'reject'}">
+                                    <td th:text="${ptDayPass.requestId}">1</td>
+                                    <td th:text="${ptDayPass.trainer}">트레이너 name</td>
+                                    <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div id="pt2" class="btnset btnset-round" style=" background-color: blue; border-radius: 20px;margin-top: 50px; border:none;">
+                                PT일정
+                            </div>
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>번호</th>
+                                    <th>이름</th>
+                                    <th>날짜,시간</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status == 'accept'}">
+                                    <td th:text="${ptDayPass.requestId}">1</td>
+                                    <td th:text="${ptDayPass.trainer}">트레이너 name</td>
+                                    <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
+                                </tr>
+                                <tr th:each="ptDayPass : ${ptDayPasses}" th:if="${ptDayPass.user == session.member.name && ptDayPass.status == 'reject'}">
+                                    <td th:text="${ptDayPass.requestId}">1</td>
+                                    <td th:text="${ptDayPass.trainer}">트레이너 name</td>
+                                    <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
+                                    <td>거절된 PT입니다. ㅠㅠ</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-        </div>
-
-
+        </main>
     </div>
+<!--        <div class="box">
+            <div class="profile-info-container">
+                &lt;!&ndash; 프로필 이미지 &ndash;&gt;
+                <img src="/images/1.png" alt="프로필 사진">
+                &lt;!&ndash; 프로필 정보 텍스트 &ndash;&gt;
+                <div class="profile-info">
+                    <p th:text="'이름 : ' + ${session.member.name}"></p>
+                    <p>나이: 5세</p>
+                    <p>회원 유형 : 일반회원
+                        <button onclick="window.open('/RequestToTrainer?action=WRITE&id=1', '_blank', 'width=800,height=800,resizable=yes');">트레이너 요청하기</button>
+                    </p>
+                    &lt;!&ndash;                <p th:if="${session.member.userType == 1}">회원 유형 : 일반회원</p>&ndash;&gt;
+                    &lt;!&ndash;                <p th:if="${session.member.userType == 2}">회원 유형 : 트레이너</p>&ndash;&gt;
+                    &lt;!&ndash; 원하는 프로필 정보 추가 &ndash;&gt;
+                    <button onclick="openEditPopup()">수정하기</button>
+                </div>
+            </div>
+        </div>-->
+
+    <!-- [E]campland-N2 -->
+    <script src="/js/mypage/setting.js"></script>
+    <script src="/js/mypage/plugin.js"></script>
+    <script src="/js/mypage/template.js"></script>
+    <script src="/js/mypage/common.js"></script>
+    <script src="/js/mypage/script.js"></script>
 
 
-
-
-</div>
 
 </body>
 </html>

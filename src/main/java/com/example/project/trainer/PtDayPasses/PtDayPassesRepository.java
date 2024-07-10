@@ -10,4 +10,5 @@ import java.util.List;
 public interface PtDayPassesRepository extends JpaRepository<PtDayPassesEntity , Long> {
     List<PtDayPassesEntity> findAll();
     PtDayPassesEntity findByTrainerNameAndStartTimeOrEndTime(String trainerName, LocalDateTime startTime, LocalDateTime endTime);
+    List<PtDayPassesEntity> findByTrainer_TrainerId(String trainerId);
 }
