@@ -18,4 +18,13 @@ public class PtDayPassesResponseDTO {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String status;
+
+    public PtDayPassesResponseDTO(PtDayPassesEntity pt) {
+        this.requestId = pt.getRequestId();
+        this.user = pt.getUser().getName();
+        this.trainer = pt.getTrainer().getTrainerId();
+        this.startTime = pt.getStartTime();
+        this.endTime = pt.getEndTime();
+        this.status = pt.getStatus();
+    }
 }

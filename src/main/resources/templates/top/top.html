@@ -23,7 +23,7 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav" style="padding-top:10px">
+                        <ul class="nav navbar-nav" style="padding-top:10px" id="content">
                             <li class="active"><a href="/main">Home</a></li>
                             <li><a th:href="@{/gymlist}">헬스장</a></li>
                             <li><a th:href="@{/trainerlist}">트레이너</a></li>
@@ -34,13 +34,32 @@
                         <ul class="nav navbar-nav navbar-right cart-menu">
                         <li th:if="${session.member != null}"><a href="/payment/rechargePoint">
                             <span style="margin-right: 5px;">포인트</span>
-                            <span th:text="${session.member.point}" style="background-color: #f2f2f2; padding: 3px 5px; border-radius: 3px;"></span>
+                            <span id="UserPoint" th:text="${session.member.point}" style="background-color: #f2f2f2; padding: 3px 5px; border-radius: 3px;"></span>
                         </a></li>
                     </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container -->
             </nav>
         </header>
+        <script>
+            $(document).ready(function (){
+                updateUserPoint();
+
+                $("#content a").on("click",function (){
+                    updateUserPoint();
+                });
+            });
+            function updateUserPoint() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/ptDayPasses/currentUserPoint',
+                    success: function (data) {
+                        console.log("결제후 포인트 ==== : ", data);
+                        $('#UserPoint').text(data); // 사용자 포인트 업데이트
+                    }
+                });
+            }
+        </script>
 	</div>
 </body>
 </html>
