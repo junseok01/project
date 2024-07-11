@@ -18,7 +18,7 @@ function updateLoadingMessage() {
 
         setTimeout(function() {
             loadingText.innerText = '문서에서 텍스트를 추출 중입니다...';
-            loadingImage.innerHTML = '<img src="/OCRImages/f32be2e5-d066-497f-b75a-2fd7e024de4b.pdf.png" alt="문서에서 글자 추출 중" />';
+            //loadingImage.innerHTML = '<img src="/OCRImages/f32be2e5-d066-497f-b75a-2fd7e024de4b.pdf.png" alt="문서에서 글자 추출 중" />';
             loadingImage.classList.add('fixed-size');  // 고정 크기 스타일 추가
 
             setTimeout(function() {

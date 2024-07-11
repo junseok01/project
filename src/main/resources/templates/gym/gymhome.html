@@ -109,19 +109,6 @@
                                 </div>
                             </div>
                         </div>
-                        <nav class="pagiset pagiset-circ pagiset-border">
-                            <div class="pagiset-ctrl">
-                                <a class="pagiset-link pagiset-prev"   th:if="${gymlist.number!=0}"    th:href="@{/gymlist(page=${gymlist.number-1},gymname=${gymname},size=${gymlist.size})}">
-                                    <span class="visually-hidden">이전</span>
-                                </a>
-                            </div>
-                            <div class="pagiset-ctrl">
-                                <a class="pagiset-link pagiset-next" th:if="${gymlist.number +1 !=totalPage}"  th:href="@{/gymlist(page=${Page}+1,gymname=${gymname} , size=${Size})}">
-                                    <span class="visually-hidden" >다음</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
                     <nav class="pagiset pagiset-circ pagiset-border">
                         <div class="pagiset-ctrl">
                             <a class="pagiset-link pagiset-prev"   th:if="${gymlist.number!=0}"    th:href="@{/gymlist(page=${gymlist.number-1},gymname=${gymname},gymaddr=${gymaddr},size=${gymlist.size})}">
@@ -137,6 +124,7 @@
                 </div>
             </div>
         </div>
+
         <!-- [E]campland-N22 -->
     </main>
     <script>

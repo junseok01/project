@@ -23,6 +23,7 @@
 
 </head>
 <body>
+
 	<div id="top" th:replace="~{top/header :: header}"></div>
 
 	<div class="center-container">
@@ -100,6 +101,15 @@
 <!--		naver_id_login.setPopup();-->
 <!--		naver_id_login.init_naver_id_login();-->
 <!--	</script>-->
+
+	<script th:inline="javascript">
+		window.onload = () => {
+			var message = [[${msg}]];
+			if(message!=null){
+					alert(message);
+				}
+			}
+	</script>
 
 </body>
 </html>
