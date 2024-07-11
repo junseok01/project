@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트 충전</title>
+    <link rel="stylesheet" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/paging/page.css">
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+<div id="header" th:replace="~{top/header :: header}"></div>
+<div id="top" th:insert="~{top/top :: top}"></div>
+<div class="mypage_container">
+    <div class="sidebar" th:if="${session.member.userType =='1'}">
+        <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
+    </div>
+    <div class="sidebar" th:if="${session.member.userType =='2'}">
+        <th:block th:replace="~{mypageLayout/trainer :: trainer}"></th:block>
+    </div>
+    <div class="main-content">
+        <h1 id = "Admin-header">내가 찜한 목록</h1>
+        <table id="AdminTable">
+            <thead>
+            <tr>
+                <th>No</th>
+                <th>체육관</th>
+                <th>전화번호</th>
+                <th>일일권</th>
+                <th>일주권</th>
+                <th>주소</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="heart,status  : ${heartList}">
+                <td th:text="${status.index + 1}"></td>
+                <td>
+                    <a th:href="@{/gymread(gymboardnum=${heart.gymboardnum}, action='READ')}" th:text="${heart.gymname}"></a>
+                </td>
+                <td th:text="${heart.gymtel}"></td>
+                <td th:text="${heart.dayprice}"></td>
+                <td th:text="${heart.weekprice}"></td>
+                <td th:text="${heart.gymaddr}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+</body>
+</html>
