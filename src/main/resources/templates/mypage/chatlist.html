@@ -7,7 +7,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="/js/openPopUp/openPopup.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/chat/chat.css">
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -17,6 +16,7 @@
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/paging/page.css">
     <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/chat/chat.css">
 </head>
 <body>
 <div id="header" th:replace="~{top/header :: header}"></div>
@@ -48,7 +48,7 @@
                             <div class="chat_img"> <img src="/images/profile.png"> </div>
                             <div class="chat_ib">
                                 <h5>[[${room.trainerName}]] <span class="chat_date">[[${room.modifyDate}]]</span></h5>
-                                <p th:if="${message}">[[${room.lastMessage}]]</p>
+                                <p id="last">[[${room.lastMessage}]]</p>
                             </div>
                         </div>
                     </div>
@@ -93,6 +93,7 @@
         var userName = /*[[${session.member.name}]]*/ '';
         var subscribeRoot = null;
         var msgHistory = document.getElementById('msg_history');
+        var lastMsg = $("#last");
         function onMessageReceived(payload){
             console.log(payload);
             let chatmsg = JSON.parse(payload.body);
@@ -115,6 +116,8 @@
                 $("#msg_history").append(item);
             }
             msgHistory.scrollTop = msgHistory.scrollHeight;
+            lastMsg.empty();
+            lastMsg.text(chatmsg.message);
         }
         function sendChat(userId) {
             if ($("#msg").val() != "") {

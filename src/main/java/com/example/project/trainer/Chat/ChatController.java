@@ -47,7 +47,9 @@ public class ChatController {
     }
     @GetMapping("/chatRoom")
     public String ChatRoomList(String loginId,Model model){
+        System.out.println(loginId+"1242131342");
         List<ChatRoomResponse> chatRooms = service.findAllChatRooms(loginId);
+        System.out.println("qwrrq"+chatRooms);
         model.addAttribute("roomlist",chatRooms);
         return "mypage/chatlist";
     }
@@ -56,7 +58,7 @@ public class ChatController {
         List<ChatRoomResponseTrainerVer> chatRooms = service.findAllChatRoomsTrainerVer(trainerId);
         System.out.println("qwrrq"+chatRooms);
         model.addAttribute("roomlist",chatRooms);
-        return "chatlistTrainerVer";
+        return "mypage/chatlistTrainerVer";
     }
     @GetMapping("/chatchange")
     @ResponseBody
