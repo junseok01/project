@@ -17,15 +17,11 @@ public class Gym {
     @Id
     private Long gymnumber;
     private String gymname;
-    private String gymtrainer;
     private String gymtel;
     private String gymaddr;
     private String addrnum;
     private float x;
     private float y;
-    private String areanum;
-    private String businessnum;
-    private String memberid;
     private int dailyprice;
 }
 

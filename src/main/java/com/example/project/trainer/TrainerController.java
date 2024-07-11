@@ -36,6 +36,7 @@ public class TrainerController {
         Page<TrainerEntity> trainerPage = service.getTrainers(page, size);
         model.addAttribute("page",page);
         model.addAttribute("size",size);
+        model.addAttribute("currentPage", page);
         model.addAttribute("trainerName",trainerName);
         model.addAttribute("trainerPage", trainerPage);
         model.addAttribute("totalPage",trainerPage.getTotalPages());
