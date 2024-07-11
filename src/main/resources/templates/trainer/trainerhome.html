@@ -120,7 +120,7 @@
                             </a>
                         </div>
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-next" th:if="${trainerPage.number +1 !=totalPage}" th:href="@{/trainerlist(page=${trainerPage.number + 1},trainerName=${trainerName},addr=${addr}, size=${trainerPage.size})}">
+                            <a class="pagiset-link pagiset-next" th:if="${trainerPage.number +1 !=totalPage}" th:href="@{/trainerlist(page=${trainerPage.number + 1},trainerName=${trainerName}, size=${trainerPage.size})}">
                                 <span class="visually-hidden" >다음</span>
                             </a>
                         </div>
