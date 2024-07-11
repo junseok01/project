@@ -46,23 +46,14 @@
     <main class="th-layout-main ">
         <!-- [S]campland-N8 -->
         <div class="campland-N8" data-bid="oTLxFHl9Tn">
-            <div class="contents-container">
-                <img class="contents-visual img-pc" src="/images/health2.jpg" alt="서브 비주얼 PC 이미지">
-                <img class="contents-visual img-mobile" src="/images/health2.jpg" alt="서브 비주얼 모바일 이미지">
-                <div class="contents-body container-md">
-                    <div class="textset textset-visual" >
-                        <h2 class="textset-tit" style="font-family: 'SUITE-Regular'; color: whitesmoke" >트레이너</h2>
-                    </div>
-                </div>
-            </div>
         </div>
         <li class="contents-item">
-            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular'; margin-left: 500px; margin-top: 100px ">
                 <span></span>트레이너 검색
             </h6>
             <form th:action="@{/trainerlist}" method="get">
                 <div class="form-wrap">
-                    <div class="inputset inputset-round">
+                    <div class="inputset inputset-round" style="width: 1300px; margin-left: 500px;">
                         <input type="text" id="trainerName" name="trainerName" class="inputset-input form-control" aria-label="내용" placeholder="검색">
                     </div>
                 </div>
@@ -76,169 +67,7 @@
                     <div class="textset textset-sub">
                         <div class="register" style="float:right ">
                             <div class="btnset-wrap">
-                                <a href="/trainerregister" class="btnset btnset-round" style="  background-color: #1abc9c;">등록하기</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-wrap">
-                        <div class="contents-form-group">
-                            <h6 class="form-tit">카테고리</h6>
-                            <div class="selectset selectset-round">
-                                <button class="selectset-toggle btn" type="button">
-                                    <span>전체</span>
-                                </button>
-                                <ul class="selectset-list">
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="전체">
-                                            <span>전체</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="카테고리1">
-                                            <span>카테고리1</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="카테고리2">
-                                            <span>카테고리2</span>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="contents-form-group">
-                            <h6 class="form-tit">지역 선택</h6>
-                            <div class="selectset selectset-round">
-                                <button class="selectset-toggle btn" type="button">
-                                    <span>강서구</span>
-                                </button>
-                                <ul class="selectset-list">
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 6개월">
-                                            <span>송파구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 3개월">
-                                            <span>강동구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>서초구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>강남구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>동작구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>관악구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>영등포구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>금천구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>양천구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>구로구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>강서구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>마포구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>용산구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>서대문구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>중구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>종로구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>은평구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>성동구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>광진구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>동대문구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>중량구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>성북구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>강북구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>도봉구</span>
-                                        </button>
-                                    </li>
-                                    <li class="selectset-item">
-                                        <button class="selectset-link btn" type="button" data-value="최근 1개월">
-                                            <span>노원구</span>
-                                        </button>
-                                    </li>
-                                </ul>
+                                <a href="/trainerregister" class="btnset btnset-round" th:if="${session.member.getUserType()=='2' }" style="  background-color: #1abc9c;">등록하기</a>
                             </div>
                         </div>
                     </div>
@@ -271,14 +100,27 @@
                             </div>
                         </div>
                     </div>
+<!--                    <nav th:if="${totalPages > 1}">
+                        <ul class="pagination">
+                            <li th:classappend="${currentPage == 0} ? 'disabled'">
+                                <a th:href="@{|/gymlist?gymname=${gymname}&gymaddr=${gymaddr}&page=${currentPage - 1}|}">Previous</a>
+                            </li>
+                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${currentPage == i} ? 'active'">
+                                <a th:href="@{|/gymlist?gymname=${gymname}&gymaddr=${gymaddr}&page=${i}|}" th:text="${i + 1}">1</a>
+                            </li>
+                            <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+                                <a th:href="@{|/gymlist?gymname=${gymname}&gymaddr=${gymaddr}&page=${currentPage + 1}|}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>-->
                     <nav class="pagiset pagiset-circ pagiset-border">
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-prev"  th:if="${trainerPage.number!=0}" th:href="@{/trainerlist(page=${trainerPage.number - 1},trainerName=${trainerName}, size=${trainerPage.size})}">
+                            <a class="pagiset-link pagiset-prev"  th:if="${trainerPage.number!=0}" th:href="@{/trainerlist(page=${trainerPage.number - 1},trainerName=${trainerName},addr=${addr}, size=${trainerPage.size})}">
                                 <span class="visually-hidden">이전</span>
                             </a>
                         </div>
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-next" th:if="${trainerPage.number +1 !=totalPage}" th:href="@{/trainerlist(page=${trainerPage.number + 1},trainerName=${trainerName},size=${trainerPage.size})}">
+                            <a class="pagiset-link pagiset-next" th:if="${trainerPage.number +1 !=totalPage}" th:href="@{/trainerlist(page=${trainerPage.number + 1},trainerName=${trainerName}, size=${trainerPage.size})}">
                                 <span class="visually-hidden" >다음</span>
                             </a>
                         </div>

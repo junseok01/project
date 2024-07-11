@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="/css/gym/template.css">
     <link rel="stylesheet" href="/css/gym/common.css">
     <link rel="stylesheet" href="/css/gym/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
     <!-- jquery CDN -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -70,8 +71,8 @@
                             <h2 class="textset-tit" style="font-family: 'Pretendard-Regular';">트레이너 정보</h2>
                         </div>
                         <div class="button2" style=" margin-left: 810px;">
-                            <a th:href="@{/trainerdelete(trainerId=${trainer.trainerId})}" class="btnset btnset-round" style="  background-color: #1abc9c; float: right;">삭제하기</a>
-                            <a th:href="@{/trainerread(trainerId=${trainer.trainerId},action=UPDATE)}" class="btnset btnset-round" style="  background-color: #1abc9c; ">수정하기</a>
+                            <a th:href="@{/trainerdelete(trainerId=${trainer.trainerId})}" class="btnset btnset-round" th:if="${session.member.getLoginId()==trainer.trainerId || session.member.getUserType()=='0'}" style="  background-color: #1abc9c; float: right;">삭제하기</a>
+                            <a th:href="@{/trainerread(trainerId=${trainer.trainerId},action=UPDATE)}" class="btnset btnset-round" th:if="${session.member.getLoginId()==trainer.trainerId}" style="  background-color: #1abc9c; ">수정하기</a>
                         </div>
                     </div>
                     <hr/>
@@ -126,11 +127,9 @@
                         </div>
                     </div>
                     <div class="contents-button" th:if="${session.member!=null}">
-                        <a href="javascript:void(0);" class="btnset btnset-round" style="  background-color: #1abc9c;">등록하기</a>
                         <a th:href="@{/chat(loginId=${session.member.loginId},trainerId=${trainer.trainerId})}" class="btnset btnset-round" style="  background-color: #1abc9c;">대화하기 </a>
                     </div>
                     <div class="contents-button" th:if="${session.member==null}">
-                        <a href="javascript:void(0);" class="btnset btnset-round" style="  background-color: #1abc9c;">등록하기</a>
                         <a onclick="loginalert()"  href="/login" class="btnset btnset-round" style="  background-color: #1abc9c;">대화하기 </a>
                     </div>
                 </div>
@@ -176,7 +175,6 @@
                     nowIndicator: false, // 현재 시간 마크
                     dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
                     locale: 'ko', // 한국어 설정
-
                     events: function (fetchInfo, successCallback) {
                         $.ajax({
                             url: '/ptDayPasses/getReservationsByTrainer',
