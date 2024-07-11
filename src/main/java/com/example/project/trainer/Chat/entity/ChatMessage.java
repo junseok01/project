@@ -12,7 +12,7 @@ import java.util.Date;
 @Entity
 @Builder
 public class ChatMessage {
-	@Id
+	@Id @GeneratedValue
 	private Long messageId;
 	private String roomId;
   	private String sender;//채팅을 보낸 사람

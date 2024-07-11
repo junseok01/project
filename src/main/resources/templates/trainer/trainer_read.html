@@ -153,6 +153,8 @@
                 let calendarEl = $('#calendar')[0];
                 // 오늘 날짜
                 let today = new Date();
+                // 트레이너 ID
+                let trainerId = $("#trainerId").val();
                 // full-calendar 생성하기
                 let calendar = new FullCalendar.Calendar(calendarEl, {
                     height: '800px',// calendar 높이 설정
@@ -173,13 +175,12 @@
                     nowIndicator: false, // 현재 시간 마크
                     dayMaxEvents: true, // 이벤트가 오버되면 높이 제한 (+ 몇 개식으로 표현)
                     locale: 'ko', // 한국어 설정
-
                     events: function (fetchInfo, successCallback) {
                         $.ajax({
-                            url: '/ptDayPasses/getReservations',
+                            url: '/ptDayPasses/getReservationsByTrainer',
                             method: 'GET',
+                            data:{trainerId:trainerId},
                             success: function (data) {
-
                                 let reservations = data.map(function (reservation) {
                                     let title, backgroundColor;
                                     if (reservation.status === 'accept'){

@@ -17,12 +17,13 @@
     <meta property="og:image" content="https://웹사이트/images/opengraph.png">
     <meta property="og:url" content="https://웹사이트">
     <title>헬스장 정보</title>
-    <link rel="stylesheet" href="css/gym/setting.css">
-    <link rel="stylesheet" href="css/gym/plugin.css">
-    <link rel="stylesheet" href="css/gym/template.css">
-    <link rel="stylesheet" href="css/gym/common.css">
-    <link rel="stylesheet" href="css/gym/style.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/gym/setting.css">
+    <link rel="stylesheet" href="/css/gym/plugin.css">
+    <link rel="stylesheet" href="/css/gym/template.css">
+    <link rel="stylesheet" href="/css/gym/common.css">
+    <link rel="stylesheet" href="/css/gym/style.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
     <script src="https://kit.fontawesome.com/e4fcb5113c.js" crossorigin="anonymous"></script>
     <script type="text/javascript" th:inline="javascript">
         //타임리프에서 사용하는 변수를 자바스크립트에서 사용하는 경우
@@ -41,9 +42,18 @@
             })
         });
     </script>
+    <script type="text/javascript" th:inline="javascript">
+        let gymaddr=/*[[${gymaddr}]]*/;
+        $(document).ready(function(){
+            $(".selectset-link").click(function(){
+                var selectedRegion = $(this).val();
+                location.href = "/gymlist?gymaddr=" + selectedRegion;
+                alert("실행중");
+            });
+        });
+    </script>
 </head>
 <body>
-
     <div layout:fragment="content">
         <main class="th-layout-main ">
             <!-- [S]campland-N8 -->
@@ -110,13 +120,25 @@
                                     <span class="visually-hidden" >다음</span>
                                 </a>
                             </div>
-                        </nav>
+                        </div>
                     </div>
+                    <nav class="pagiset pagiset-circ pagiset-border">
+                        <div class="pagiset-ctrl">
+                            <a class="pagiset-link pagiset-prev"   th:if="${gymlist.number!=0}"    th:href="@{/gymlist(page=${gymlist.number-1},gymname=${gymname},gymaddr=${gymaddr},size=${gymlist.size})}">
+                                <span class="visually-hidden">이전</span>
+                            </a>
+                        </div>
+                        <div class="pagiset-ctrl">
+                            <a class="pagiset-link pagiset-next" th:if="${gymlist.number +1 !=totalPage}"  th:href="@{/gymlist(page=${Page}+1,gymname=${gymname} ,gymaddr=${gymaddr}, size=${Size})}">
+                                <span class="visually-hidden" >다음</span>
+                            </a>
+                        </div>
+                    </nav>
                 </div>
             </div>
-            <!-- [E]campland-N22 -->
-        </main>
-    </div>
+        </div>
+        <!-- [E]campland-N22 -->
+    </main>
     <script>
         function heartGym(boardNum) {
             var likeBtnId = 'likeBtn_' + boardNum;
@@ -148,11 +170,14 @@
         }
 
     </script>
-    <!-- [E]campland-N2 -->
-    <script src="js/gym/setting.js"></script>
-    <script src="js/gym/plugin.js"></script>
-    <script src="js/gym/template.js"></script>
-    <script src="js/gym/common.js"></script>
-    <script src="js/gym/script.js"></script>
+
+
+</div>
+<!-- [E]campland-N2 -->
+<script src="js/gym/setting.js"></script>
+<script src="js/gym/plugin.js"></script>
+<script src="js/gym/template.js"></script>
+<script src="js/gym/common.js"></script>
+<script src="js/gym/script.js"></script>
 </body>
 </html>

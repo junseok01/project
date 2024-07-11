@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../css/tube/template.css">
     <link rel="stylesheet" href="../css/tube/common.css">
     <link rel="stylesheet" href="../css/tube/style.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript" th:inline="javascript">
         //template.js의 select부분 지우기
@@ -66,17 +67,17 @@
 
         <main class="th-layout-main ">
             <!-- [S]basic-N45 -->
-            <div class="basic-N45" data-bid="OKLXlIY0q1">
-                <div class="contents-container container-md">
-                    <img class="contents-visual img-pc" src="/images/health.jpg" alt="PC 서브 비주얼 이미지">
-                    <img class="contents-visual img-mobile" src="/images/health.jpg" alt="모바일 서브 비주얼 이미지">
-                    <div class="contents-body">
-                        <div class="textset textset-visual">
-                            <h2 class="textset-tit">강의</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!--            <div class="basic-N45" data-bid="OKLXlIY0q1">-->
+<!--                <div class="contents-container container-md">-->
+<!--                    <img class="contents-visual img-pc" src="/images/health.jpg" alt="PC 서브 비주얼 이미지">-->
+<!--                    <img class="contents-visual img-mobile" src="/images/health.jpg" alt="모바일 서브 비주얼 이미지">-->
+<!--                    <div class="contents-body">-->
+<!--                        <div class="textset textset-visual">-->
+<!--                            <h2 class="textset-tit">강의</h2>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <!-- [E]basic-N45 -->
             <!-- [S]basic-N54 -->
             <div class="basic-N54" data-bid="rilXliy0rt" id="">
@@ -138,9 +139,9 @@
                                     <iframe width="560" height="315" th:src="@{https://www.youtube.com/embed/}+${list.tubelink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                                 </figure>
                                 <div class="cardset-body">
-                                    <h2 class="cardset-tit">[[${list.exercisename}]]  </h2>
-                                    <h3 class="cardset-desc">[[${list.category}]] </h3>
-                                    <h3 class="cardset-desc">[[${list.tubename}]] </h3>
+                                    <h2 class="cardset-tit" style="font-family: 'SUITE-Regular'">[[${list.exercisename}]]  </h2>
+                                    <h3 class="cardset-desc" style="font-family: 'Pretendard-Regular';">[[${list.category}]] </h3>
+                                    <h3 class="cardset-desc" style="font-family: 'Pretendard-Regular';">[[${list.tubename}]] </h3>
                                 </div>
                             </a>
 
