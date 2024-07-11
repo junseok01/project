@@ -76,4 +76,9 @@ public class GymBoardServiceImpl implements GymBoardService{
     public Page<GymBoardEntity> getSearchgymaddr(String gymaddr, int page, int size) {
         return dao.searchGymaddr(gymaddr,page,size);
     }
+
+    @Override
+    public List<GymBoardEntity> getTop12GymsByHeartCount() {
+        return repository.findTop12ByOrderByHeartCountDesc();
+    }
 }
