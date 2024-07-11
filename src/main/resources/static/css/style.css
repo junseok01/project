@@ -58,7 +58,7 @@ Tags: black, green, white, two-columns, fixed-width, threaded-comments, sticky-p
 .info .link {color: #5085BB;}
 .mainpagemap{
     width:80%;
-    height:800px;
+
     margin:auto;
 }
 body {
@@ -535,7 +535,7 @@ span.shoping-cart {
     position: absolute;
     top: 0;
     display: block;
-    background: rgba(0, 0, 0,0.52);
+    background: rgb(229 222 222 / 52%);
     z-index: 9
 }
 
@@ -546,7 +546,7 @@ span.shoping-cart {
     max-width: 1600px; /* 이미지를 부모 요소에 맞추기 */
     max-height: 700px; /* 이미지를 부모 요소에 맞추기 */
     z-index: 10; /* 이미지를 다른 요소 위에 표시 */
-    height:200px;
+    height:250px;
     width:400px;
 }
 
@@ -664,9 +664,22 @@ a.carousel-control.right > span{
     SERVICE SECTION
  */
 .service-section{
-    display: block;
+    display: flex;
     text-align: center;
-    padding: 100px 0 80px;
+
+}
+#map{
+    border:2px,solid;
+    margin:50px;
+    margin-left:200px;
+
+    width:80%;
+}
+#board{
+    border-left: 1px solid;
+    margin:50px;
+    margin-right:200px;
+
 }
 .service-item{}
 .service-item i{
@@ -690,6 +703,7 @@ a.carousel-control.right > span{
     color: #1abc9c
 
 }
+
 
 /*
     NEW PRODUCR SECTION
@@ -1586,3 +1600,14 @@ footer.footer p a{
         z-index: 999;
     }
 }
+#carousel-example-generic{
+    margin:50px;
+    height:50%;
+}
+h5 {
+    font-size: 14px;
+    text-align: center;
+
+
+}
+
