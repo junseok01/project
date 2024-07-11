@@ -23,6 +23,7 @@
 
 </head>
 <body>
+
 	<div id="top" th:replace="~{top/header :: header}"></div>
 
 	<div class="center-container">
@@ -53,7 +54,7 @@
 							<a th:href="@{'https://nid.naver.com/oauth2.0/authorize' +
 										  '?client_id=GHj3n2d3pwyhTqPAu8cq' +
 										  '&response_type=code' +
-										  '&redirect_uri=' + @{http://127.0.0.1:8088/naverLogin} +
+										  '&redirect_uri=' + @{http://223.130.153.205:8088/naverLogin} +
 										  '&state=' + ${stateToken}}" id="naver_id_login" class="social">
 								<img src="images/btn_naver.png"></a>
 							<a th:href="@{'https://kauth.kakao.com/oauth/authorize?client_id=9f03eb571cb673458cd44ea488fe57ad&redirect_uri=http://127.0.0.1:8088/kakaoLogin&response_type=code'}">
@@ -100,6 +101,15 @@
 <!--		naver_id_login.setPopup();-->
 <!--		naver_id_login.init_naver_id_login();-->
 <!--	</script>-->
+
+	<script th:inline="javascript">
+		window.onload = () => {
+			var message = [[${msg}]];
+			if(message!=null){
+					alert(message);
+				}
+			}
+	</script>
 
 </body>
 </html>

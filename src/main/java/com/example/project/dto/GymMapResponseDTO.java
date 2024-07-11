@@ -14,7 +14,6 @@ public class GymMapResponseDTO {
     private String gymname;
     private String gymaddr;
     private String addrnum;
-    private String areanum;
     private int dailyprice;
 
     public GymMapResponseDTO(Gym gym){
@@ -22,7 +21,6 @@ public class GymMapResponseDTO {
         this.gymname = gym.getGymname();
         this.gymaddr = gym.getGymaddr();
         this.addrnum = gym.getAddrnum();
-        this.areanum = gym.getAreanum();
         this.dailyprice = gym.getDailyprice();
     }
 
