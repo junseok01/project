@@ -16,4 +16,6 @@ public interface GymBoardService {
     Page<GymBoardEntity> getSearchgymname(String gymname, int page, int size);
     Page<GymBoardEntity> getSearchgymaddr(String gymaddr, int page, int size);
 
+    List<GymBoardEntity> getTop12GymsByHeartCount();
+
 }
