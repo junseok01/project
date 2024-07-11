@@ -101,7 +101,7 @@ public class TrainerServiceImpl implements TrainerService{
     }
 
     @Override
-    public Page<TrainerEntity> getSearchTrainer(String trainerName, int page, int size) {
+    public Page<TrainerEntity> getSearchTrainer(String trainerName,int page, int size) {
         return dao.searchName(trainerName,page,size);
     }
 
