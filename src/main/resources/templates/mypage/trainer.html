@@ -65,8 +65,17 @@
                                     <td th:text="${ptDayPass.requestId}">1</td>
                                     <td th:text="${ptDayPass.user}">신청한user_name</td>
                                     <td th:text="${ptDayPass.startTime + ' ~ ' + ptDayPass.endTime}">startTime,endTime</td>
-                                    <td><button type="button" style="background-color: #0dcaf0" class="acceptReservation" th:value="${ptDayPass.requestId}">수락</button></td>
-                                    <td><button type="button" class="rejectReservation" th:value="${ptDayPass.requestId}">거절</button></td>
+                                    <td>
+                                        <button type="button" id="acceptReservation"
+                                                class="btnset btnset-round btnset-line btnset-white2"
+                                                th:value="${ptDayPass.requestId}">수락
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button type="button" id="rejectReservation"
+                                                class="btnset btnset-round btnset-line btnset-black" th:value="${ptDayPass.requestId}">거절
+                                        </button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -91,7 +100,7 @@
                             </table>
                             <script type="text/javascript">
                                 $(document).ready(function (){
-                                    $("#ptRequestList").on('click','.acceptReservation',function (){
+                                    $("#ptRequestList").on('click','#acceptReservation',function (){
                                         if (confirm("PT요청을 수락하시겠습니까?")) {
                                             let requestId = $(this).val();
                                             $.ajax({
@@ -106,7 +115,7 @@
                                             });
                                         }
                                     });
-                                    $("#ptRequestList").on('click','.rejectReservation',function (){
+                                    $("#ptRequestList").on('click','#rejectReservation',function (){
                                         if (confirm("PT요청을 거절하시겠습니까?")) {
                                             let requestId = $(this).val();
                                             $.ajax({
