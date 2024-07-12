@@ -21,13 +21,10 @@
 	</select>
 	<select id="findByCategoryWithPaging" parameterType="Criteria" resultType="board">
 		<![CDATA[
-		select * from (select rownum rn, board_no, id, title, write_date
-			from (select board_no, id, title, write_date
-				from board
-				where category = #{category}
-				order by write_date desc
-			)
-		) where rn <= #{pageNum} * #{amount}
+		select * from (select row_number() over(order by write_date desc) as rn,
+							board_no, id, title, write_date from board
+							where category = #{category}) as mytable
+		 where rn <= #{pageNum} * #{amount}
 		and rn > (#{pageNum} - 1) * #{amount}
 		]]>
 	</select>
