@@ -103,9 +103,12 @@ public class KakaoPayController {
         requestBody.put("quantity", "1");
         requestBody.put("total_amount", amount);
         requestBody.put("tax_free_amount", "0");
-        requestBody.put("approval_url", "http://127.0.0.1:8088/kakaopay/success");
-        requestBody.put("fail_url", "http://127.0.0.1:8088/kakaopay/fail");
-        requestBody.put("cancel_url", "http://127.0.0.1:8088/kakaopay/cancel");
+//        requestBody.put("approval_url", "http://127.0.0.1:8088/kakaopay/success");
+//        requestBody.put("fail_url", "http://127.0.0.1:8088/kakaopay/fail");
+//        requestBody.put("cancel_url", "http://127.0.0.1:8088/kakaopay/cancel");
+        requestBody.put("approval_url", "http://223.130.153.205:8088/kakaopay/success");
+        requestBody.put("fail_url", "http://223.130.153.205:8088/kakaopay/fail");
+        requestBody.put("cancel_url", "http://223.130.153.205:8088/kakaopay/cancel");
 
         // Create HttpEntity
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
