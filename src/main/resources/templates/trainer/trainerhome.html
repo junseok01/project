@@ -46,14 +46,23 @@
     <main class="th-layout-main ">
         <!-- [S]campland-N8 -->
         <div class="campland-N8" data-bid="oTLxFHl9Tn">
+            <div class="contents-container">
+                <img class="contents-visual img-pc" src="/images/health2.jpg" alt="서브 비주얼 PC 이미지">
+                <img class="contents-visual img-mobile" src="/images/health2.jpg" alt="서브 비주얼 모바일 이미지">
+                <div class="contents-body container-md">
+                    <div class="textset textset-visual" >
+                        <h2 class="textset-tit" style="font-family: 'SUITE-Regular'; color: whitesmoke" >트레이너</h2>
+                    </div>
+                </div>
+            </div>
         </div>
         <li class="contents-item">
-            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular'; margin-left: 500px; margin-top: 100px ">
+            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
                 <span></span>트레이너 검색
             </h6>
             <form th:action="@{/trainerlist}" method="get">
                 <div class="form-wrap">
-                    <div class="inputset inputset-round" style="width: 1300px; margin-left: 500px;">
+                    <div class="inputset inputset-round">
                         <input type="text" id="trainerName" name="trainerName" class="inputset-input form-control" aria-label="내용" placeholder="검색">
                     </div>
                 </div>
@@ -67,7 +76,7 @@
                     <div class="textset textset-sub">
                         <div class="register" style="float:right ">
                             <div class="btnset-wrap">
-                                <a href="/trainerregister" class="btnset btnset-round" th:if="${session.member.getUserType()=='2' }" style="  background-color: #1abc9c;">등록하기</a>
+                                <a href="/trainerregister" class="btnset btnset-round" th:if="${session.member.getUserType()=='2'}" style="background-color: #1abc9c;">등록하기</a>
                             </div>
                         </div>
                     </div>
@@ -95,32 +104,19 @@
                                 <p class="cardset-desc" style="font-family: 'SUITE-Regular'; font-size: 20px;" th:text="${trainer.ticketprice}"></p>
                             </div>
                             <div class="btnset-wrap">
-                                <a th:href="@{/trainerread(trainerId=${trainer.trainerId},action=READ)}" style=" background-color: #1abc9c;">상세보기</a>
+                                <a th:href="@{/trainerread(trainerId=${trainer.trainerId},action=READ)}" class="btnset btnset-round" style=" background-color: #1abc9c;">상세보기</a>
                                 <a href="javascript:void(0);" class="btnset btnset-round disabled">찜</a>
                             </div>
                         </div>
                     </div>
-<!--                    <nav th:if="${totalPages > 1}">
-                        <ul class="pagination">
-                            <li th:classappend="${currentPage == 0} ? 'disabled'">
-                                <a th:href="@{|/gymlist?gymname=${gymname}&gymaddr=${gymaddr}&page=${currentPage - 1}|}">Previous</a>
-                            </li>
-                            <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${currentPage == i} ? 'active'">
-                                <a th:href="@{|/gymlist?gymname=${gymname}&gymaddr=${gymaddr}&page=${i}|}" th:text="${i + 1}">1</a>
-                            </li>
-                            <li th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
-                                <a th:href="@{|/gymlist?gymname=${gymname}&gymaddr=${gymaddr}&page=${currentPage + 1}|}">Next</a>
-                            </li>
-                        </ul>
-                    </nav>-->
                     <nav class="pagiset pagiset-circ pagiset-border">
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-prev"  th:if="${trainerPage.number!=0}" th:href="@{/trainerlist(page=${trainerPage.number - 1},trainerName=${trainerName},addr=${addr}, size=${trainerPage.size})}">
+                            <a class="pagiset-link pagiset-prev"  th:if="${trainerPage.number!=0}" th:href="@{/trainerlist(page=${trainerPage.number - 1},trainerName=${trainerName}, size=${trainerPage.size})}">
                                 <span class="visually-hidden">이전</span>
                             </a>
                         </div>
                         <div class="pagiset-ctrl">
-                            <a class="pagiset-link pagiset-next" th:if="${trainerPage.number +1 !=totalPage}" th:href="@{/trainerlist(page=${trainerPage.number + 1},trainerName=${trainerName}, size=${trainerPage.size})}">
+                            <a class="pagiset-link pagiset-next" th:if="${trainerPage.number +1 !=totalPage}" th:href="@{/trainerlist(page=${trainerPage.number + 1},trainerName=${trainerName},size=${trainerPage.size})}">
                                 <span class="visually-hidden" >다음</span>
                             </a>
                         </div>
