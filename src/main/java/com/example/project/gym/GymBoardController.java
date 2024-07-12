@@ -2,10 +2,6 @@ package com.example.project.gym;
 
 import com.example.project.comment.CommentRequestDTO;
 import com.example.project.comment.CommentResponseDto;
-import com.example.project.gymcomment.GymCommentEntity;
-import com.example.project.gymcomment.GymCommentRequestDTO;
-import com.example.project.gymcomment.GymCommentResponseDTO;
-import com.example.project.gymcomment.GymCommentService;
 import com.example.project.login.UserEntity;
 import com.example.project.rating.RatingEntity;
 import com.example.project.rating.RatingRepository;
