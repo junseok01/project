@@ -46,23 +46,14 @@
     <main class="th-layout-main ">
         <!-- [S]campland-N8 -->
         <div class="campland-N8" data-bid="oTLxFHl9Tn">
-            <div class="contents-container">
-                <img class="contents-visual img-pc" src="/images/health2.jpg" alt="서브 비주얼 PC 이미지">
-                <img class="contents-visual img-mobile" src="/images/health2.jpg" alt="서브 비주얼 모바일 이미지">
-                <div class="contents-body container-md">
-                    <div class="textset textset-visual" >
-                        <h2 class="textset-tit" style="font-family: 'SUITE-Regular'; color: whitesmoke" >트레이너</h2>
-                    </div>
-                </div>
-            </div>
         </div>
         <li class="contents-item">
-            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';">
+            <h6 class="form-tit form-tit-deco"  style="font-family: 'SUITE-Regular';  margin-left: 500px; margin-top: 100px ;">
                 <span></span>트레이너 검색
             </h6>
             <form th:action="@{/trainerlist}" method="get">
                 <div class="form-wrap">
-                    <div class="inputset inputset-round">
+                    <div class="inputset inputset-round " style="width: 1300px; margin-left: 500px;">
                         <input type="text" id="trainerName" name="trainerName" class="inputset-input form-control" aria-label="내용" placeholder="검색">
                     </div>
                 </div>
