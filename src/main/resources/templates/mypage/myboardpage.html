@@ -5,18 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>my_board_list</title>
     <!-- 외부 CSS 파일 연결 -->
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/mypageLayout.css">
     <link rel="stylesheet" href="/css/profile.css">
-
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
     <div id="header" th:replace="~{top/header :: header}"></div>
     <div id="top" th:insert="~{top/top :: top}"></div>
-    <div class="mypage_container">
-            <div class="sidebar">
+    <div class="mypage_container" th:switch="${member.userType}">
+            <div class="sidebar" th:if="${member.userType == '0'}">
+                <th:block th:replace="~{mypageLayout/admin :: admin}"></th:block>
+            </div>
+            <div class="sidebar" th:if="${member.userType == '1'}">
                 <th:block th:replace="~{mypageLayout/client :: client}"></th:block>
+            </div>
+            <div class="sidebar" th:if="${member.userType == '2'}">
+                <th:block th:replace="~{mypageLayout/trainer :: trainer}"></th:block>
             </div>
 
             <div class="main-content">

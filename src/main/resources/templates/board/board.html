@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/mainLayout}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>Title</title>
-    <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>-->
     <link rel="icon" href="/images/favicon.png">
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/board.css">
+    <!--    <link rel="stylesheet" href="/css/board.css">-->
+    <link rel="stylesheet" href="/css/board/setting.css">
+    <link rel="stylesheet" href="/css/board/plugin.css">
+    <link rel="stylesheet" href="/css/board/template.css">
+    <link rel="stylesheet" href="/css/board/common.css">
+    <link rel="stylesheet" href="/css/board/style.css">
 
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
-    <![endif]-->
+    <!--    &lt;!&ndash;[if lt IE 9]>-->
+    <!--    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>-->
+    <!--    <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>-->
+    <!--    <![endif]&ndash;&gt;-->
     <script type="text/javascript" th:inline="javascript">
         let category = /*[[${category}]]*/;
         let pageNum = /*[[${paging.criteria.pageNum}]]*/;
         let amount = /*[[${paging.criteria.amount}]]*/;
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             // 카테고리
-            $("#category").val(category).attr("selected","selected");
-            $("#category").change(function(){
-           location.href = /*[[@{/board/list(pageNum=1, amount=10, category=''}]]*/ + $(this).val();
-        })
+            $("#category").val(category).attr("selected", "selected");
+            $("#category").change(function () {
+                location.href = /*[[@{/board/list(pageNum=1, amount=10, category=''}]]*/ +$(this).val();
+            })
 
             // 페이징
-            $(".page-item a").on("click", function(e){
+            $(".page-item a").on("click", function (e) {
                 e.preventDefault();
                 let selectedPageNum = $(this).attr("href");
                 $("input[name='pageNum']").val(selectedPageNum);
@@ -42,71 +48,87 @@
     </script>
 </head>
 <body>
-    <div id="header" th:replace="~{top/header :: header}"></div>
-    <div id="top" th:insert="~{top/top :: top}"></div>
-    <div>
-        <div class="container mt-3">
-            <div class="board-category-buttons">
-                <button type="button" class="btn" th:classappend="${category == 'all'} ? 'btn-primary' : 'btn-secondary'"
-                        th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='all')}'|">전체보기 </button>
-                <button type="button" class="btn" th:classappend="${category == '운동모임'} ? 'btn-primary' : 'btn-secondary'"
-                        th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='운동모임')}'|">운동모임</button>
-                <button type="button" class="btn" th:classappend="${category == '자유게시판'} ? 'btn-primary' : 'btn-secondary'"
-                        th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='자유게시판')}'|">자유게시판</button>
-                <button type="button" class="btn" th:classappend="${category == '팁공유'} ? 'btn-primary' : 'btn-secondary'"
-                        th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='팁공유')}'|">팁공유</button>
-            </div>
-            <div class="board-write-buttons" style="float: right;" th:if="${session.member!=null}">
-                <a href="/board/write" class="btn btn-outline-primary">글 작성</a>
-            </div>
+<!--    <div id="header" th:replace="~{top/header :: header}"></div>-->
+<!--    <div id="top" th:insert="~{top/top :: top}"></div>-->
+<div layout:fragment="content">
+    <div class="campland-N12" data-bid="AiLYGuhERd">
+        <div class="contents-inner">
+            <div class="container mt-3">
+                <div class="contents-link">
+                    <button type="button" class="btnset btnset-round btnset-line "
+                            th:classappend="${category == 'all'} ? 'btnset-black' : 'btnset-white2'"
+                            th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='all')}'|">전체보기
+                    </button>
+                    <button type="button" class="btnset btnset-round btnset-line"
+                            th:classappend="${category == '운동모임'} ? 'btnset-black' : 'btnset-white2'"
+                            th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='운동모임')}'|">운동모임
+                    </button>
+                    <button type="button" class="btnset btnset-round btnset-line"
+                            th:classappend="${category == '자유게시판'} ? 'btnset-black' : 'btnset-white2'"
+                            th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='자유게시판')}'|">자유게시판
+                    </button>
+                    <button type="button" class="btnset btnset-round btnset-line"
+                            th:classappend="${category == '팁공유'} ? 'btnset-black' : 'btnset-white2'"
+                            th:onclick="|location.href='@{/board/list(pageNum=1, amount=10, category='팁공유')}'|">팁공유
+                    </button>
+                </div>
+                <div class="contents-link" style="float: right;" th:if="${session.member!=null}">
+                    <a href="/board/write" class="btnset btnset-round btnset-black btnset-line">글 작성</a>
+                </div>
 
-        </div>
-        <div class="container mt-3">
-            <div class="alert alert-success">
-                <strong>게시판List</strong>
             </div>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>작성자 아이디</th>
-                    <th>제목</th>
-                    <th>작성날짜</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="board:${boardlist}">
-                    <td th:text="${board.id }"></td>
-                    <td><a th:href="@{/board/read(board_no=${board.board_no},action=READ)}">
-                        <span th:text="${board.title }"></span></a></td>
-                    <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd')}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-        <form id="actionForm" action="/board/list" method="get"><!--파라미터값을 넘겨주기-->
-            <input type="hidden" name="pageNum" value="${paging.criteria.pageNum}">
-            <input type="hidden" name="amount" value="${paging.criteria.amount}">
-        </form>
-        <div class="container mt-3">
-            <ul class="pagination justify-content-center" style="margin:5px 0">
-                <li class="page-item" th:if="${paging.prev}">
-                    <a class="page-link" th:href="@{'/board/list?pageNum=' + (${paging.startPage} - 1)
-                + '&amount=' + ${paging.criteria.amount} + '&category=' + ${category}}">Previous</a>
-                </li>
-                <!-- 11페이지부터 보이게 (ex:11~20페이지 보고있을때 1~10페이지로 이동) -->
-                <li class="page-item" th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}"
-                    th:classappend="${paging.criteria.pageNum} == ${pageNum} ? 'active'">
-                    <a class="page-link" th:href="@{'/board/list?pageNum=' + ${pageNum}
-                 + '&amount=' + ${paging.criteria.amount} + '&category=' + ${category}}"
-                       th:text="${pageNum}"></a>
-                </li>
-                <li class="page-item" th:if="${paging.next}">
-                    <a class="page-link" th:href="@{'/board/list?pageNum=' + (${paging.endPage} + 1)
-                + '&amount=' + ${paging.criteria.amount} + '&category=' + ${category}}">Next</a>
-                </li>
-                <!-- 11페이지 이상있을때 보이게(ex:1~10페이지 보고있을때 11~20페이지로이동) -->
-            </ul>
+            <div class="contents-container container-md">
+                <!--        <div class="container mt-3">-->
+                <div class="textset textset-sub">
+                    <h2 class="textset-tit">게시판List</h2>
+                </div>
+                <div class="tableset tableset-fract">
+                <table class="tableset-table table">
+                    <thead>
+                    <tr>
+                        <th>작성자 아이디</th>
+                        <th>제목</th>
+                        <th>작성날짜</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="board:${boardlist}">
+                        <td class="tableset-mobile" th:text="${board.id }"></td>
+                        <td class="text-left tableset-tit"><a
+                                th:href="@{/board/read(board_no=${board.board_no},action=READ)}">
+                            <span th:text="${board.title }"></span></a></td>
+                        <td th:text="${#dates.format(board.write_date, 'yyyy-MM-dd')}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+                </div>
+                <!--        </div>-->
+                <form id="actionForm" action="/board/list" method="get"><!--파라미터값을 넘겨주기-->
+                    <input type="hidden" name="pageNum" value="${paging.criteria.pageNum}">
+                    <input type="hidden" name="amount" value="${paging.criteria.amount}">
+                </form>
+                <nav class="pagiset pagiset-circ pagiset-border">
+                        <div class="pagiset-ctrl" th:if="${paging.prev}">
+                            <a class="pagiset-link pagiset-prev" th:href="@{'/board/list?pageNum=' + (${paging.startPage} - 1)
+                            + '&amount=' + ${paging.criteria.amount} + '&category=' + ${category}}">Previous</a>
+                        </div>
+                        <!-- 11페이지부터 보이게 (ex:11~20페이지 보고있을때 1~10페이지로 이동) -->
+                        <div class="pagiset-list">
+                            <a class="pagiset-link " th:each="pageNum : ${#numbers.sequence(paging.startPage, paging.endPage)}"
+                               th:classappend="${paging.criteria.pageNum} == ${pageNum} ? 'active-fill'"
+                               th:href="@{'/board/list?pageNum=' + ${pageNum}
+                                + '&amount=' + ${paging.criteria.amount} + '&category=' + ${category}}"
+                               th:text="${pageNum}"></a>
+                        </div>
+                        <div class="pagiset-ctrl" th:if="${paging.next}">
+                            <a class="pagiset-link pagiset-next" th:href="@{'/board/list?pageNum=' + (${paging.endPage} + 1)
+                             + '&amount=' + ${paging.criteria.amount} + '&category=' + ${category}}">Next</a>
+                        </div>
+                        <!-- 11페이지 이상있을때 보이게(ex:1~10페이지 보고있을때 11~20페이지로이동) -->
+                </nav>
+            </div>
         </div>
     </div>
+</div>
 </body>
 </html>

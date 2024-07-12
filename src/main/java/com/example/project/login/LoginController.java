@@ -39,9 +39,12 @@ public class LoginController {
     @GetMapping("/login")
     public String login(Model model,HttpSession session) {
         String stateToken = generateState();
+        String msg = (String)session.getAttribute("msg");
         System.out.println(stateToken);
         session.setAttribute("state",stateToken);
         model.addAttribute("stateToken",stateToken);
+        model.addAttribute("msg",msg);
+        session.removeAttribute("msg");
         return "login/login";
     }
 
@@ -51,17 +54,22 @@ public class LoginController {
         System.out.println(pass);
         UserDTO member = service.search(id);
         System.out.println("멤버의 값" + member);
+
         if(member == null){
             System.out.println("로그인실패 아이디 없음!!");
+            session.setAttribute("msg","아이디가 존재하지 않습니다");
             return "redirect:/login";
         }
         if(member.getLoginId().equals(id) && member.getLoginPw().equals(pass)){
             System.out.println("로그인성공!!");
             session.setAttribute("member",member);
             visitorService.incrementVisitorCount();
+
+
             return "redirect:/main";
         }else{
             System.out.println("로그인실패 비밀번호 불일치!!");
+            session.setAttribute("msg","비밀번호를 다시 입력해 주세요");
             return "redirect:/login";
         }
     }
