@@ -55,6 +55,6 @@ public class MypageController {
 			model.addAttribute("TotalUser",userDTOList.size());
 			model.addAttribute("TotalVisitor",visitCount);
 		}
-		return "/mypage/mypage";
+		return "mypage/mypage";
 	}
 }

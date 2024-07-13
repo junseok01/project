@@ -58,7 +58,7 @@ public class LoginController {
         if(member == null){
             System.out.println("로그인실패 아이디 없음!!");
             session.setAttribute("msg","아이디가 존재하지 않습니다");
-            return "redirect:/login";
+            return "redirect:login";
         }
         if(member.getLoginId().equals(id) && member.getLoginPw().equals(pass)){
             System.out.println("로그인성공!!");
@@ -70,13 +70,13 @@ public class LoginController {
         }else{
             System.out.println("로그인실패 비밀번호 불일치!!");
             session.setAttribute("msg","비밀번호를 다시 입력해 주세요");
-            return "redirect:/login";
+            return "redirect:login";
         }
     }
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("member");
-        return "redirect:/main";
+        return "redirect:main";
     }
 
     @GetMapping("/signUp")
@@ -92,7 +92,7 @@ public class LoginController {
         service.register(new UserEntity(loginId,loginPw,name,nickname,"1",cellphoneNo,0));
         System.out.println("회원가입 완료!!!");
 
-        return "redirect:/main";
+        return "redirect:main";
     }
 
 
@@ -105,12 +105,12 @@ public class LoginController {
     @GetMapping("/naver")
     public String loginTest() {
 
-        return "/test/naverlogin";
+        return "test/naverlogin";
     }
 
     @GetMapping("/naver_login")
     public String logintest2() {
-        return "redirect:/main";
+        return "redirect:main";
     }
 
 

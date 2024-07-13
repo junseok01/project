@@ -59,23 +59,23 @@ public class KakaoPayController {
             UserDTO userDTO = pointService.addPoint(amount, user);
             httpSession.setAttribute("member",userDTO);
 
-            return "/kakaoPay/paymentSuccess"; // 결제 성공 페이지로 리디렉션
+            return "kakaoPay/paymentSuccess"; // 결제 성공 페이지로 리디렉션
         } else {
             System.err.println("결제 승인 실패: " + response.getStatusCode());
-            return "/kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
+            return "kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
         }
     }
 
     @GetMapping("/kakaopay/fail")
     public String fail() {
         // 결제 실패 처리 로직
-        return "/kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
+        return "kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
     }
 
     @GetMapping("/kakaopay/cancel")
     public String cancel() {
         // 결제 취소 처리 로직
-        return "/kakaoPay/paymentCancel"; // 결제 취소 페이지로 리디렉션
+        return "kakaoPay/paymentCancel"; // 결제 취소 페이지로 리디렉션
     }
 
     @GetMapping("/kakaoPay/rechargePoint")
@@ -103,9 +103,13 @@ public class KakaoPayController {
         requestBody.put("quantity", "1");
         requestBody.put("total_amount", amount);
         requestBody.put("tax_free_amount", "0");
-        requestBody.put("approval_url", "http://127.0.0.1:8088/kakaopay/success");
-        requestBody.put("fail_url", "http://127.0.0.1:8088/kakaopay/fail");
-        requestBody.put("cancel_url", "http://127.0.0.1:8088/kakaopay/cancel");
+//        requestBody.put("approval_url", "http://127.0.0.1:8088/kakaopay/success");
+//        requestBody.put("fail_url", "http://127.0.0.1:8088/kakaopay/fail");
+//        requestBody.put("cancel_url", "http://127.0.0.1:8088/kakaopay/cancel");
+
+        requestBody.put("approval_url", "http://223.130.153.205:8088/kakaopay/success");
+        requestBody.put("fail_url", "http://223.130.153.205:8088/kakaopay/fail");
+        requestBody.put("cancel_url", "http://223.130.153.205:8088/kakaopay/cancel");
 
         // Create HttpEntity
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);

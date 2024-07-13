@@ -68,7 +68,7 @@ public class AdminController {
         model.addAttribute("searchText", searchText);
         model.addAttribute("searchType", searchType);
 
-        return "/admin/memberList";
+        return "admin/memberList";
     }
     @PostMapping("/admin/memberList/search")
     public String viewMemberListSearch(@RequestParam("searchText") String searchText,
@@ -78,14 +78,14 @@ public class AdminController {
         map.put("searchType",searchType);
         session.setAttribute("searchingMember",map);
 
-        return "redirect:/admin/memberList";
+        return "redirect:admin/memberList";
     }
 
 
     @GetMapping("/admin/deleteMember")
     public String deleteMember(@RequestParam("id") String id){
         userService.deleteMember(id);
-        return "redirect:/admin/memberList";
+        return "redirect:admin/memberList";
     }
 
     @GetMapping("/page/list")
@@ -114,6 +114,6 @@ public class AdminController {
         model.addAttribute("currentPage", userDTOList.getNumber());
         model.addAttribute("totalPages", userDTOList.getTotalPages());
 
-        return "/test/page";
+        return "test/page";
     }
 }
