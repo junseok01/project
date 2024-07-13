@@ -48,7 +48,7 @@ public class PointController {
             //테스트하고싶으면 주석지우고 실행
             sendSms(user,des,type);
         }
-        return "redirect:/main";
+        return "redirect:main";
     }
 
 
@@ -63,7 +63,7 @@ public class PointController {
 
     @GetMapping("/payment/rechargePoint")
     public String rechargePoint(){
-        return "/mypage/rechargePoint";
+        return "mypage/rechargePoint";
     }
 
     public void sendSms(UserDTO user,String description,String type) {

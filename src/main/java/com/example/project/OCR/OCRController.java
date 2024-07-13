@@ -52,10 +52,10 @@ public class OCRController {
             System.out.println("OCR Result:");
             System.out.println(result);
 
-            return "/test/test"; // 지금은 뷰리턴이지만 추후 @RestController로 바꾼후 데이터 리턴(이름,자격증,급수 등등 생각하기)
+            return "test/test"; // 지금은 뷰리턴이지만 추후 @RestController로 바꾼후 데이터 리턴(이름,자격증,급수 등등 생각하기)
         } catch (IOException | TesseractException e) {
             e.printStackTrace();
-            return "/test/test";
+            return "test/test";
         }
     }
 
@@ -90,7 +90,7 @@ public class OCRController {
     @GetMapping("/uploadTest")
     public String up(){
 
-        return "/test/uploadTest";
+        return "test/uploadTest";
     }
 
 }

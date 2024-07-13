@@ -90,12 +90,12 @@ public class NaverLoginController {
                 service.register(new UserEntity(userEmail,"0",userName,"guest","1",userPhone,1));
                 UserDTO member = service.search(userEmail);
                 session.setAttribute("member",member);
-                return "redirect:/main";
+                return "redirect:main";
             }else if(service.search(userEmail)!=null){
                 UserDTO member = service.search(userEmail);
                 session.setAttribute("member",member);
                 visitorService.incrementVisitorCount();
-                return "redirect:/main";
+                return "redirect:main";
             }
 
         } catch (JsonProcessingException e) {
@@ -104,7 +104,7 @@ public class NaverLoginController {
         System.out.println("클래스"+profileResponse.getBody().getClass());
         session.setAttribute("JsonNaver",profileResponse.getBody());
 
-        return "redirect:/main";
+        return "redirect:main";
     }
     // 응답 본문에서 액세스 토큰 추출을 위한 메서드
     private String extractAccessToken(String responseBody) {
