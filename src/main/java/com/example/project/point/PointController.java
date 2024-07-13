@@ -68,8 +68,8 @@ public class PointController {
 
     public void sendSms(UserDTO user,String description,String type) {
         LocalDate today = LocalDate.now();
-        String api_key = "NCSPDPGSX6ABHYGX";
-        String api_secret = "RVUUTLKZSOSJ9D7FLZW9BR2OIOZZIMOJ";
+        String api_key = "NCSUIIJPRAQLLNXG";
+        String api_secret = "TFSIRYPCVBV21VQS5MML7AC0NVNPZCGX";
         Message coolsms = new Message(api_key, api_secret);
         HashMap<String, String> params = new HashMap<String, String>();
 
@@ -84,8 +84,8 @@ public class PointController {
         System.out.println(phoneNumber);
         System.out.println(text);
 
-        params.put("to", "01062813528");
-        params.put("from", phoneNumber);
+        params.put("to", phoneNumber);
+        params.put("from", "01057854494");
         params.put("type", "SMS");
         params.put("text", text);
         params.put("app_version", "test app 1.2");

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -94,7 +95,18 @@ public class RequestServiceImpl implements RequestService {
             String newFilePath = filepath.toString().replace("\\","/");
             System.out.println(filepath.toString());
             System.out.println(newFilePath);
-            Files.write(filepath,file.getBytes());
+            //Files.write(filepath,file.getBytes());
+
+            Path path = Paths.get(uploadDirectory);
+            if (!Files.exists(path)) {
+                Files.createDirectories(path);
+            }
+            File saveFile = new File(uploadDirectory,fileName);
+            file.transferTo(saveFile);
+            System.out.println(saveFile.toString());
+            System.out.println(saveFile.toPath());
+
+
             System.out.println("파일이름바꾸어 저장완료");
 
             //파일 엔티티 생성
