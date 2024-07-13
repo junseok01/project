@@ -16,7 +16,7 @@ public interface tubeRepository extends JpaRepository<tube,Long> {
 //    List<tube> findBySearch(String keyword);
 
     @Query(
-                value = "select * from tube m where m.exercisename like '%' || :keyword || '%' or m.category like '%' || :keyword || '%' or m.tubename like '%' || :keyword || '%'",
+                value = "select * from tube m where m.exercisename like concat('%', :keyword, '%') or m.category like concat('%', :keyword, '%') or m.tubename like concat('%', :keyword, '%')",
             nativeQuery = true
     )
     List<tube> findBySearch(String keyword, PageRequest pageRequest);

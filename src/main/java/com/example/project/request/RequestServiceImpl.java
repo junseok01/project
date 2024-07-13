@@ -93,20 +93,16 @@ public class RequestServiceImpl implements RequestService {
             //지정된 경로에 파일저장
             Path filepath = Paths.get(uploadDirectory, fileName);
             String newFilePath = filepath.toString().replace("\\","/");
-            System.out.println(filepath.toString());
-            System.out.println(newFilePath);
-            //Files.write(filepath,file.getBytes());
-
-            Path path = Paths.get(uploadDirectory);
+            Path newfilepath = Paths.get(newFilePath);
+            String basePath =  uploadDirectory;
+            // 디렉토리가 존재하는지 확인
+            Path path = Paths.get(basePath);
             if (!Files.exists(path)) {
                 Files.createDirectories(path);
             }
-            File saveFile = new File(uploadDirectory,fileName);
-            file.transferTo(saveFile);
-            System.out.println(saveFile.toString());
-            System.out.println(saveFile.toPath());
-
-
+            System.out.println(filepath.toString());
+            System.out.println(newfilepath);
+            Files.write(filepath,file.getBytes());
             System.out.println("파일이름바꾸어 저장완료");
 
             //파일 엔티티 생성
