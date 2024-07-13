@@ -57,11 +57,11 @@ public class kakaoController {
             loginService.register(user);
             UserDTO member = loginService.search(kakaoEmail);
             session.setAttribute("member", member);
-            return "redirect:/main";
+            return "redirect:main";
         } else {
             UserDTO member = loginService.search(kakaoEmail);
             session.setAttribute("member", member);
-            return "redirect:/main";
+            return "redirect:main";
         }
     }
 }

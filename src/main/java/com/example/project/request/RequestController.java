@@ -30,7 +30,8 @@ public class RequestController {
     private final FileService fileService;
     private final UserService userService;
     private final LoginService loginService;
-    private final String uploadDirectory = "src/main/resources/static/OCRPDF/";
+    private final String uploadDirectory = System.getProperty("user.dir")+"/static/OCRPDF/";
+
 
     public static final String DELETED = "0";
     public static final String ACTIVE = "1";
@@ -64,7 +65,7 @@ public class RequestController {
         //loginId로 조회해서 해당아이디로 작성된 요청문 모두삭제(수락을 눌러 업데이트를 했으면 같은 계정으로 작성된 다른 요청문은 볼 필요가 없기에)
         //requestService.deleteByLoginId(loginId);
         requestService.updateAllState(loginId);
-        return "redirect:/request/viewRequests";
+        return "redirect:request/viewRequests";
     }
 
     //generate된 pk ID로 조회하여 삭제
@@ -72,7 +73,7 @@ public class RequestController {
     @GetMapping("/request/delete")
     public String delete(@RequestParam("id") Long Id) {
         requestService.updateState(Id);
-        return "redirect:/request/viewRequests";
+        return "redirect:request/viewRequests";
     }
 
     @GetMapping("/RequestToTrainer")
@@ -82,7 +83,7 @@ public class RequestController {
         System.out.println(action + "_____________________________");
         if (action.equals("WRITE")) {
             System.out.println(id);
-            return "/request/requestview";
+            return "request/requestview";
         } else { //관리자가 요청페이지를 확인하기 위한 뷰
             RequestDTO requestDTO = requestService.searchById(id);
             List<FileDTO> fileDTOList = fileService.searchByRequest_Id(id);
@@ -92,7 +93,7 @@ public class RequestController {
             System.out.println(fileDTOList);
             model.addAttribute("requestDTO", requestDTO);
             model.addAttribute("fileDTOList", fileDTOList);
-            return "/request/requestview_READ";
+            return "request/requestview_READ";
         }
     }
 

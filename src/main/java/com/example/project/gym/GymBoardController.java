@@ -74,7 +74,7 @@ public class GymBoardController {
     @GetMapping("/gymdelete")
     public String delete(String gymboardnum){
         service.delete(Long.parseLong(gymboardnum));
-        return "redirect:/gym?category=all";
+        return "redirect:gym?category=all";
     }
 
     //결재페이지로 이동하는 컨트롤러
@@ -83,7 +83,7 @@ public class GymBoardController {
                           Model model){
         GymBoardEntity gymBoardEntity = service.getgymInfo(gymBoardNum);
         model.addAttribute("gym",gymBoardEntity);
-        return "/gym/gymPaymentPage";
+        return "gym/gymPaymentPage";
     }
 
 

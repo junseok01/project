@@ -48,6 +48,6 @@ public class HeartController {
         System.out.println(userDTO);
         List<GymBoardEntity> heartList = heartService.getHeartList(loginId);
         model.addAttribute("heartList",heartList);
-        return "/mypage/heartList";
+        return "mypage/heartList";
     }
 }

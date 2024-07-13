@@ -30,10 +30,10 @@ public class tubeController {
         }else if(pagingNo>4){
             pagingNo = 4;
         }
-        if (category != null && category != "") {
+        if (!category.equals("전체") && !category.isEmpty() && category !=null) {
              tubelist = tubeService.tubecategorylist(category,pagingNo);
              model.addAttribute("category",category);
-        }else if (keyword !=null && keyword != ""){
+        }else if (keyword !=null && !keyword.isEmpty()){
             tubelist = tubeService.tubeselectlist(keyword,pagingNo);
             model.addAttribute("keyword",keyword);
         }else {
@@ -59,6 +59,7 @@ public class tubeController {
     }
     @PostMapping("/tubesearch")
     public String tubeSelect(@RequestParam("keyword") String keyword, Model model){
+        System.out.println(keyword);
         List<tubeResponseDTO> tubeselectlist = tubeService.tubeselectlist(keyword,0);
         model.addAttribute("tubelist",tubeselectlist);
         model.addAttribute("keyword",keyword);
