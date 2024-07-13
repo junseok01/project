@@ -106,7 +106,9 @@ public class OCR {
 
     public List<String> convertPdfToImage(List<FileDTO> fileDTOList) throws IOException {
         List<String> imgpath = new ArrayList<>();
-        String outputDir = "src/main/resources/static/OCRImages/";
+        //String outputDir = "src/main/resources/static/OCRImages/";
+        String outputDir = System.getProperty("user.dir") + "/static/OCRImages/";
+
         File outputDirectory = new File(outputDir);
         //파일생성위치가 없으면 생성
         if (!outputDirectory.exists()) {
