@@ -32,6 +32,7 @@ public class RequestController {
     private final LoginService loginService;
     private final String uploadDirectory = System.getProperty("user.dir")+"/static/OCRPDF/";
 
+
     public static final String DELETED = "0";
     public static final String ACTIVE = "1";
 

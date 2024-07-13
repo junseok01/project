@@ -24,7 +24,8 @@ public class TrainerDAOImpl implements TrainerDAO{
     @Override
     public void  insert(TrainerEntity trainer, MultipartFile file) throws IOException {
         //현재 실행중인 디렉토리 위치를 설정 + 파일이 저장될 경로 지정
-        String basePath = System.getProperty("user.dir") + "/static/images/trainer";
+        String basePath = System.getProperty("user.dir") + "/static/images/trainer1";
+        System.out.println("베이스패스"+basePath);
         // 디렉토리가 존재하는지 확인
         Path path = Paths.get(basePath);
         if (!Files.exists(path)) {
