@@ -59,23 +59,23 @@ public class KakaoPayController {
             UserDTO userDTO = pointService.addPoint(amount, user);
             httpSession.setAttribute("member",userDTO);
 
-            return "/kakaoPay/paymentSuccess"; // 결제 성공 페이지로 리디렉션
+            return "kakaoPay/paymentSuccess"; // 결제 성공 페이지로 리디렉션
         } else {
             System.err.println("결제 승인 실패: " + response.getStatusCode());
-            return "/kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
+            return "kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
         }
     }
 
     @GetMapping("/kakaopay/fail")
     public String fail() {
         // 결제 실패 처리 로직
-        return "/kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
+        return "kakaoPay/paymentFail"; // 결제 실패 페이지로 리디렉션
     }
 
     @GetMapping("/kakaopay/cancel")
     public String cancel() {
         // 결제 취소 처리 로직
-        return "/kakaoPay/paymentCancel"; // 결제 취소 페이지로 리디렉션
+        return "kakaoPay/paymentCancel"; // 결제 취소 페이지로 리디렉션
     }
 
     @GetMapping("/kakaoPay/rechargePoint")
