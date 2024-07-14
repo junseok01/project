@@ -54,7 +54,10 @@ public class OCR {
         // Tesseract OCR 객체 생성
         ITesseract tesseract = new Tesseract();
         // tessdata 디렉토리 경로 설정
+        String a="dd";
+        System.out.println(a);
         tesseract.setDatapath("src/main/resources/tessdata");
+
         // 한글 언어 설정
         tesseract.setLanguage("kor");
         try {
@@ -72,7 +75,7 @@ public class OCR {
 
 
             //
-            String searchText = "생 활 스 포 츠 지 도 사 자 격 증";
+            String searchText = "생활스포츠지도사 자격증";
 
 
 

@@ -26,7 +26,7 @@
                                     Point
                                 </p>
                                 <div id="boxes">
-                                    <p class="contents-name" style="font-size: 42px; color: white; margin-right: 60px;" th:text="${session.member.point}+' P'">
+                                    <p id="Point" class="contents-name" style="font-size: 42px; color: white; margin-right: 60px;" th:data-point="${session.member.point}">
                                     </p>
                                 </div>
                                 <div id="box2" class="btnset btnset-round" style="margin-left: 220px; background-color: black; margin-bottom: 50px; border-radius: 20px;">
@@ -97,6 +97,19 @@
                 </div>
             </div>
         </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var pointElement = document.getElementById('Point');
+                var pointValue = pointElement.getAttribute('data-point');
+                //alert(pointValue);
+
+                if (pointValue) {
+                    var formattedPoint = Number(pointValue).toLocaleString();
+                    pointElement.textContent = formattedPoint + ' P';
+                }
+            });
+        </script>
+
     </div>
 <!--        <div class="box">
             <div class="profile-info-container">
