@@ -78,14 +78,14 @@ public class AdminController {
         map.put("searchType",searchType);
         session.setAttribute("searchingMember",map);
 
-        return "redirect:admin/memberList";
+        return "redirect:/admin/memberList";
     }
 
 
     @GetMapping("/admin/deleteMember")
     public String deleteMember(@RequestParam("id") String id){
         userService.deleteMember(id);
-        return "redirect:admin/memberList";
+        return "redirect:/admin/memberList";
     }
 
     @GetMapping("/page/list")

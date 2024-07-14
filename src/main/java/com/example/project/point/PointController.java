@@ -48,7 +48,7 @@ public class PointController {
             //테스트하고싶으면 주석지우고 실행
             sendSms(user,des,type);
         }
-        return "redirect:main";
+        return "redirect:/main";
     }
 
 
