@@ -24,7 +24,7 @@
                                     Point
                                 </p>
                                 <div id="boxes">
-                                    <p class="contents-name" style="font-size: 42px; color: white; margin-right: 60px;" th:text="${session.member.point}+' P'">
+                                    <p id="Point" class="contents-name" style="font-size: 42px; color: white; margin-right: 60px;" th:data-point="${session.member.point}">
                                     </p>
                                 </div>
                                 <div id="box2" class="btnset btnset-round" style="margin-left: 220px; background-color: black; margin-bottom: 50px; border-radius: 20px;">
@@ -99,6 +99,16 @@
                                 </tbody>
                             </table>
                             <script type="text/javascript">
+                                document.addEventListener("DOMContentLoaded", function() {
+                                    var pointElement = document.getElementById('Point');
+                                    var pointValue = pointElement.getAttribute('data-point');
+                                    //alert(pointValue);
+
+                                    if (pointValue) {
+                                        var formattedPoint = Number(pointValue).toLocaleString();
+                                        pointElement.textContent = formattedPoint + ' P';
+                                    }
+                                });
                                 $(document).ready(function (){
                                     $("#ptRequestList").on('click','#acceptReservation',function (){
                                         if (confirm("PT요청을 수락하시겠습니까?")) {
