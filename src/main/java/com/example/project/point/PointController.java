@@ -63,7 +63,7 @@ public class PointController {
 
     @GetMapping("/payment/rechargePoint")
     public String rechargePoint(){
-        return "/mypage/rechargePoint";
+        return "mypage/rechargePoint";
     }
 
     public void sendSms(UserDTO user,String description,String type) {

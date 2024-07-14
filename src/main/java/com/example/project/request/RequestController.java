@@ -30,7 +30,7 @@ public class RequestController {
     private final FileService fileService;
     private final UserService userService;
     private final LoginService loginService;
-    private final String uploadDirectory = System.getProperty("user.dir") + "/static/OCRPDF/";
+    private final String uploadDirectory = System.getProperty("user.dir")+"/static/OCRPDF/";
 
 
     public static final String DELETED = "0";
@@ -83,7 +83,7 @@ public class RequestController {
         System.out.println(action + "_____________________________");
         if (action.equals("WRITE")) {
             System.out.println(id);
-            return "/request/requestview";
+            return "request/requestview";
         } else { //관리자가 요청페이지를 확인하기 위한 뷰
             RequestDTO requestDTO = requestService.searchById(id);
             List<FileDTO> fileDTOList = fileService.searchByRequest_Id(id);
@@ -93,7 +93,7 @@ public class RequestController {
             System.out.println(fileDTOList);
             model.addAttribute("requestDTO", requestDTO);
             model.addAttribute("fileDTOList", fileDTOList);
-            return "/request/requestview_READ";
+            return "request/requestview_READ";
         }
     }
 

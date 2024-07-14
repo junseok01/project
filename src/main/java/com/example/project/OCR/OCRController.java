@@ -24,7 +24,7 @@ public class OCRController {
         System.out.println("OCR 컨트롤러 진입");
         // OCR 테스트할 이미지 파일 경로
 
-        String imagePath = "src/main/resources/static/images/OCR/자격증2.jpg";
+        String imagePath = "/images/OCR/자격증2.jpg";
         File image = new File(imagePath);
         System.out.println(image.exists());
 
@@ -33,7 +33,7 @@ public class OCRController {
 
         // tessdata 디렉토리 경로 설정
         //String tessdataPath = classLoader.getResource("tessdata").getPath();
-        tesseract.setDatapath("src/main/resources/tessdata");
+        tesseract.setDatapath("/tessdata");
 
 
         // 한글 언어 설정
@@ -52,10 +52,10 @@ public class OCRController {
             System.out.println("OCR Result:");
             System.out.println(result);
 
-            return "/test/test"; // 지금은 뷰리턴이지만 추후 @RestController로 바꾼후 데이터 리턴(이름,자격증,급수 등등 생각하기)
+            return "test/test"; // 지금은 뷰리턴이지만 추후 @RestController로 바꾼후 데이터 리턴(이름,자격증,급수 등등 생각하기)
         } catch (IOException | TesseractException e) {
             e.printStackTrace();
-            return "/test/test";
+            return "test/test";
         }
     }
 
@@ -90,7 +90,7 @@ public class OCRController {
     @GetMapping("/uploadTest")
     public String up(){
 
-        return "/test/uploadTest";
+        return "test/uploadTest";
     }
 
 }

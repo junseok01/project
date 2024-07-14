@@ -68,7 +68,7 @@ public class AdminController {
         model.addAttribute("searchText", searchText);
         model.addAttribute("searchType", searchType);
 
-        return "/admin/memberList";
+        return "admin/memberList";
     }
     @PostMapping("/admin/memberList/search")
     public String viewMemberListSearch(@RequestParam("searchText") String searchText,
@@ -114,6 +114,6 @@ public class AdminController {
         model.addAttribute("currentPage", userDTOList.getNumber());
         model.addAttribute("totalPages", userDTOList.getTotalPages());
 
-        return "/test/page";
+        return "test/page";
     }
 }

@@ -14,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -48,16 +50,19 @@ public class OCR {
         return resizedImage;
     }
 
-    public String imgToTxt(String imagePath) {
+    public String imgToTxt(String imagePath) throws IOException {
         File image = new File(imagePath);
 
         // Tesseract OCR 객체 생성
         ITesseract tesseract = new Tesseract();
-        // tessdata 디렉토리 경로 설정
-        String a="dd";
-        System.out.println(a);
-        tesseract.setDatapath("src/main/resources/tessdata");
-
+        // tessdata 디렉토리 경로 설정 src/main/resources/tessdata
+        String basePath =System.getProperty("user.dir") + "/tessdata";
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"+basePath);
+        Path path = Paths.get(basePath);
+        if (!Files.exists(path)) {
+            Files.createDirectories(path);
+        }
+        tesseract.setDatapath(basePath);
         // 한글 언어 설정
         tesseract.setLanguage("kor");
         try {
@@ -111,7 +116,6 @@ public class OCR {
         List<String> imgpath = new ArrayList<>();
         //String outputDir = "src/main/resources/static/OCRImages/";
         String outputDir = System.getProperty("user.dir") + "/static/OCRImages/";
-
         File outputDirectory = new File(outputDir);
         //파일생성위치가 없으면 생성
         if (!outputDirectory.exists()) {
