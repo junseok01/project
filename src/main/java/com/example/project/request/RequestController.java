@@ -65,7 +65,7 @@ public class RequestController {
         //loginId로 조회해서 해당아이디로 작성된 요청문 모두삭제(수락을 눌러 업데이트를 했으면 같은 계정으로 작성된 다른 요청문은 볼 필요가 없기에)
         //requestService.deleteByLoginId(loginId);
         requestService.updateAllState(loginId);
-        return "redirect:request/viewRequests";
+        return "redirect:/request/viewRequests";
     }
 
     //generate된 pk ID로 조회하여 삭제
@@ -73,7 +73,7 @@ public class RequestController {
     @GetMapping("/request/delete")
     public String delete(@RequestParam("id") Long Id) {
         requestService.updateState(Id);
-        return "redirect:request/viewRequests";
+        return "redirect:/request/viewRequests";
     }
 
     @GetMapping("/RequestToTrainer")

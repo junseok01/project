@@ -80,7 +80,7 @@ public class OCR {
 
 
             //
-            String searchText = "생 활 스 포 츠 지 도 사 자 격 증";
+            String searchText = "생활스포츠지도사 자격증";
 
 
 

@@ -30,7 +30,7 @@ public class PtDayPassesController {
         model.addAttribute("ptDayPasses", ptDayPasses);
         model.addAttribute("reservationTrainerId", trainer.getLoginId());
 
-        return "mypage/trainerPTPage";
+        return "mypage/trainerPTpage";
     }
     @GetMapping("/clientPTpage")
     public String ClientPtPage(Model model){
@@ -38,7 +38,7 @@ public class PtDayPassesController {
         System.out.println("ptDayPasses === "+ptDayPasses);
         model.addAttribute("ptDayPasses", ptDayPasses);
 
-        return "mypage/clientPTPage";
+        return "mypage/clientPTpage";
     }
     // 예약요청 컨트롤러
     @PostMapping("/ptDayPasses/reserve")
