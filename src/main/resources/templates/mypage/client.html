@@ -97,6 +97,19 @@
                 </div>
             </div>
         </main>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var pointElement = document.getElementById('Point');
+                var pointValue = pointElement.getAttribute('data-point');
+                //alert(pointValue);
+
+                if (pointValue) {
+                    var formattedPoint = Number(pointValue).toLocaleString();
+                    pointElement.textContent = formattedPoint + ' P';
+                }
+            });
+        </script>
+
     </div>
 <!--        <div class="box">
             <div class="profile-info-container">
